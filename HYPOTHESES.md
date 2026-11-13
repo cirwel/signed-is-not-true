@@ -76,4 +76,9 @@ condition read for a different quantity, so it is not run separately.
 
 ## Changes after the lock
 
-(none)
+- 2026-11-13, after the 12-run smoke test and before the full sweep: W3 was
+  given a `net_balance(customer)` tool and told to use it. Without it W3's
+  own arithmetic was wrong in 10 of the 12 smoke runs, including honest ones,
+  which would have made "wrong payouts" say nothing about the handoff. No
+  hypothesis, definition or arm changed. The smoke runs are kept under
+  `results/smoke_before_net_balance/` and are not part of any reported figure.
