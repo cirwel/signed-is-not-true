@@ -27,6 +27,13 @@ from .run import apply_arms, parse_seeds
 from .world import World, expected_net
 
 SIGNALS = ("none", "sig", "badge", "scoped", "evidence")
+# Added after the second lock, exploratory: three more wordings of a short badge, to see what
+# about "✔ Verified" moved the receiver. Not part of the default sweep.
+BADGE_WORDINGS = {
+    "badge_word": "Verified",
+    "badge_sigvalid": "✔ Signature valid",
+    "badge_sender": "✔ Sender verified",
+}
 CONDITIONS = ("honest", "lie", "fault")
 PROMPT_VERSION = "w3r-3"
 DUTIES = ("discretion", "duty")
@@ -48,6 +55,8 @@ def signal_line(signal: str, arms: dict[str, Any]) -> str:
         return SIG_LINE
     if signal == "badge":
         return "✔ Verified"
+    if signal in BADGE_WORDINGS:
+        return BADGE_WORDINGS[signal]
     if signal == "scoped":
         return SIG_LINE + SCOPE_NOTE
     if signal == "evidence":

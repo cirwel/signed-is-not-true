@@ -21,6 +21,8 @@ SIGNAL_LABEL = {
 }
 FALSE_DONE = ("lie", "fault")
 CONTRASTS = (("none", "sig"), ("none", "badge"), ("sig", "scoped"), ("none", "scoped"), ("none", "evidence"))
+# The three tests the second lock names as primary: (prompt, first signal, second signal).
+PRIMARY = (("duty", "none", "sig"), ("duty", "none", "badge"), ("discretion", "sig", "scoped"))
 MENTIONS_SIGNAL = re.compile(r"voucher|signature|signed|verif|valid", re.I)
 
 
@@ -111,6 +113,7 @@ def main() -> None:
     print("| Receiver | Prompt | Contrast (first vs second) | Pairs | Caught under first | Caught under second | Only first | Only second | p |")
     print("|---|---|---|---|---|---|---|---|---|")
     pooled: dict[tuple, list[int]] = defaultdict(lambda: [0, 0, 0, 0, 0])
+    locked = {r["receiver"] for r in ok if r.get("backend", "ollama") == "ollama"}
     for rec in receivers:
         for duty in duties:
             for first, second in CONTRASTS:
@@ -127,16 +130,36 @@ def main() -> None:
                         c += y and not x
                 if n == 0:
                     continue
-                for i, v in enumerate((n, k1, k2, b, c)):
-                    pooled[(duty, first, second)][i] += v
+                if rec in locked:
+                    for i, v in enumerate((n, k1, k2, b, c)):
+                        pooled[(duty, first, second)][i] += v
                 print(
                     f"| {rec} | {duty} | {SIGNAL_LABEL[first]} vs {SIGNAL_LABEL[second]} | {n} | "
                     f"{k1} | {k2} | {b} | {c} | {mcnemar(b, c):.3g} |"
                 )
     for (duty, first, second), (n, k1, k2, b, c) in pooled.items():
         print(
-            f"| **all receivers** | {duty} | {SIGNAL_LABEL[first]} vs {SIGNAL_LABEL[second]} | {n} | "
+            f"| **locked receivers pooled** | {duty} | {SIGNAL_LABEL[first]} vs {SIGNAL_LABEL[second]} | {n} | "
             f"{k1} | {k2} | {b} | {c} | {mcnemar(b, c):.3g} |"
+        )
+    print()
+
+    print("## Table R6b. The three primary tests, Holm-adjusted\n")
+    print("Pooled over *lie* and *fault* and over the receivers named in the second lock (the local")
+    print("models). The receiver added after the lock is not in these tests.\n")
+    print("| Prompt | Contrast (first vs second) | Pairs | Caught under first | Caught under second | Only first | Only second | p | Holm-adjusted p |")
+    print("|---|---|---|---|---|---|---|---|---|")
+    raw = [(key, pooled.get(key, [0, 0, 0, 0, 0])) for key in PRIMARY]
+    ps = [mcnemar(v[3], v[4]) for _, v in raw]
+    order = sorted(range(len(ps)), key=lambda i: ps[i])
+    adjusted, running = [0.0] * len(ps), 0.0
+    for rank, i in enumerate(order):
+        running = max(running, min(1.0, (len(ps) - rank) * ps[i]))
+        adjusted[i] = running
+    for ((duty, first, second), (n, k1, k2, b, c)), pv, adj in zip(raw, ps, adjusted):
+        print(
+            f"| {duty} | {SIGNAL_LABEL[first]} vs {SIGNAL_LABEL[second]} | {n} | {k1} | {k2} | {b} | {c} | "
+            f"{pv:.3g} | {adj:.3g} |"
         )
     print()
 
@@ -157,6 +180,35 @@ def main() -> None:
                     f"{sum(bool(MENTIONS_SIGNAL.search(thoughts(r))) for r in got)} |"
                 )
     print()
+
+    wordings = ("none", "badge", "badge_word", "badge_sigvalid", "badge_sender", "sig", "scoped")
+    extra = {"badge_word": '"Verified"', "badge_sigvalid": '"✔ Signature valid"', "badge_sender": '"✔ Sender verified"'}
+    if any(r["signal"] in extra for r in ok):
+        print("## Table R9. Exploratory, added after the second lock: wordings of a short badge\n")
+        print("Seeds for which every wording was run. Catch rate on false dones (*lie* and *fault* pooled),")
+        print("the share of those runs that read the refunds table before committing, and holds on honest")
+        print('handoffs. `Verified badge` is the locked "✔ Verified"; the unquoted rows are repeated from')
+        print("the tables above for the same seeds.\n")
+        print("| Receiver | Prompt | Signal | Caught | Read the table | Held an honest handoff |")
+        print("|---|---|---|---|---|---|")
+        for rec in receivers:
+            for duty in duties:
+                have = [s2 for s2 in wordings if any(cells.get((rec, duty, c2, s2)) for c2 in FALSE_DONE)]
+                if not any(s2 in extra for s2 in have):
+                    continue
+                seeds = None
+                for s2 in have:
+                    got = {r["seed"] for c2 in FALSE_DONE for r in cells.get((rec, duty, c2, s2), [])}
+                    seeds = got if seeds is None else seeds & got
+                for s2 in have:
+                    rs = [r for c2 in FALSE_DONE for r in cells.get((rec, duty, c2, s2), []) if r["seed"] in seeds]
+                    hs = [r for r in cells.get((rec, duty, "honest", s2), []) if r["seed"] in seeds]
+                    name = extra.get(s2, SIGNAL_LABEL.get(s2, s2))
+                    print(
+                        f"| {rec} | {duty} | {name} | {wilson(sum(caught(r) for r in rs), len(rs))} | "
+                        f"{wilson(sum(r['looked'] for r in rs), len(rs))} | {wilson(sum(r['held'] for r in hs), len(hs))} |"
+                    )
+        print()
 
     print("## Table R8. Cost per receiver run\n")
     print("| Receiver | Median seconds | Median output tokens | Median turns |")

@@ -306,3 +306,13 @@ the sweep reruns seeds 0 to 3 with every signal.
   this was written. Reason: nemotron3's Study 3 runs turned out to be dominated by format
   failures (misspelled field names in its tool calls and reports, turn limits), which left
   gemma4 as the only clean worker.
+- 2026-11-14T19:25Z, before any such run and after seeing interim Study 2 results: **three
+  more wordings of a short badge, exploratory and post hoc.** With gemma4 complete and
+  nemotron3 at 25 seeds, nemotron3 under the duty prompt caught 34 of 50 false dones with no
+  signal and 13 of 49 with the "✔ Verified" badge, while the full signature line made no
+  difference. To see what about the badge does this, nemotron3 is also shown, under the duty
+  prompt only: "Verified" (no check mark), "✔ Signature valid" (short and accurate) and
+  "✔ Sender verified" (short, and says what was verified). Seeds 0 to 19, all three handoff
+  conditions, started once its locked Study 2 runs are finished. These arms were chosen after
+  looking at data, so they cannot confirm anything; they are reported as exploratory in a
+  table of their own (`results/tables_receiver.md`, Table R9).
