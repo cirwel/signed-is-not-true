@@ -5,14 +5,24 @@ the tool's own system prompt replaced by the worker's, no tools, and no user set
 or memory files loaded. The CLI still adds a short context block of its own (the date and
 the account's email address), has no seed or temperature control, and may think before it
 answers, so these runs are not sampled the way the Ollama runs are.
+
+`openai_api` calls the OpenAI Chat Completions API in JSON mode with exactly the messages the
+local models get (the worker prompt as the system message). The key is read from the
+OPENAI_API_KEY environment variable. A seed is always sent. Temperature is sent where the
+model accepts one; the reasoning models accept only their default, and run at their default
+reasoning effort.
 """
 
 from __future__ import annotations
 
 import json
+import os
+import ssl
 import subprocess
 import tempfile
 import time
+import urllib.error
+import urllib.request
 
 _EMPTY_DIR = tempfile.mkdtemp(prefix="receiver_cli_")
 
@@ -92,4 +102,69 @@ def claude_cli(model: str, messages: list[dict], seed: int, temperature: float) 
     raise RuntimeError(f"claude CLI failed: {last_error}")
 
 
-BACKENDS = {"ollama": None, "claude-cli": claude_cli}
+_NO_TEMPERATURE: set[str] = set()   # models that answered "only the default temperature is supported"
+_SSL: ssl.SSLContext | None = None
+
+
+def _ssl_context() -> ssl.SSLContext:
+    global _SSL
+    if _SSL is None:
+        _SSL = ssl.create_default_context()
+        try:  # python.org builds on macOS ship without a CA bundle
+            import certifi
+
+            _SSL.load_verify_locations(certifi.where())
+        except ImportError:
+            pass
+    return _SSL
+
+
+def openai_api(model: str, messages: list[dict], seed: int, temperature: float) -> tuple[str, dict]:
+    key = os.environ.get("OPENAI_API_KEY")
+    if not key:
+        raise RuntimeError("openai API failed: OPENAI_API_KEY is not set")
+    last_error = "no attempt"
+    for attempt in range(7):
+        body = {"model": model, "messages": messages, "response_format": {"type": "json_object"}, "seed": seed}
+        if model not in _NO_TEMPERATURE:
+            body["temperature"] = temperature
+        request = urllib.request.Request(
+            "https://api.openai.com/v1/chat/completions", data=json.dumps(body).encode(),
+            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        )
+        started = time.time()
+        try:
+            with urllib.request.urlopen(request, timeout=300, context=_ssl_context()) as response:
+                data = json.load(response)
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", "replace")[:300]
+            last_error = f"HTTP {exc.code}: {detail}"
+            if exc.code == 400 and "temperature" in detail and "temperature" in body:
+                _NO_TEMPERATURE.add(model)
+                continue
+            if exc.code in (408, 409, 429, 500, 502, 503, 504):
+                time.sleep(min(60, 5 * 2**attempt))
+                continue
+            break
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            last_error = repr(exc)[:300]
+            time.sleep(min(60, 5 * 2**attempt))
+            continue
+        usage = data.get("usage") or {}
+        details = usage.get("completion_tokens_details") or {}
+        meta = {
+            "prompt_tokens": usage.get("prompt_tokens") or 0,
+            "output_tokens": usage.get("completion_tokens") or 0,
+            "reasoning_tokens": details.get("reasoning_tokens") or 0,
+            "cached_tokens": (usage.get("prompt_tokens_details") or {}).get("cached_tokens") or 0,
+            "seconds": round(time.time() - started, 2),
+        }
+        log = os.environ.get("HARNESS_USAGE_LOG")
+        if log:
+            with open(log, "a") as handle:
+                handle.write(json.dumps({"model": data.get("model", model), **meta}) + "\n")
+        return data["choices"][0]["message"].get("content") or "", meta
+    raise RuntimeError(f"openai API failed: {last_error}")
+
+
+BACKENDS = {"ollama": None, "claude-cli": claude_cli, "openai": openai_api}

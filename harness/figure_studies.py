@@ -29,56 +29,75 @@ COND_COLOR = {"lie": "#c2410c", "fault": "#1d4ed8"}
 COND_LABEL = {"lie": "planted lie (table empty)", "fault": "silent fault (one refund missing)"}
 
 
+ORDER = (
+    "gemma4:latest", "qwen3.6:27b-coding-mxfp8", "nemotron3:33b",
+    "gpt-5.4-nano", "gpt-6-luna", "claude-haiku-5-5", "gpt-6.1-sol",
+)
+TITLE = {
+    "gemma4:latest": "gemma4 (8B)", "qwen3.6:27b-coding-mxfp8": "qwen3.6 (27B)",
+    "nemotron3:33b": "nemotron3 (33B)", "claude-haiku-5-5": "claude-haiku-5-5",
+}
+
+
 def short(model: str) -> str:
-    return model.split(":")[0]
+    return TITLE.get(model, model.split(":")[0])
+
+
+def ordered(models: set[str]) -> list[str]:
+    return [m for m in ORDER if m in models] + sorted(models - set(ORDER))
 
 
 def figure2(root: Path, out: Path) -> None:
-    runs = [r for r in ar.load(root) if "crashed" not in r]
+    runs = [r for r in ar.load(root) if "crashed" not in r and r["signal"] in ar.SIGNALS]
     cells: dict[tuple, list[dict]] = defaultdict(list)
     for r in runs:
         cells[(r["receiver"], r["duty"], r["condition"], r["signal"])].append(r)
-    receivers = sorted({r["receiver"] for r in runs})
+    receivers = ordered({r["receiver"] for r in runs})
     duties = [d for d in ("discretion", "duty") if any(r["duty"] == d for r in runs)]
     fig, axes = plt.subplots(
-        len(duties), len(receivers), figsize=(3.7 * len(receivers), 2.55 * len(duties)),
+        len(duties), len(receivers), figsize=(7.4, 1.95 * len(duties) + 0.55),
         sharey=True, sharex=True, squeeze=False,
     )
-    width = 0.36
+    width = 0.38
     for i, duty in enumerate(duties):
         for j, rec in enumerate(receivers):
             ax = axes[i][j]
+            seeds = set()
             for k, cond in enumerate(ar.FALSE_DONE):
                 xs, ps, lo, hi = [], [], [], []
                 for x, s in enumerate(ar.SIGNALS):
                     rs = cells.get((rec, duty, cond, s), [])
                     if not rs:
                         continue
+                    seeds |= {r["seed"] for r in rs}
                     p, a, b = wilson_bounds(sum(ar.caught(r) for r in rs), len(rs))
                     xs.append(x + (k - 0.5) * width)
                     ps.append(p)
-                    lo.append(p - a)
-                    hi.append(b - p)
+                    lo.append(max(0.0, p - a))  # rounding can leave -1e-17 at p = 0 or 1
+                    hi.append(max(0.0, b - p))
                 ax.bar(
-                    xs, ps, width, yerr=[lo, hi], capsize=1.5, color=COND_COLOR[cond],
-                    label=COND_LABEL[cond], error_kw={"elinewidth": 0.7},
+                    xs, ps, width, yerr=[lo, hi], capsize=1.2, color=COND_COLOR[cond],
+                    label=COND_LABEL[cond], error_kw={"elinewidth": 0.6, "capthick": 0.6},
                 )
-            ax.axhline(1.0, color="#2b8a3e", linewidth=0.8, linestyle="--")
-            ax.set_ylim(0, 1.08)
+            ax.axhline(1.0, color="#2b8a3e", linewidth=0.7, linestyle="--")
+            ax.set_ylim(0, 1.2)
+            ax.set_yticks([0, 0.5, 1.0])
             ax.set_xticks(range(len(ar.SIGNALS)))
-            ax.set_xticklabels([SIGNAL_TICK[s] for s in ar.SIGNALS], fontsize=6.5)
+            ax.set_xticklabels([SIGNAL_TICK[s] for s in ar.SIGNALS], fontsize=5.6, rotation=90)
             ax.spines[["top", "right"]].set_visible(False)
+            ax.tick_params(axis="both", length=2, pad=1.5)
+            ax.tick_params(axis="y", labelsize=6)
             if i == 0:
-                ax.set_title(short(rec), fontsize=9.5)
+                ax.set_title(short(rec), fontsize=7.5, pad=3)
+            ax.text(2, 1.135, f"{len(seeds)} seeds", ha="center", va="center", fontsize=5.3, color="#555")
             if j == 0:
-                ax.set_ylabel(f"{duty} prompt\nshare of false dones caught", fontsize=8)
-            ax.tick_params(axis="y", labelsize=7)
+                ax.set_ylabel(f"{duty} prompt\nfalse dones caught", fontsize=6.5)
     handles, labels = axes[0][0].get_legend_handles_labels()
-    handles.append(plt.Line2D([0], [0], color="#2b8a3e", linewidth=0.8, linestyle="--"))
-    labels.append("rule-based evidence check (Study 1)")
-    fig.legend(handles, labels, fontsize=7.5, frameon=False, loc="upper center", ncol=3)
-    fig.tight_layout(rect=(0, 0, 1, 0.94))
-    fig.savefig(out, dpi=200)
+    handles.append(plt.Line2D([0], [0], color="#2b8a3e", linewidth=0.7, linestyle="--"))
+    labels.append("rule C on the same handoffs")
+    fig.legend(handles, labels, fontsize=6.5, frameon=False, loc="upper center", ncol=3)
+    fig.tight_layout(rect=(0, 0, 1, 0.95), w_pad=0.6, h_pad=0.6)
+    fig.savefig(out, dpi=300)
     print(out)
 
 
@@ -87,41 +106,54 @@ def figure3(root: Path, out: Path) -> None:
     for r in load(root):
         if "crashed" not in r and r["arms"]["handoff"]:
             groups[(r["model"], r["condition"])].append(r)
-    conditions = [c for c in ("blocked", "blocked_t", "derived", "derived_t") if any(k[1] == c for k in groups)]
-    models = sorted({m for m, _ in groups})
-    fig, axes = plt.subplots(1, len(models), figsize=(3.7 * len(models), 2.9), sharey=True, squeeze=False)
+    wanted = ("blocked", "blocked_t", "derived", "derived_t")
+    models = ordered({m for m, c in groups if c in wanted})
     label = {
-        "blocked": "visible\ntool error", "blocked_t": "visible error,\nreasoning field",
-        "derived": "amount to\nwork out", "derived_t": "work out,\nreasoning field",
+        "blocked": "visible\ntool error", "blocked_t": "visible error,\nreasoning",
+        "derived": "amount to\nwork out", "derived_t": "work out,\nreasoning",
     }
+    fig, axes = plt.subplots(1, len(models), figsize=(7.4, 2.75), sharey=True, squeeze=False)
     for ax, model in zip(axes[0], models):
-        correct, mis, faithful, ns = [], [], [], []
+        conditions = [c for c in wanted if groups.get((model, c))]
+        parts: dict[str, list[float]] = {"correct": [], "mis": [], "unusable": [], "faithful": []}
+        ns = []
         for cond in conditions:
-            rs = groups.get((model, cond), [])
-            n = max(len(rs), 1)
+            rs = groups[(model, cond)]
+            n = len(rs)
             fd = [r for r in rs if r["truth"]["false_done"]]
-            f = sum(r["truth"]["claim_matches_state"] for r in fd)
-            correct.append((len(rs) - len(fd)) / n)
-            mis.append((len(fd) - f) / n)
-            faithful.append(f / n)
-            ns.append(len(rs))
-        xs = range(len(conditions))
-        ax.bar(xs, correct, 0.62, color="#d4d4d8", label="work correct")
-        ax.bar(xs, mis, 0.62, bottom=correct, color="#2b8a3e",
-               label="false done, report differs from table (evidence check catches it)")
-        ax.bar(xs, faithful, 0.62, bottom=[a + b for a, b in zip(correct, mis)], color="#b91c1c",
-               label="false done, report matches table (evidence check passes it)")
-        ax.set_xticks(list(xs))
-        ax.set_xticklabels([f"{label[c]}\nn={n}" for c, n in zip(conditions, ns)], fontsize=6.5)
-        ax.set_title(short(model), fontsize=9.5)
+            faithful = sum(r["truth"]["claim_matches_state"] for r in fd)
+            unusable = sum(not r["truth"]["claim_usable"] for r in fd)
+            parts["correct"].append((n - len(fd)) / n)
+            parts["mis"].append((len(fd) - faithful - unusable) / n)
+            parts["unusable"].append(unusable / n)
+            parts["faithful"].append(faithful / n)
+            ns.append(n)
+        xs = list(range(len(conditions)))
+        style = (
+            ("correct", "#d4d4d8", None, "work correct"),
+            ("mis", "#2b8a3e", None, "false done, report differs from the table: the evidence check catches it"),
+            ("unusable", "#a7d7b0", "////", "false done, report not in the agreed form: the evidence check rejects it"),
+            ("faithful", "#b91c1c", None, "false done, report matches the table: the evidence check passes it"),
+        )
+        bottom = [0.0] * len(conditions)
+        for key, colour, hatch, text in style:
+            ax.bar(xs, parts[key], 0.62, bottom=bottom, color=colour, hatch=hatch, edgecolor="white",
+                   linewidth=0.4, label=text)
+            bottom = [a + b for a, b in zip(bottom, parts[key])]
+        ax.set_xticks(xs)
+        ax.set_xticklabels([f"{label[c]}\nn={n}" for c, n in zip(conditions, ns)], fontsize=5.4)
+        ax.set_title(short(model), fontsize=7.5, pad=3)
         ax.set_ylim(0, 1.0)
+        ax.set_yticks([0, 0.5, 1.0])
+        ax.set_xlim(-0.6, 3.6)
         ax.spines[["top", "right"]].set_visible(False)
-        ax.tick_params(axis="y", labelsize=7)
-    axes[0][0].set_ylabel("share of handoffs", fontsize=8)
+        ax.tick_params(axis="both", length=2, pad=1.5)
+        ax.tick_params(axis="y", labelsize=6)
+    axes[0][0].set_ylabel("share of handoffs", fontsize=6.5)
     handles, labels = axes[0][0].get_legend_handles_labels()
-    fig.legend(handles, labels, fontsize=7.5, frameon=False, loc="upper center", ncol=1)
-    fig.tight_layout(rect=(0, 0, 1, 0.80))
-    fig.savefig(out, dpi=200)
+    fig.legend(handles, labels, fontsize=6.2, frameon=False, loc="upper center", ncol=2, columnspacing=1.2)
+    fig.tight_layout(rect=(0, 0, 1, 0.87), w_pad=0.6)
+    fig.savefig(out, dpi=300)
     print(out)
 
 

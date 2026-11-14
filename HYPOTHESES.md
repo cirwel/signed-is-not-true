@@ -341,3 +341,18 @@ the sweep reruns seeds 0 to 3 with every signal.
   before the runs: does a receiver that is shown the note hold, and does a true MATCH line or
   a badge make it less likely to? No prediction is locked. These runs were designed after
   seeing Study 3's results.
+- 2026-11-14T21:20Z, before any such run: **three receivers and workers through the OpenAI
+  API, exploratory.** gpt-6.1-sol, gpt-6-luna and gpt-5.4-nano, called through the Chat
+  Completions API in JSON mode with exactly the messages the local models get
+  (`harness/backends.py`, `--backend openai`). gpt-5.4-nano takes temperature 0.7 and a seed,
+  like the local models. The two gpt-6 models accept only their default temperature and run
+  at their default reasoning effort; a seed is still sent. Plan: Study 2 with both prompts,
+  three handoff conditions and five signals (seeds 0 to 19 for gpt-6.1-sol, 0 to 39 for the
+  other two); Study 3 with *honest*, *blocked* and *derived* (seeds 0 to 19 for gpt-6.1-sol,
+  0 to 39 for the other two, and the reasoning-field variants for gpt-5.4-nano only, since
+  the gpt-6 models reason before they answer anyway); and the note-carrying arm above for all
+  three. Same definitions and tables. Reported as exploratory and kept out of the three
+  primary tests, which pool the receivers named in the second lock. When this was written no
+  run of these models on any handoff existed; one call per model had been made to learn which
+  request parameters each accepts. Runs that fail because the API could not be reached, or
+  kept answering with a rate limit or a server error, fall under the rerun rule above.
