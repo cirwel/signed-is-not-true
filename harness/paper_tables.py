@@ -48,10 +48,12 @@ def main() -> None:
     total = 0
     sources = [("Study 1 (rules, planted errors)", load(study1) if study1.exists() else [], "model", None)]
     every_receiver = ar.load(receiver)
-    sources.append(("Study 2 (receiver, five locked signals)", [r for r in every_receiver if r.get("signal") in SIGNALS or "crashed" in r], "receiver", None))
-    sources.append(("Study 2 (receiver, badge wordings)", [r for r in every_receiver if r.get("signal") in ar_extra()], "receiver", None))
+    locked_prompts = ("discretion", "duty")
+    sources.append(("Study 2 (receiver, two locked prompts, five locked signals)", [r for r in every_receiver if r.get("duty") in locked_prompts and r.get("signal") in SIGNALS], "receiver", None))
+    sources.append(("Follow-up: badge wordings", [r for r in every_receiver if r.get("signal") in ar_extra()], "receiver", None))
+    sources.append(("Follow-up: goal prompt on Study 2 handoffs", [r for r in every_receiver if r.get("duty") == "goal" and r.get("signal") in SIGNALS], "receiver", None))
     sources.append(("Study 3 (errors nobody planted)", load(organic), "model", None))
-    sources.append(("Worker's note carried to the receiver", ar.load(note) if note.exists() else [], "receiver", None))
+    sources.append(("Follow-up: worker's note carried to the receiver (three prompts)", ar.load(note) if note.exists() else [], "receiver", None))
     for name, rs, key, _ in sources:
         by: dict[str, list[dict]] = defaultdict(list)
         for r in rs:
@@ -209,6 +211,27 @@ def main() -> None:
                     c += y and not x
             if n:
                 print(f"| {short(rec)} | {n} | {k1} | {k2} | {b} | {c} | {ar.mcnemar(b, c):.3g} |")
+
+    if note.exists():
+        print("\nBy handoff (20 per receiver): the number of the three signals under which the batch was held,")
+        print("under discretion against under duty, with the exact two-sided sign test on the handoffs where")
+        print("the two differ. This treats a handoff, not a run, as the unit.\n")
+        print("| Receiver | Handoffs | More holds under discretion | More holds under duty | Equal | p |")
+        print("|---|---|---|---|---|---|")
+        for rec in ordered({r["receiver"] for r in nruns}):
+            more = fewer = same = 0
+            seeds = sorted({r["seed"] for (rc, _d, _s), rs in ncells.items() if rc == rec for r in rs})
+            for seed in seeds:
+                count = {}
+                for duty in ("discretion", "duty"):
+                    count[duty] = sum(
+                        ar.caught(r) for sgn in ("none", "badge", "evidence")
+                        for r in ncells.get((rec, duty, sgn), []) if r["seed"] == seed
+                    )
+                more += count["discretion"] > count["duty"]
+                fewer += count["discretion"] < count["duty"]
+                same += count["discretion"] == count["duty"]
+            print(f"| {short(rec)} | {len(seeds)} | {more} | {fewer} | {same} | {ar.mcnemar(more, fewer):.3g} |")
 
     print("\n## Counts quoted in the prose\n")
     quoted = {}

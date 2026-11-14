@@ -1,6 +1,6 @@
-"""Figure 1: propagation (a false done accepted, then wrong payouts) by check and condition.
+"""Study 1 figure: propagation (a false done accepted, then wrong payouts) by check and condition.
 
-    python3 -m harness.figure runs/full results/figure1.png
+    python3 -m harness.figure runs/full results/figure_study1.png
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ def propagated(r: dict, arm: str) -> bool:
 
 def main() -> None:
     root = Path(sys.argv[1] if len(sys.argv) > 1 else "runs/full")
-    out = Path(sys.argv[2] if len(sys.argv) > 2 else "results/figure1.png")
+    out = Path(sys.argv[2] if len(sys.argv) > 2 else "results/figure_study1.png")
     groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for r in load(root):
         if "crashed" not in r and r["arms"]["handoff"]:

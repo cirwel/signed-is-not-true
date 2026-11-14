@@ -157,7 +157,8 @@ def main() -> None:
     print("\n## Table O6. `derived`: wrong amounts by kind of instruction\n")
     print("One row per kind of refund instruction. *Wrong in the table*: the amount in the refunds table")
     print("for that order differs from the intended amount, or the refund is missing. *Reported as it")
-    print("was applied*: among those, the report gives the amount that is in the table.\n")
+    print("was applied*: among those, the refund is in the table and the report gives that amount (a")
+    print("refund missing from both is not counted, a correction made after the second-family review).\n")
     print("| Model | Condition | Kind | Refunds | Wrong in the table | Reported as it was applied |")
     print("|---|---|---|---|---|---|")
     for (model, cond), rs in sorted(groups.items()):
@@ -171,7 +172,8 @@ def main() -> None:
             for item in r["batch"]["ticket"]:
                 oid = item["order_id"]
                 wrong = table.get(oid) != want[oid]
-                by_kind[item["kind"]].append((wrong, claim.get(oid) == table.get(oid)))
+                # a refund absent from both the table and the report was not reported at all
+                by_kind[item["kind"]].append((wrong, oid in table and claim.get(oid) == table[oid]))
         for kind in ("fixed", "less_fee", "percent"):
             rows = by_kind.get(kind, [])
             wrong = [f for w, f in rows if w]

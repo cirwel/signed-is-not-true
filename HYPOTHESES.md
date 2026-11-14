@@ -406,3 +406,15 @@ the sweep reruns seeds 0 to 3 with every signal.
   *goal* as under *duty*? (G3) How often does each receiver hold an honest handoff under
   *goal*? My expectation is yes for G1, and for G2 a rate between those of the two existing
   prompts. Exploratory: the prompt was written after seeing the result it responds to.
+- 2026-11-14T23:38Z: **after two more reviews** (an independent recount from the raw run files, and a review of the
+  draft by a model from another developer; both are summarised in `results/reviews.md`). No run was
+  changed. (a) The note-carrying arm is tested with the handoff as the unit (a sign test on the 20
+  handoffs) in place of a McNemar test on 60 handoff-and-signal pairs. (b) Table O6 no longer counts a
+  refund that is missing from both the table and the report as "reported as it was applied"; this
+  changes two nemotron3 cells and nothing in the report. (c) Table R12 added: payouts that were
+  recorded and then overwritten. (d) The run-count table gives the goal prompt a row of its own.
+  (e) The report's tables and its run-dependent numbers are now generated from the run files
+  (`harness/report_tables.py`, from `report/REPORT.src.md`), so the cut-off can be applied by running
+  one command. (f) qwen3.6's Study 2 rows are shown in a table of their own (Table E2) and left out of
+  Table 1 and Figure 2 unless it reaches 20 seeds, the number every other receiver has; its runs stay in
+  the three primary tests.

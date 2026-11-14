@@ -58,7 +58,7 @@ RECEIVER_STYLE = {
 }
 
 
-MIN_SEEDS = 10
+MIN_SEEDS = 20   # every receiver but qwen3.6 reached at least 20 seeds
 
 
 def figure2(root: Path, out: Path) -> None:
@@ -71,10 +71,10 @@ def figure2(root: Path, out: Path) -> None:
     seeds_run: dict[str, set] = defaultdict(set)
     for (rec, _duty, _signal), rs in cells.items():
         seeds_run[rec] |= {r["seed"] for r in rs}
-    # A receiver with only a few seeds would add nothing but an interval spanning the panel.
+    # A receiver with fewer seeds than every other goes in a table of its own (Table E2).
     receivers = [m for m in ordered({r["receiver"] for r in runs}) if len(seeds_run[m]) >= MIN_SEEDS]
     duties = [d for d in ("discretion", "duty") if any(r["duty"] == d for r in runs)]
-    fig, axes = plt.subplots(1, len(duties), figsize=(7.4, 2.9), sharey=True, squeeze=False)
+    fig, axes = plt.subplots(1, len(duties), figsize=(7.4, 2.25), sharey=True, squeeze=False)
     spread = 0.5
     for ax, duty in zip(axes[0], duties):
         for k, rec in enumerate(receivers):
@@ -152,7 +152,7 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
     have_note = bool(note_root and note_root.exists())
     fig, axes = plt.subplots(
         1, 3 if have_note else 2, figsize=(7.4, 2.55),
-        gridspec_kw={"width_ratios": [1.0, 1.0, 0.78] if have_note else [1.0, 1.0]},
+        gridspec_kw={"width_ratios": [1.0, 1.0, 0.95] if have_note else [1.0, 1.0]},
     )
     style = (
         ("fine", FINE, None, "work correct"),
@@ -197,33 +197,38 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
         cells: dict[tuple[str, str], list[dict]] = defaultdict(list)
         for r in nruns:
             cells[(r["receiver"], r["duty"])].append(r)
+        prompts = [d for d in ("discretion", "duty", "goal") if any(k[1] == d for k in cells)]
+        tick = {"discretion": "left to\ndecide", "duty": "told which\ncheck to run", "goal": "told\nthe goal"}
         ends: list[tuple[float, str, str]] = []
         for rec in ordered({r["receiver"] for r in nruns}):
             colour, marker = RECEIVER_STYLE.get(rec, ("#555555", "o"))
-            ps, lo, hi = [], [], []
-            for duty in ("discretion", "duty"):
+            xs, ps, lo, hi = [], [], [], []
+            for x, duty in enumerate(prompts):
                 rs = cells.get((rec, duty), [])
+                if len(rs) < 30:   # a prompt still being run for this receiver
+                    continue
                 p, a, b = wilson_bounds(sum(ar.caught(r) for r in rs), len(rs))
+                xs.append(x)
                 ps.append(p)
                 lo.append(max(0.0, p - a))
                 hi.append(max(0.0, b - p))
-            ax.errorbar([0, 1], ps, yerr=[lo, hi], color=colour, marker=marker, markersize=3.6, linewidth=1.0,
+            ax.errorbar(xs, ps, yerr=[lo, hi], color=colour, marker=marker, markersize=3.6, linewidth=1.0,
                         elinewidth=0.5, capsize=1.2, capthick=0.5)
-            ends.append((ps[1], short(rec), colour))
+            ends.append((ps[-1], short(rec), colour))
         # direct labels at the right end, nudged apart where two lines end together
         ends.sort()
         placed: list[float] = []
         for p, name, colour in ends:
             y = p if not placed else max(p, placed[-1] + 0.085)
             placed.append(y)
-            ax.text(1.07, y, name, va="center", ha="left", fontsize=5.8, color=colour)
-        ax.set_xlim(-0.2, 2.05)
-        ax.set_ylim(-0.06, 1.12)
-        ax.set_xticks([0, 1])
-        ax.set_xticklabels(["left to\ndecide", "told which\ncheck to run"], fontsize=6)
+            ax.text(len(prompts) - 1 + 0.08, y, name.replace(" (8B)", ""), va="center", ha="left", fontsize=5.6, color=colour)
+        ax.set_xlim(-0.2, len(prompts) - 1 + 0.95)
+        ax.set_ylim(-0.06, 1.2)
+        ax.set_xticks(range(len(prompts)))
+        ax.set_xticklabels([tick[d] for d in prompts], fontsize=5.8)
         ax.set_yticks([0, 0.5, 1.0])
         ax.set_ylabel("share of batches held", fontsize=6.3, labelpad=1.5)
-        ax.set_title("(c) the worker's note, shown\nto a receiver", fontsize=7, pad=3, loc="left")
+        ax.set_title("(c) receiver is shown the note", fontsize=7, pad=3, loc="left")
         ax.spines[["top", "right"]].set_visible(False)
         ax.tick_params(axis="both", length=2, pad=1.5)
         ax.tick_params(axis="y", labelsize=6)

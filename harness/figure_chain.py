@@ -49,7 +49,7 @@ def main() -> None:
     out = Path(sys.argv[3] if len(sys.argv) > 3 else "results/figure1.png")
     c = counts(planted, organic)
 
-    fig, ax = plt.subplots(figsize=(7.4, 2.45))
+    fig, ax = plt.subplots(figsize=(7.4, 2.2))
     ax.set_xlim(0, 10)
     ax.set_ylim(0.35, 3.4)
     ax.axis("off")

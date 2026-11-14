@@ -256,6 +256,41 @@ def main() -> None:
         )
     print()
 
+    print("## Table R12. Payouts recorded and then overwritten\n")
+    print("Added after the second-family review, descriptive. The receiver is told that a recorded payout")
+    print("cannot be recalled, but the harness lets a second payout to the same customer replace the first,")
+    print("and a wrong payout is scored on the final rows. This scans every successful `record_payout` call.")
+    print("*Wrong at some point, clean at the end*: a wrong amount was recorded and later overwritten, so")
+    print("the run is not scored as a wrong payout.\n")
+    print("| Receiver | Runs | Runs with a customer paid twice | Wrong at some point, clean at the end | of which on a false-done handoff |")
+    print("|---|---|---|---|---|")
+
+    def payout_calls(r: dict) -> list[tuple[str, object]]:
+        calls = []
+        for t in r["w3"]["transcript"]:
+            reply = t.get("reply")
+            if not isinstance(reply, dict) or not isinstance(t.get("result"), dict) or t["result"].get("ok") is not True:
+                continue
+            args = reply.get("args") if reply.get("tool") == "record_payout" else reply.get("record_payout")
+            if reply.get("tool") == "record_payout" and not isinstance(args, dict):
+                args = reply
+            if isinstance(args, dict) and "customer" in args:
+                calls.append((str(args.get("customer")), args.get("amount_cents")))
+        return calls
+
+    for rec in receivers:
+        rs = [r for r in ok if r["receiver"] == rec]
+        twice = ever = ever_fd = 0
+        for r in rs:
+            calls = payout_calls(r)
+            twice += len(calls) > len({c for c, _ in calls})
+            wrong_ever = any(a != r["payouts_correct"].get(c) for c, a in calls)
+            if wrong_ever and not r["wrong_payout"]:
+                ever += 1
+                ever_fd += r["condition"] in FALSE_DONE
+        print(f"| {rec} | {len(rs)} | {twice} | {ever} | {ever_fd} |")
+    print()
+
     print("## Table R8. Cost per receiver run\n")
     print("| Receiver | Median seconds | Median output tokens | Median turns |")
     print("|---|---|---|---|")
