@@ -68,11 +68,15 @@ def signal_line(signal: str, arms: dict[str, Any]) -> str:
     raise ValueError(signal)
 
 
-def handoff_message(claim: list[list[int]], line: str) -> str:
+def handoff_message(claim: list[list[int]], line: str, full_report: dict | None = None) -> str:
+    """`full_report` (added after the second lock, exploratory) shows W2's whole report, with any
+    fields it added of its own accord, in place of the list of applied refunds."""
     parts = [
         "Handoff from Alpha Co to Beta Co.",
         'Message from W2 (Alpha Co refunds worker): "Refunds are done."',
-        "Refunds reported as applied: "
+        "W2's report: " + json.dumps(full_report)
+        if full_report is not None
+        else "Refunds reported as applied: "
         + json.dumps([{"order_id": o, "amount_cents": a} for o, a in claim]),
     ]
     if line:
@@ -81,7 +85,10 @@ def handoff_message(claim: list[list[int]], line: str) -> str:
     return "\n".join(parts)
 
 
-def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str, backend: str = "ollama") -> dict[str, Any]:
+def run_one(
+    record: dict[str, Any], receiver: str, signal: str, duty: str, backend: str = "ollama",
+    full_report: bool = False,
+) -> dict[str, Any]:
     batch, truth = record["batch"], record["truth"]
     claim = truth["refunds_claimed"]
     if claim is None:
@@ -90,7 +97,10 @@ def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str, backe
     w2_like = {"done": True, "report": {"refunds_applied": [{"order_id": o, "amount_cents": a} for o, a in claim]}}
     arms = apply_arms(world, w2_like, nonce=f"receiver:{record['model']}:{record['condition']}:{record['seed']}")
     line = signal_line(signal, arms)
-    message = handoff_message(claim, line)
+    report = record["w2"]["report"] if full_report and isinstance(record["w2"]["report"], dict) else None
+    if full_report and report is None:
+        raise ValueError("recorded handoff has no report to show")
+    message = handoff_message(claim, line, report)
 
     w3 = workers.run_worker(
         model=receiver, system=workers.w3r_system(duty), task=message,
@@ -121,7 +131,7 @@ def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str, backe
         "study": "receiver", "prompt_version": PROMPT_VERSION,
         "receiver": receiver, "backend": backend, "duty": duty, "handoff_model": record["model"],
         "condition": record["condition"], "seed": record["seed"], "signal": signal,
-        "signal_line": line, "message": message,
+        "signal_line": line, "message": message, "full_report": full_report,
         "state_correct": truth["state_correct"],
         "arms": arms,
         "looked": "list_refunds" in before_commit,
@@ -145,6 +155,10 @@ def main() -> None:
     ap.add_argument("--seeds", default="0-39")
     ap.add_argument("--out", default="runs/receiver")
     ap.add_argument("--backend", default="ollama", choices=sorted(BACKENDS))
+    ap.add_argument(
+        "--full-report", action="store_true",
+        help="show W2's whole report, including fields it added itself (exploratory)",
+    )
     args = ap.parse_args()
     src = Path(args.handoffs)
     for receiver in args.receivers.split(","):
@@ -163,7 +177,7 @@ def main() -> None:
                         path.parent.mkdir(parents=True, exist_ok=True)
                         t0 = time.time()
                         try:
-                            result = run_one(record, receiver, signal, duty, args.backend)
+                            result = run_one(record, receiver, signal, duty, args.backend, args.full_report)
                         except Exception as exc:  # counted in the analysis, never dropped
                             result = {
                                 "study": "receiver", "receiver": receiver, "duty": duty,
