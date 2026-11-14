@@ -1,9 +1,11 @@
 """Figures 2 and 3.
 
-    python3 -m harness.figure_studies runs/receiver runs/organic results
+    python3 -m harness.figure_studies runs/receiver runs/organic results [runs/receiver_note]
 
 Figure 2 (Study 2): catch rate on false-done handoffs by signal, per receiver and prompt.
-Figure 3 (Study 3): what the evidence check can see among handoffs where nobody planted an error.
+Figure 3 (Study 3 and the note-carrying arm): what each worker's report said where nobody planted
+an error, which of those the evidence check can see, and what receivers did with a worker's own
+note of a failure.
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 from . import analyze_receiver as ar  # noqa: E402
 from .analyze import load  # noqa: E402
+from .analyze_organic import mentions, report_kind  # noqa: E402
 from .figure import wilson_bounds  # noqa: E402
 
 SIGNAL_TICK = {
@@ -55,6 +58,9 @@ RECEIVER_STYLE = {
 }
 
 
+MIN_SEEDS = 10
+
+
 def figure2(root: Path, out: Path) -> None:
     """Catch rate by signal, one line per receiver, one panel per prompt (lie and fault pooled)."""
     runs = [r for r in ar.load(root) if "crashed" not in r and r["signal"] in ar.SIGNALS]
@@ -62,7 +68,11 @@ def figure2(root: Path, out: Path) -> None:
     for r in runs:
         if r["condition"] in ar.FALSE_DONE:
             cells[(r["receiver"], r["duty"], r["signal"])].append(r)
-    receivers = ordered({r["receiver"] for r in runs})
+    seeds_run: dict[str, set] = defaultdict(set)
+    for (rec, _duty, _signal), rs in cells.items():
+        seeds_run[rec] |= {r["seed"] for r in rs}
+    # A receiver with only a few seeds would add nothing but an interval spanning the panel.
+    receivers = [m for m in ordered({r["receiver"] for r in runs}) if len(seeds_run[m]) >= MIN_SEEDS]
     duties = [d for d in ("discretion", "duty") if any(r["duty"] == d for r in runs)]
     fig, axes = plt.subplots(1, len(duties), figsize=(7.4, 2.9), sharey=True, squeeze=False)
     spread = 0.5
@@ -108,59 +118,116 @@ def figure2(root: Path, out: Path) -> None:
     print(out)
 
 
-def figure3(root: Path, out: Path) -> None:
+CAUGHT, SILENT, NOTED, FINE = "#009E73", "#D55E00", "#CC79A7", "#d4d4d8"   # Okabe-Ito
+ROWS = (
+    ("gemma4:latest", "", "gemma4"), ("gemma4:latest", "_t", "gemma4, reasoning field"),
+    ("gpt-5.4-nano", "", "gpt-5.4-nano"), ("gpt-5.4-nano", "_t", "gpt-5.4-nano, reasoning field"),
+    ("gpt-6-luna", "", "gpt-6-luna"), ("claude-haiku-5-5", "", "claude-haiku-5-5"), ("gpt-6.1-sol", "", "gpt-6.1-sol"),
+)
+
+
+def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
+    """(a) and (b): one bar per worker and reply format, split by what the evidence check can see.
+    (c): the note-carrying arm, held under each prompt, one line per receiver."""
     groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for r in load(root):
         # handoffs where W1 had imported the orders correctly: see analyze_organic.clean
         if "crashed" not in r and r["arms"]["handoff"] and r["truth"]["orders_correct"]:
             groups[(r["model"], r["condition"])].append(r)
-    wanted = ("blocked", "blocked_t", "derived", "derived_t")
-    models = ordered({m for m, c in groups if c in wanted})
-    label = {
-        "blocked": "visible\ntool error", "blocked_t": "visible error,\nreasoning",
-        "derived": "amount to\nwork out", "derived_t": "work out,\nreasoning",
-    }
-    fig, axes = plt.subplots(1, len(models), figsize=(7.4, 2.75), sharey=True, squeeze=False)
-    for ax, model in zip(axes[0], models):
-        conditions = [c for c in wanted if groups.get((model, c))]
-        parts: dict[str, list[float]] = {"correct": [], "mis": [], "unusable": [], "faithful": []}
-        ns = []
-        for cond in conditions:
-            rs = groups[(model, cond)]
-            n = len(rs)
-            fd = [r for r in rs if r["truth"]["false_done"]]
-            faithful = sum(r["truth"]["claim_matches_state"] for r in fd)
-            unusable = sum(not r["truth"]["claim_usable"] for r in fd)
-            parts["correct"].append((n - len(fd)) / n)
-            parts["mis"].append((len(fd) - faithful - unusable) / n)
-            parts["unusable"].append(unusable / n)
-            parts["faithful"].append(faithful / n)
-            ns.append(n)
-        xs = list(range(len(conditions)))
-        style = (
-            ("correct", "#d4d4d8", None, "work correct"),
-            ("mis", "#2b8a3e", None, "false done, report differs from the table: the evidence check catches it"),
-            ("unusable", "#a7d7b0", "////", "false done, report not in the agreed form: the evidence check rejects it"),
-            ("faithful", "#b91c1c", None, "false done, report matches the table: the evidence check passes it"),
-        )
-        bottom = [0.0] * len(conditions)
-        for key, colour, hatch, text in style:
-            ax.bar(xs, parts[key], 0.62, bottom=bottom, color=colour, hatch=hatch, edgecolor="white",
-                   linewidth=0.4, label=text)
-            bottom = [a + b for a, b in zip(bottom, parts[key])]
-        ax.set_xticks(xs)
-        ax.set_xticklabels([f"{label[c]}\nn={n}" for c, n in zip(conditions, ns)], fontsize=5.4)
-        ax.set_title(short(model), fontsize=7.5, pad=3)
-        ax.set_ylim(0, 1.0)
+
+    def split(rs: list[dict], blocked: bool) -> dict[str, int]:
+        out = {"fine": 0, "caught": 0, "silent": 0, "noted": 0}
+        for r in rs:
+            t = r["truth"]
+            if not t["false_done"]:
+                out["fine"] += 1
+            elif not t["claim_usable"] or not t["claim_matches_state"]:
+                out["caught"] += 1
+            elif blocked and report_kind(r) == "partial" and mentions(r):
+                out["noted"] += 1
+            else:
+                out["silent"] += 1
+        return out
+
+    have_note = bool(note_root and note_root.exists())
+    fig, axes = plt.subplots(
+        1, 3 if have_note else 2, figsize=(7.4, 2.55),
+        gridspec_kw={"width_ratios": [1.0, 1.0, 0.78] if have_note else [1.0, 1.0]},
+    )
+    style = (
+        ("fine", FINE, None, "work correct"),
+        ("caught", CAUGHT, None, "false done, report differs from the table: evidence check catches it"),
+        ("silent", SILENT, None, "false done, report matches the table and says no more: check passes it"),
+        ("noted", NOTED, "////", "false done, report matches the table and notes the failure: check passes it"),
+    )
+    panels = (("blocked", "(a) one refund fails with a visible error", True),
+              ("derived", "(b) amount to work out from a rule", False))
+    for ax, (cond, title, blocked) in zip(axes[:2], panels):
+        ys, labels = [], []
+        for y, (model, suffix, label) in enumerate(ROWS):
+            rs = groups.get((model, cond + suffix), [])
+            labels.append(label)
+            ys.append(y)
+            if not rs:
+                continue
+            parts = split(rs, blocked)
+            left = 0.0
+            for key, colour, hatch, _ in style:
+                w = parts[key] / len(rs)
+                ax.barh(y, w, 0.66, left=left, color=colour, hatch=hatch, edgecolor="white", linewidth=0.4)
+                left += w
+            ax.text(1.02, y, f"n={len(rs)}", va="center", ha="left", fontsize=5.6, color="#444444")
+        ax.set_yticks(ys)
+        ax.set_yticklabels(labels if ax is axes[0] else [], fontsize=6.3)
+        ax.invert_yaxis()
+        ax.set_xlim(0, 1.16)
+        ax.set_xticks([0, 0.5, 1.0])
+        ax.set_xlabel("share of handoffs", fontsize=6.3, labelpad=1.5)
+        ax.set_title(title, fontsize=7, pad=3, loc="left")
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(axis="both", length=2, pad=1.5)
+        ax.tick_params(axis="x", labelsize=6)
+    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=c, hatch=h, edgecolor="white", linewidth=0.4) for _, c, h, _ in style]
+    fig.legend(handles, [t for *_, t in style], fontsize=6.1, frameon=False, loc="upper left", ncol=2,
+               columnspacing=1.2, handlelength=1.4, bbox_to_anchor=(0.005, 1.0))
+
+    if have_note:
+        ax = axes[2]
+        nruns = [r for r in ar.load(note_root) if "crashed" not in r]
+        cells: dict[tuple[str, str], list[dict]] = defaultdict(list)
+        for r in nruns:
+            cells[(r["receiver"], r["duty"])].append(r)
+        ends: list[tuple[float, str, str]] = []
+        for rec in ordered({r["receiver"] for r in nruns}):
+            colour, marker = RECEIVER_STYLE.get(rec, ("#555555", "o"))
+            ps, lo, hi = [], [], []
+            for duty in ("discretion", "duty"):
+                rs = cells.get((rec, duty), [])
+                p, a, b = wilson_bounds(sum(ar.caught(r) for r in rs), len(rs))
+                ps.append(p)
+                lo.append(max(0.0, p - a))
+                hi.append(max(0.0, b - p))
+            ax.errorbar([0, 1], ps, yerr=[lo, hi], color=colour, marker=marker, markersize=3.6, linewidth=1.0,
+                        elinewidth=0.5, capsize=1.2, capthick=0.5)
+            ends.append((ps[1], short(rec), colour))
+        # direct labels at the right end, nudged apart where two lines end together
+        ends.sort()
+        placed: list[float] = []
+        for p, name, colour in ends:
+            y = p if not placed else max(p, placed[-1] + 0.085)
+            placed.append(y)
+            ax.text(1.07, y, name, va="center", ha="left", fontsize=5.8, color=colour)
+        ax.set_xlim(-0.2, 2.05)
+        ax.set_ylim(-0.06, 1.12)
+        ax.set_xticks([0, 1])
+        ax.set_xticklabels(["left to\ndecide", "told which\ncheck to run"], fontsize=6)
         ax.set_yticks([0, 0.5, 1.0])
-        ax.set_xlim(-0.6, 3.6)
+        ax.set_ylabel("share of batches held", fontsize=6.3, labelpad=1.5)
+        ax.set_title("(c) the worker's note, shown\nto a receiver", fontsize=7, pad=3, loc="left")
         ax.spines[["top", "right"]].set_visible(False)
         ax.tick_params(axis="both", length=2, pad=1.5)
         ax.tick_params(axis="y", labelsize=6)
-    axes[0][0].set_ylabel("share of handoffs", fontsize=6.5)
-    handles, labels = axes[0][0].get_legend_handles_labels()
-    fig.legend(handles, labels, fontsize=6.2, frameon=False, loc="upper center", ncol=2, columnspacing=1.2)
-    fig.tight_layout(rect=(0, 0, 1, 0.87), w_pad=0.6)
+    fig.tight_layout(rect=(0, 0, 1, 0.86), w_pad=0.8)
     fig.savefig(out, dpi=300)
     print(out)
 
@@ -169,11 +236,12 @@ def main() -> None:
     receiver = Path(sys.argv[1] if len(sys.argv) > 1 else "runs/receiver")
     organic = Path(sys.argv[2] if len(sys.argv) > 2 else "runs/organic")
     out = Path(sys.argv[3] if len(sys.argv) > 3 else "results")
+    note = Path(sys.argv[4] if len(sys.argv) > 4 else "runs/receiver_note")
     out.mkdir(parents=True, exist_ok=True)
     if receiver.exists():
         figure2(receiver, out / "figure2.png")
     if organic.exists():
-        figure3(organic, out / "figure3.png")
+        figure3(organic, out / "figure3.png", note)
 
 
 if __name__ == "__main__":

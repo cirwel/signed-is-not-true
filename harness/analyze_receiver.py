@@ -239,6 +239,23 @@ def main() -> None:
             )
     print()
 
+    print("## Table R11. Shown a failed evidence check and not told what to do with it\n")
+    print("Added after the second lock, descriptive. False-done handoffs under the discretion prompt with")
+    print("the evidence result in the handoff, which for these handoffs reads `Result: MISMATCH`. *Says")
+    print("mismatch*: a reasoning field the receiver wrote during the run contains the word (any case).\n")
+    print("| Receiver | Shown | Caught | Paid a wrong amount | of which the reasoning says mismatch | Read the refunds table |")
+    print("|---|---|---|---|---|---|")
+    for rec in receivers:
+        rs = [r for c2 in FALSE_DONE for r in cells.get((rec, "discretion", c2, "evidence"), [])]
+        if not rs:
+            continue
+        paid = [r for r in rs if r["wrong_payout"]]
+        print(
+            f"| {rec} | {len(rs)} | {wilson(sum(caught(r) for r in rs), len(rs))} | {len(paid)} | "
+            f"{sum('mismatch' in thoughts(r).lower() for r in paid)} | {sum(r['looked'] for r in rs)} |"
+        )
+    print()
+
     print("## Table R8. Cost per receiver run\n")
     print("| Receiver | Median seconds | Median output tokens | Median turns |")
     print("|---|---|---|---|")
