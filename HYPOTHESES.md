@@ -275,3 +275,24 @@ the sweep reruns seeds 0 to 3 with every signal.
   probably finish fewer seeds as a receiver; the report gives the n reached. No hypothesis,
   definition, prompt, signal, condition or analysis changed, and the two finished runs are
   kept.
+- 2026-11-14T10:57Z: qwen3.6's stream was stopped with no completed run, to leave the shared
+  GPU to the two faster models. It restarts if time allows; if it does not, qwen3.6 has no
+  Study 2 or Study 3 results and the report says so.
+- 2026-11-14T11:02Z, before any run of it with a signal shown: **a receiver from a frontier
+  model family, exploratory.** claude-haiku-5-5, reached through Anthropic's `claude`
+  command-line tool in print mode on the author's subscription (`harness/backends.py`). The
+  tool's own system prompt is replaced by the receiver prompt; no tools, user settings, hooks
+  or memory files are loaded. The tool still adds two short blocks of its own to every
+  request (the account's email address with a note to keep it private, and an environment
+  description: working directory, operating system, date and model name). It has no seed or
+  temperature control and may think before it answers. Each call returns one reply, and the
+  conversation so far is sent as one prompt. Plan: the same two prompts, three handoff
+  conditions and five signals as the other receivers, seeds 0 to 19 (600 runs), same
+  definitions and tables. Known before any signal run: on one *fault* handoff with no signal
+  it held under both prompts, and under the discretion prompt it checked the refunds table
+  without being told to (`results/pilot_claude_none_arm/`, two runs). Prediction: unlike the
+  local receivers, its catch rate with no signal is high under the discretion prompt, so
+  this is the receiver in which the drop predicted by H6 would show under discretion, if it
+  exists. The model comes from the same family as the AI coding agent that wrote this
+  harness. A GPT receiver through the Codex command-line tool was planned and not run: that
+  account is out of quota until after the deadline.

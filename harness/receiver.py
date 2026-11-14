@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 from . import workers
+from .backends import BACKENDS
 from .run import apply_arms, parse_seeds
 from .world import World, expected_net
 
@@ -71,7 +72,7 @@ def handoff_message(claim: list[list[int]], line: str) -> str:
     return "\n".join(parts)
 
 
-def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str) -> dict[str, Any]:
+def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str, backend: str = "ollama") -> dict[str, Any]:
     batch, truth = record["batch"], record["truth"]
     claim = truth["refunds_claimed"]
     if claim is None:
@@ -94,6 +95,7 @@ def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str) -> di
         seed=record["seed"] * 1000 + 300,
         stop_when=lambda: world.held is not None,
         lenient_args=True,
+        chat_fn=BACKENDS[backend],
     )
 
     calls = [t["reply"].get("tool") for t in w3["transcript"] if isinstance(t.get("reply"), dict)]
@@ -108,7 +110,7 @@ def run_one(record: dict[str, Any], receiver: str, signal: str, duty: str) -> di
     paid_all = set(payouts) == set(correct)
     return {
         "study": "receiver", "prompt_version": PROMPT_VERSION,
-        "receiver": receiver, "duty": duty, "handoff_model": record["model"],
+        "receiver": receiver, "backend": backend, "duty": duty, "handoff_model": record["model"],
         "condition": record["condition"], "seed": record["seed"], "signal": signal,
         "signal_line": line, "message": message,
         "state_correct": truth["state_correct"],
@@ -133,6 +135,7 @@ def main() -> None:
     ap.add_argument("--duties", default=",".join(DUTIES))
     ap.add_argument("--seeds", default="0-39")
     ap.add_argument("--out", default="runs/receiver")
+    ap.add_argument("--backend", default="ollama", choices=sorted(BACKENDS))
     args = ap.parse_args()
     src = Path(args.handoffs)
     for receiver in args.receivers.split(","):
@@ -151,7 +154,7 @@ def main() -> None:
                         path.parent.mkdir(parents=True, exist_ok=True)
                         t0 = time.time()
                         try:
-                            result = run_one(record, receiver, signal, duty)
+                            result = run_one(record, receiver, signal, duty, args.backend)
                         except Exception as exc:  # counted in the analysis, never dropped
                             result = {
                                 "study": "receiver", "receiver": receiver, "duty": duty,
