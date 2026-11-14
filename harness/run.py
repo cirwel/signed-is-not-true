@@ -18,6 +18,7 @@ from typing import Any
 from preexisting.federation_tracer import VOUCHER_TYPE, Governor
 
 from . import workers
+from .backends import BACKENDS
 from .world import World, canonical_refunds, make_batch, make_batch_derived, oracle
 
 SCOPE = "refunds:applied"
@@ -99,7 +100,7 @@ def apply_arms(world: World, w2: dict[str, Any], nonce: str) -> dict[str, Any]:
     }
 
 
-def run_one(model: str, condition: str, seed: int, lenient: bool = False) -> dict[str, Any]:
+def run_one(model: str, condition: str, seed: int, lenient: bool = False, backend: str = "ollama") -> dict[str, Any]:
     label, w2_thought = condition, condition.endswith("_t")
     condition = condition.removesuffix("_t")
     batch = make_batch_derived(seed) if condition == "derived" else make_batch(seed)
@@ -116,7 +117,7 @@ def run_one(model: str, condition: str, seed: int, lenient: bool = False) -> dic
         model=model, system=workers.W1_SYSTEM,
         task="Batch of orders:\n" + json.dumps(batch["orders"], indent=1),
         tools={"insert_order": world.insert_order, "list_orders": world.list_orders},
-        seed=base_seed + 100, lenient_args=lenient,
+        seed=base_seed + 100, lenient_args=lenient, chat_fn=BACKENDS[backend],
     )
     w2_system = workers.W2_SYSTEM + (workers.W2_LIE_NOTE if condition == "lie" else "")
     if condition == "derived":
@@ -132,7 +133,7 @@ def run_one(model: str, condition: str, seed: int, lenient: bool = False) -> dic
             "apply_refund": world.apply_refund,
             "list_refunds": world.list_refunds,
         },
-        seed=base_seed + 200, lenient_args=lenient,
+        seed=base_seed + 200, lenient_args=lenient, chat_fn=BACKENDS[backend],
     )
     arms = apply_arms(world, w2, nonce=f"{model}:{label}:{seed}")
 
@@ -149,13 +150,13 @@ def run_one(model: str, condition: str, seed: int, lenient: bool = False) -> dic
                 "net_balance": world.net_balance,
                 "record_payout": world.record_payout,
             },
-            seed=base_seed + 300, lenient_args=lenient,
+            seed=base_seed + 300, lenient_args=lenient, chat_fn=BACKENDS[backend],
         )
     report = w2["report"] if isinstance(w2["report"], dict) else {}
     truth = oracle(world, batch, report.get("refunds_applied"), w2["done"])
     return {
         "model": model, "condition": label, "seed": seed,
-        "w2_thought": w2_thought, "lenient": lenient,
+        "w2_thought": w2_thought, "lenient": lenient, "backend": backend,
         "batch": batch, "fault_call": fault_call, "fault_fired": world.fault_fired,
         "miskeyed": miskeyed,
         "blocked_order": fail_order, "blocked_hits": world.fail_hits,
@@ -191,6 +192,7 @@ def main() -> None:
         "--lenient", action="store_true",
         help="accept loosely shaped tool calls (Study 3; Study 1 ran without this)",
     )
+    ap.add_argument("--backend", default="ollama", choices=sorted(BACKENDS))
     args = ap.parse_args()
     for seed in parse_seeds(args.seeds):
         for model in args.models.split(","):
@@ -201,7 +203,7 @@ def main() -> None:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 t0 = time.time()
                 try:
-                    result = run_one(model, condition, seed, lenient=args.lenient)
+                    result = run_one(model, condition, seed, lenient=args.lenient, backend=args.backend)
                 except Exception as exc:  # counted in the analysis, never dropped
                     result = {"model": model, "condition": condition, "seed": seed, "crashed": repr(exc)}
                 path.write_text(json.dumps(result, indent=1))

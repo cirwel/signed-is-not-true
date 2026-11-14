@@ -278,7 +278,7 @@ the sweep reruns seeds 0 to 3 with every signal.
 - 2026-11-14T10:57Z: qwen3.6's stream was stopped with no completed run, to leave the shared
   GPU to the two faster models. It restarts if time allows; if it does not, qwen3.6 has no
   Study 2 or Study 3 results and the report says so.
-- 2026-11-14T11:02Z, before any run of it with a signal shown: **a receiver from a frontier
+- 2026-11-14T10:59Z, before any run of it with a signal shown: **a receiver from a frontier
   model family, exploratory.** claude-haiku-5-5, reached through Anthropic's `claude`
   command-line tool in print mode on the author's subscription (`harness/backends.py`). The
   tool's own system prompt is replaced by the receiver prompt; no tools, user settings, hooks
@@ -296,3 +296,13 @@ the sweep reruns seeds 0 to 3 with every signal.
   exists. The model comes from the same family as the AI coding agent that wrote this
   harness. A GPT receiver through the Codex command-line tool was planned and not run: that
   account is out of quota until after the deadline.
+- 2026-11-14T19:08Z: qwen3.6's stream restarted on its own once gemma4's had finished, with
+  its Study 2 runs first (`scripts/sweep_qwen.sh`: receiver seeds 0 to 9, then Study 3 base
+  conditions, then more seeds).
+- 2026-11-14T19:12Z, before any such run: **claude-haiku-5-5 as the worker in Study 3,
+  exploratory.** All three workers (W1, W2, W3) are that model through the same command-line
+  backend as its receiver runs. Conditions *honest*, *blocked* and *derived*, seeds 0 to 19,
+  loosely shaped tool calls accepted. Nothing was known about its behaviour as a worker when
+  this was written. Reason: nemotron3's Study 3 runs turned out to be dominated by format
+  failures (misspelled field names in its tool calls and reports, turn limits), which left
+  gemma4 as the only clean worker.
