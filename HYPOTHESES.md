@@ -356,7 +356,7 @@ the sweep reruns seeds 0 to 3 with every signal.
   run of these models on any handoff existed; one call per model had been made to learn which
   request parameters each accepts. Runs that fail because the API could not be reached, or
   kept answering with a rate limit or a server error, fall under the rerun rule above.
-- 2026-11-14T21:20Z: **how Study 3 is tabulated, after an independent code review.** A second
+- 2026-11-14T21:12Z: **how Study 3 is tabulated, after an independent code review.** A second
   model instance read the harness and recomputed six runs by hand. It found no leak of ground
   truth into any prompt, no error in the pairing, the McNemar test or the Holm adjustment,
   and no fault in the replay. It did find four things about counting, fixed as follows with
@@ -371,3 +371,9 @@ the sweep reruns seeds 0 to 3 with every signal.
   and how many runs a server error ended (R10), and claims of completion with no work behind
   them, for W1 as well as W2 (O7). O7 was added after seeing gpt-6-luna report "done" on its
   first turn in a few early runs. Study 1's tables are untouched.
+- 2026-11-14T21:16Z, before any such run: the three exploratory badge wordings ("Verified",
+  "✔ Signature valid", "✔ Sender verified") are also run for gpt-6-luna and gpt-5.4-nano,
+  under both prompts, seeds 0 to 39. Reason: in the first minutes of its sweep gpt-6-luna
+  looked like the one receiver whose catch rate under the discretion prompt is neither near
+  zero nor near one, which is where a wording could move it in either direction. Post hoc
+  and exploratory, like the same arms for nemotron3.
