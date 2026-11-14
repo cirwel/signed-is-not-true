@@ -104,7 +104,8 @@ def figure2(root: Path, out: Path) -> None:
 def figure3(root: Path, out: Path) -> None:
     groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for r in load(root):
-        if "crashed" not in r and r["arms"]["handoff"]:
+        # handoffs where W1 had imported the orders correctly: see analyze_organic.clean
+        if "crashed" not in r and r["arms"]["handoff"] and r["truth"]["orders_correct"]:
             groups[(r["model"], r["condition"])].append(r)
     wanted = ("blocked", "blocked_t", "derived", "derived_t")
     models = ordered({m for m, c in groups if c in wanted})

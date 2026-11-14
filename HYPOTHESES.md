@@ -341,7 +341,7 @@ the sweep reruns seeds 0 to 3 with every signal.
   before the runs: does a receiver that is shown the note hold, and does a true MATCH line or
   a badge make it less likely to? No prediction is locked. These runs were designed after
   seeing Study 3's results.
-- 2026-11-14T21:20Z, before any such run: **three receivers and workers through the OpenAI
+- 2026-11-14T21:07Z, before any such run: **three receivers and workers through the OpenAI
   API, exploratory.** gpt-6.1-sol, gpt-6-luna and gpt-5.4-nano, called through the Chat
   Completions API in JSON mode with exactly the messages the local models get
   (`harness/backends.py`, `--backend openai`). gpt-5.4-nano takes temperature 0.7 and a seed,
@@ -356,3 +356,18 @@ the sweep reruns seeds 0 to 3 with every signal.
   run of these models on any handoff existed; one call per model had been made to learn which
   request parameters each accepts. Runs that fail because the API could not be reached, or
   kept answering with a rate limit or a server error, fall under the rerun rule above.
+- 2026-11-14T21:20Z: **how Study 3 is tabulated, after an independent code review.** A second
+  model instance read the harness and recomputed six runs by hand. It found no leak of ground
+  truth into any prompt, no error in the pairing, the McNemar test or the Holm adjustment,
+  and no fault in the replay. It did find four things about counting, fixed as follows with
+  no change to any run. (a) W2's behaviour is now counted on handoffs where W1 had imported
+  the orders correctly, and handoffs W1 had already broken are shown in a column of their
+  own. By the first lock's wording those were false dones, but the cause was upstream of W2.
+  When the change was made this affected nemotron3 only (61 of its 126 handoffs). (b) Wrong
+  payouts in Study 3 are counted by the Study 2 rule, at least one committed payout that
+  differs from the correct amount, so a W3 that did not finish is not scored as paying
+  wrongly. (c) Figure 1 uses the same three-way split as the tables and leaves unusable
+  reports out. (d) Two descriptive tables were added: what the receivers' holds were about
+  and how many runs a server error ended (R10), and claims of completion with no work behind
+  them, for W1 as well as W2 (O7). O7 was added after seeing gpt-6-luna report "done" on its
+  first turn in a few early runs. Study 1's tables are untouched.

@@ -1,7 +1,7 @@
 """Figure 1: the three links between who signed, what was claimed, what was done and what was meant,
 with the check that tests each link and what it caught in these runs.
 
-    python3 -m harness.figure_chain runs/full runs/organic results/figure_chain.png
+    python3 -m harness.figure_chain runs/full runs/organic results/figure1.png
 """
 
 from __future__ import annotations
@@ -21,15 +21,23 @@ GREEN, RED, GREY, INK = "#2b8a3e", "#b91c1c", "#6b7280", "#111827"
 
 
 def counts(planted: Path, organic: Path) -> dict[str, tuple[int, int]]:
-    """(caught by C, total) for false dones on each side of the claim/state link."""
+    """(caught by C, total) for false dones on each side of the claim/state link.
+
+    Same partition as the tables: a misreport is a usable report that differs from the table,
+    a faithful report equals it. Reports that are not in the agreed form are left out of both
+    (C rejects them whatever the state), as are handoffs W1 had already broken.
+    """
     out = {"planted_misreport": [0, 0], "planted_faithful": [0, 0], "organic_misreport": [0, 0], "organic_faithful": [0, 0]}
     for root, prefix in ((planted, "planted"), (organic, "organic")):
         if not root.exists():
             continue
         for r in load(root):
-            if "crashed" in r or not r["arms"]["handoff"] or not r["truth"]["false_done"]:
+            t = r.get("truth") or {}
+            if "crashed" in r or not r["arms"]["handoff"] or not t["false_done"]:
                 continue
-            key = f"{prefix}_{'faithful' if r['truth']['claim_matches_state'] else 'misreport'}"
+            if not t["orders_correct"] or not t["claim_usable"]:
+                continue
+            key = f"{prefix}_{'faithful' if t['claim_matches_state'] else 'misreport'}"
             out[key][1] += 1
             out[key][0] += not r["arms"]["C"]
     return {k: (a, b) for k, (a, b) in out.items()}
@@ -38,12 +46,12 @@ def counts(planted: Path, organic: Path) -> dict[str, tuple[int, int]]:
 def main() -> None:
     planted = Path(sys.argv[1] if len(sys.argv) > 1 else "runs/full")
     organic = Path(sys.argv[2] if len(sys.argv) > 2 else "runs/organic")
-    out = Path(sys.argv[3] if len(sys.argv) > 3 else "results/figure_chain.png")
+    out = Path(sys.argv[3] if len(sys.argv) > 3 else "results/figure1.png")
     c = counts(planted, organic)
 
-    fig, ax = plt.subplots(figsize=(7.6, 2.9))
+    fig, ax = plt.subplots(figsize=(7.4, 2.45))
     ax.set_xlim(0, 10)
-    ax.set_ylim(0, 3.6)
+    ax.set_ylim(0.35, 3.4)
     ax.axis("off")
     boxes = [
         (0.95, "ISSUER", "who sent the report"),
@@ -82,7 +90,7 @@ def main() -> None:
                 linespacing=1.3)
     fig.tight_layout(pad=0.2)
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, dpi=220)
+    fig.savefig(out, dpi=300)
     print(out, c)
 
 
