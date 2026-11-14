@@ -264,4 +264,14 @@ the sweep reruns seeds 0 to 3 with every signal.
 
 ## Changes after the second lock
 
-None yet.
+- 2026-11-14T10:53Z, after two runs of the sweep and before any Study 2 run: scheduling only.
+  The first run took four times as long as in the pilot, because another job on the same
+  machine is using the same GPU and the same three models. The sweep was split into three
+  streams that run side by side, one per model (`scripts/sweep_studies_2_3.sh`), and inside
+  each stream the cells the hypotheses need come first: Study 2 and the two base conditions
+  of Study 3 before the reasoning-field variants. Seeds are still filled in blocks (0 to 19,
+  then 20 to 39; for qwen3.6 as a receiver 0 to 9, then 10 to 19, then 20 to 39), so each
+  model's cells stay level. qwen3.6 is about ten times slower than the other two and will
+  probably finish fewer seeds as a receiver; the report gives the n reached. No hypothesis,
+  definition, prompt, signal, condition or analysis changed, and the two finished runs are
+  kept.
