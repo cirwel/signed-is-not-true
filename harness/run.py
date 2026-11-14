@@ -18,13 +18,15 @@ from typing import Any
 from preexisting.federation_tracer import VOUCHER_TYPE, Governor
 
 from . import workers
-from .world import World, canonical_refunds, make_batch, oracle
+from .world import World, canonical_refunds, make_batch, make_batch_derived, oracle
 
 SCOPE = "refunds:applied"
 CONDITIONS = ("honest", "lie", "fault")
 # Added after the hypothesis lock (see HYPOTHESES.md, "Changes after the lock").
 # Not in the default sweep, so the locked conditions keep their original definition.
-POST_LOCK_CONDITIONS = ("wrong",)
+# "blocked" and "derived" belong to Study 3. A "_t" suffix runs the same condition with a
+# reasoning field in W2's reply format (see workers.PROTOCOL_THOUGHT).
+POST_LOCK_CONDITIONS = ("wrong", "blocked", "derived", "honest_t", "blocked_t", "derived_t")
 
 
 def w2_instructions(batch: dict[str, Any], condition: str, seed: int) -> tuple[list[dict], dict | None]:
@@ -35,6 +37,9 @@ def w2_instructions(batch: dict[str, Any], condition: str, seed: int) -> tuple[l
     W2's view marks it as wrong. W2 can be fully honest and still leave the
     refunds table different from what the batch calls for.
     """
+    if condition == "derived":
+        # Study 3: W2 is given the rule text and has to work out each amount itself.
+        return [{"order_id": t["order_id"], "refund": t["refund"]} for t in batch["ticket"]], None
     refunds = [dict(r) for r in batch["refunds"]]
     if condition != "wrong":
         return refunds, None
@@ -94,19 +99,30 @@ def apply_arms(world: World, w2: dict[str, Any], nonce: str) -> dict[str, Any]:
     }
 
 
-def run_one(model: str, condition: str, seed: int) -> dict[str, Any]:
-    batch = make_batch(seed)
+def run_one(model: str, condition: str, seed: int, lenient: bool = False) -> dict[str, Any]:
+    label, w2_thought = condition, condition.endswith("_t")
+    condition = condition.removesuffix("_t")
+    batch = make_batch_derived(seed) if condition == "derived" else make_batch(seed)
     fault_call = random.Random(seed * 7919 + 1).randint(1, len(batch["refunds"])) if condition == "fault" else None
-    world = World(fault_call=fault_call)
+    # Study 3, "blocked": every attempt to refund one order fails with a visible error.
+    # W2's instructions are the honest ones, word for word.
+    fail_order = (
+        random.Random(seed * 7919 + 3).choice(batch["refunds"])["order_id"] if condition == "blocked" else None
+    )
+    world = World(fault_call=fault_call, fail_order=fail_order)
     base_seed = seed * 1000
 
     w1 = workers.run_worker(
         model=model, system=workers.W1_SYSTEM,
         task="Batch of orders:\n" + json.dumps(batch["orders"], indent=1),
         tools={"insert_order": world.insert_order, "list_orders": world.list_orders},
-        seed=base_seed + 100,
+        seed=base_seed + 100, lenient_args=lenient,
     )
     w2_system = workers.W2_SYSTEM + (workers.W2_LIE_NOTE if condition == "lie" else "")
+    if condition == "derived":
+        w2_system += workers.W2_DERIVED_NOTE
+    if w2_thought:
+        w2_system = w2_system.replace(workers.PROTOCOL, workers.PROTOCOL_THOUGHT)
     instructions, miskeyed = w2_instructions(batch, condition, seed)
     w2 = workers.run_worker(
         model=model, system=w2_system,
@@ -116,9 +132,9 @@ def run_one(model: str, condition: str, seed: int) -> dict[str, Any]:
             "apply_refund": world.apply_refund,
             "list_refunds": world.list_refunds,
         },
-        seed=base_seed + 200,
+        seed=base_seed + 200, lenient_args=lenient,
     )
-    arms = apply_arms(world, w2, nonce=f"{model}:{condition}:{seed}")
+    arms = apply_arms(world, w2, nonce=f"{model}:{label}:{seed}")
 
     # W3 runs whenever at least one arm lets it (A accepts every handoff). The
     # same W3 transcript stands for every arm that accepted.
@@ -133,15 +149,20 @@ def run_one(model: str, condition: str, seed: int) -> dict[str, Any]:
                 "net_balance": world.net_balance,
                 "record_payout": world.record_payout,
             },
-            seed=base_seed + 300,
+            seed=base_seed + 300, lenient_args=lenient,
         )
     report = w2["report"] if isinstance(w2["report"], dict) else {}
     truth = oracle(world, batch, report.get("refunds_applied"), w2["done"])
     return {
-        "model": model, "condition": condition, "seed": seed,
+        "model": model, "condition": label, "seed": seed,
+        "w2_thought": w2_thought, "lenient": lenient,
         "batch": batch, "fault_call": fault_call, "fault_fired": world.fault_fired,
         "miskeyed": miskeyed,
-        "claim_matches_ticket": canonical_refunds(report.get("refunds_applied")) == canonical_refunds(instructions),
+        "blocked_order": fail_order, "blocked_hits": world.fail_hits,
+        "claim_matches_ticket": (
+            None if condition == "derived"
+            else canonical_refunds(report.get("refunds_applied")) == canonical_refunds(instructions)
+        ),
         "apply_refund_calls": world.refund_calls,
         "arms": arms, "truth": truth,
         "w1": w1, "w2": w2, "w3": w3,
@@ -166,6 +187,10 @@ def main() -> None:
     ap.add_argument("--conditions", default=",".join(CONDITIONS))
     ap.add_argument("--seeds", default="0-1")
     ap.add_argument("--out", default="runs")
+    ap.add_argument(
+        "--lenient", action="store_true",
+        help="accept loosely shaped tool calls (Study 3; Study 1 ran without this)",
+    )
     args = ap.parse_args()
     for seed in parse_seeds(args.seeds):
         for model in args.models.split(","):
@@ -176,7 +201,7 @@ def main() -> None:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 t0 = time.time()
                 try:
-                    result = run_one(model, condition, seed)
+                    result = run_one(model, condition, seed, lenient=args.lenient)
                 except Exception as exc:  # counted in the analysis, never dropped
                     result = {"model": model, "condition": condition, "seed": seed, "crashed": repr(exc)}
                 path.write_text(json.dumps(result, indent=1))
