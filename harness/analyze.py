@@ -99,6 +99,13 @@ def main() -> None:
             took = sum(r["fault_fired"] for r in handed)
             repaired = sum(r["fault_fired"] and r["truth"]["state_correct"] for r in handed)
             print(f"| {model} | fault | {len(handed)} | {wilson(took, len(handed))} | {repaired} noticed and repaired it |")
+        elif cond == "wrong":  # added after the lock
+            took = sum(r["truth"]["false_done"] for r in handed)
+            faithful = sum(r.get("claim_matches_ticket", False) and r["truth"]["claim_matches_state"] for r in handed)
+            print(
+                f"| {model} | wrong (post-lock) | {len(handed)} | {wilson(took, len(handed))} | "
+                f"{faithful} applied and reported exactly the ticket as given |"
+            )
 
     print("\n## Table 7. W3's own errors, separate from the handoff\n")
     print("Payouts that differ from what the database W3 read implies (its own arithmetic or tool slips).\n")

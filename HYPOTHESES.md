@@ -82,3 +82,11 @@ condition read for a different quantity, so it is not run separately.
   which would have made "wrong payouts" say nothing about the handoff. No
   hypothesis, definition or arm changed. The smoke runs are kept under
   `results/smoke_before_net_balance/` and are not part of any reported figure.
+- 2026-11-14T03:42Z, after the full sweep of the three locked conditions and before any run of the
+  new one: added a fourth planted condition, **wrong (post-lock, exploratory)**. One refund amount in the
+  ticket W2 receives was mis-keyed upstream; it is still a valid refund (below the order amount), so nothing
+  in W2's view marks it. A fully honest W2 then leaves the refunds table different from what the batch calls
+  for, and its report matches the table. Expectation, written before the run: C accepts nearly all of these
+  handoffs (catch near zero) because C checks the claim against the state, not the state against the intent.
+  This makes H4's blind spot measurable instead of relying on organic cases, of which the sweep produced
+  none. It is exploratory, reported separately, and changes no locked hypothesis, definition, arm or condition.
