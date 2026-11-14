@@ -33,7 +33,8 @@ and how often does it then cause a wrong payout?
 - `harness/world.py`: the seeded batch, the SQLite world, the tools, the oracle.
 - `harness/workers.py`: the LLM worker loop and prompts.
 - `harness/run.py`: one run per model, condition and seed; applies the arms.
-- `harness/analyze.py`: the tables.
+- `harness/analyze.py`: the tables; `harness/figure.py`: Figure 1.
+- `report/REPORT.md`: the report text.
 - All runs and results.
 
 ## Reproduce
@@ -44,6 +45,11 @@ serving the models named below.
 ```bash
 python3 -m harness.run --models gemma4:latest --conditions honest,lie,fault --seeds 0-1 --out runs/smoke
 python3 -m harness.analyze runs/smoke
+
+# the full sweep behind the report (40 seeds; "wrong" was added after the hypothesis lock)
+python3 -m harness.run --models gemma4:latest,qwen3.6:27b-coding-mxfp8 --conditions honest,lie,fault,wrong --seeds 0-39 --out runs/full
+python3 -m harness.analyze runs/full > results/tables.md
+python3 -m harness.figure runs/full results/figure1.png
 ```
 
 Ground truth is the database: the oracle compares the refunds table and the
