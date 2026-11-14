@@ -2,6 +2,8 @@
 
 Kenny Wang, Independent Researcher. With Apart Research.
 
+Code, run records and tables: https://github.com/cirwel/signed-is-not-true
+
 ## Abstract
 
 A digital signature proves who sent a claim, not that the claim is true. I measure that gap in a
