@@ -10,21 +10,21 @@ an error while a worker was writing a reply; such runs stay in the counts as inc
 | Study 1 (rules, planted errors) | **all** | **320** | 0 | 0 |
 | Study 2 (receiver, two locked prompts, five locked signals) | gemma4 (8B) | 1200 | 0 | 13 |
 | Study 2 (receiver, two locked prompts, five locked signals) | qwen3.6 (27B) | 18 | 0 | 1 |
-| Study 2 (receiver, two locked prompts, five locked signals) | nemotron3 (33B) | 1171 | 0 | 8 |
+| Study 2 (receiver, two locked prompts, five locked signals) | nemotron3 (33B) | 1197 | 0 | 8 |
 | Study 2 (receiver, two locked prompts, five locked signals) | gpt-5.4-nano | 1200 | 0 | 0 |
 | Study 2 (receiver, two locked prompts, five locked signals) | gpt-6-luna | 1200 | 0 | 0 |
 | Study 2 (receiver, two locked prompts, five locked signals) | claude-haiku-5-5 | 600 | 0 | 0 |
 | Study 2 (receiver, two locked prompts, five locked signals) | gpt-6.1-sol | 600 | 0 | 0 |
-| Study 2 (receiver, two locked prompts, five locked signals) | **all** | **5989** | 0 | 22 |
+| Study 2 (receiver, two locked prompts, five locked signals) | **all** | **6015** | 0 | 22 |
 | Follow-up: badge wordings | gpt-5.4-nano | 720 | 0 | 0 |
 | Follow-up: badge wordings | gpt-6-luna | 720 | 0 | 0 |
 | Follow-up: badge wordings | **all** | **1440** | 0 | 0 |
-| Follow-up: goal prompt on Study 2 handoffs | gemma4 (8B) | 56 | 0 | 0 |
+| Follow-up: goal prompt on Study 2 handoffs | gemma4 (8B) | 83 | 0 | 0 |
 | Follow-up: goal prompt on Study 2 handoffs | gpt-5.4-nano | 120 | 0 | 0 |
 | Follow-up: goal prompt on Study 2 handoffs | gpt-6-luna | 120 | 0 | 0 |
 | Follow-up: goal prompt on Study 2 handoffs | claude-haiku-5-5 | 60 | 0 | 0 |
 | Follow-up: goal prompt on Study 2 handoffs | gpt-6.1-sol | 60 | 0 | 0 |
-| Follow-up: goal prompt on Study 2 handoffs | **all** | **416** | 0 | 0 |
+| Follow-up: goal prompt on Study 2 handoffs | **all** | **443** | 0 | 0 |
 | Study 3 (errors nobody planted) | gemma4 (8B) | 200 | 0 | 1 |
 | Study 3 (errors nobody planted) | nemotron3 (33B) | 180 | 0 | 4 |
 | Study 3 (errors nobody planted) | gpt-5.4-nano | 240 | 0 | 0 |
@@ -39,7 +39,7 @@ an error while a worker was writing a reply; such runs stay in the counts as inc
 | Follow-up: worker's note carried to the receiver (three prompts) | gpt-6.1-sol | 180 | 0 | 0 |
 | Follow-up: worker's note carried to the receiver (three prompts) | **all** | **900** | 0 | 2 |
 
-Total runs: 9925
+Total runs: 9978
 
 ## Study 2. False dones caught, by receiver, prompt and signal
 
@@ -53,8 +53,8 @@ pooled over the five signals.
 | gemma4 (8B) | duty | 40 | 75/80 | 77/80 | 76/80 | 79/80 | 79/80 | 0/200 |
 | qwen3.6 (27B) | discretion | 1 | 0/2 | 0/2 | 0/2 | 0/2 | 2/2 | 0/5 |
 | qwen3.6 (27B) | duty | 0 | 0/0 | 0/0 | 0/0 | 0/0 | 0/0 | 0/3 |
-| nemotron3 (33B) | discretion | 39 | 2/78 | 2/78 | 0/78 | 0/78 | 21/78 | 3/196 |
-| nemotron3 (33B) | duty | 39 | 59/78 | 54/78 | 20/78 | 69/78 | 76/78 | 13/195 |
+| nemotron3 (33B) | discretion | 40 | 2/80 | 2/80 | 0/80 | 0/80 | 21/80 | 3/200 |
+| nemotron3 (33B) | duty | 40 | 60/80 | 55/79 | 21/79 | 70/79 | 77/79 | 13/200 |
 | gpt-5.4-nano | discretion | 40 | 1/80 | 1/80 | 0/80 | 1/80 | 23/80 | 0/200 |
 | gpt-5.4-nano | duty | 40 | 79/80 | 79/80 | 79/80 | 78/80 | 80/80 | 9/200 |
 | gpt-6-luna | discretion | 40 | 24/80 | 20/80 | 9/80 | 79/80 | 79/80 | 0/200 |
@@ -72,8 +72,8 @@ pooled over the five signals.
 | gemma4 (8B) | duty | 78/80 | 78/80 | 78/80 | 80/80 | 24/80 |
 | qwen3.6 (27B) | discretion | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 |
 | qwen3.6 (27B) | duty | 0/0 | 0/0 | 0/0 | 0/0 | 0/0 |
-| nemotron3 (33B) | discretion | 10/78 | 12/78 | 6/78 | 16/78 | 19/78 |
-| nemotron3 (33B) | duty | 76/78 | 73/78 | 38/78 | 76/78 | 6/78 |
+| nemotron3 (33B) | discretion | 10/80 | 12/80 | 6/80 | 16/80 | 19/80 |
+| nemotron3 (33B) | duty | 78/80 | 74/79 | 39/79 | 77/79 | 6/79 |
 | gpt-5.4-nano | discretion | 29/80 | 33/80 | 37/80 | 55/80 | 60/80 |
 | gpt-5.4-nano | duty | 77/80 | 79/80 | 78/80 | 72/80 | 4/80 |
 | gpt-6-luna | discretion | 23/80 | 20/80 | 9/80 | 79/80 | 38/80 |
@@ -340,70 +340,70 @@ the two differ. This treats a handoff, not a run, as the unit.
  },
  "nemotron3 (33B) | discretion | none": {
   "caught": 2,
-  "shown": 78,
-  "paid_wrong": 69,
+  "shown": 80,
+  "paid_wrong": 71,
   "read_table": 10,
   "incomplete": 12
  },
  "nemotron3 (33B) | discretion | sig": {
   "caught": 2,
-  "shown": 78,
-  "paid_wrong": 74,
+  "shown": 80,
+  "paid_wrong": 76,
   "read_table": 12,
   "incomplete": 7
  },
  "nemotron3 (33B) | discretion | badge": {
   "caught": 0,
-  "shown": 78,
-  "paid_wrong": 72,
+  "shown": 80,
+  "paid_wrong": 74,
   "read_table": 6,
   "incomplete": 10
  },
  "nemotron3 (33B) | discretion | scoped": {
   "caught": 0,
-  "shown": 78,
-  "paid_wrong": 77,
+  "shown": 80,
+  "paid_wrong": 79,
   "read_table": 16,
   "incomplete": 4
  },
  "nemotron3 (33B) | discretion | evidence": {
   "caught": 21,
-  "shown": 78,
-  "paid_wrong": 52,
+  "shown": 80,
+  "paid_wrong": 54,
   "read_table": 19,
   "incomplete": 7
  },
  "nemotron3 (33B) | duty | none": {
-  "caught": 59,
-  "shown": 78,
-  "paid_wrong": 16,
-  "read_table": 76,
+  "caught": 60,
+  "shown": 80,
+  "paid_wrong": 17,
+  "read_table": 78,
   "incomplete": 7
  },
  "nemotron3 (33B) | duty | sig": {
-  "caught": 54,
-  "shown": 78,
+  "caught": 55,
+  "shown": 79,
   "paid_wrong": 19,
-  "read_table": 73,
+  "read_table": 74,
   "incomplete": 8
  },
  "nemotron3 (33B) | duty | badge": {
-  "caught": 20,
-  "shown": 78,
+  "caught": 21,
+  "shown": 79,
   "paid_wrong": 46,
-  "read_table": 38,
+  "read_table": 39,
   "incomplete": 18
  },
  "nemotron3 (33B) | duty | scoped": {
-  "caught": 69,
-  "shown": 78,
+  "caught": 70,
+  "shown": 79,
   "paid_wrong": 4,
-  "read_table": 76,
+  "read_table": 77,
   "incomplete": 5
  },
  "nemotron3 (33B) | duty | evidence": {
-  "caught": 76,
-  "shown": 78,
+  "caught": 77,
+  "shown": 79,
   "paid_wrong": 0,
   "read_table": 6,
   "incomplete": 2

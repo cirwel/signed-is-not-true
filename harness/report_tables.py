@@ -11,6 +11,7 @@ checked against `results/paper_tables.md` and the two full table files.
 
 from __future__ import annotations
 
+import math
 import re
 import sys
 from collections import defaultdict
@@ -146,7 +147,8 @@ def e1(d: Data) -> list[str]:
 
 
 def e2_few(d: Data) -> list[str]:
-    return study2_rows(d, d.few, ar.caught, honest=True) if d.few else ["(every receiver reached at least 10 seeds)"]
+    """Every cell of Study 2, for every receiver that ran."""
+    return study2_rows(d, d.main + d.few, ar.caught, honest=True)
 
 
 def e2_read(d: Data) -> list[str]:
@@ -249,6 +251,87 @@ def e7(d: Data) -> list[str]:
     return lines
 
 
+def locked_receivers(d: Data) -> list[str]:
+    return sorted({r["receiver"] for r in d.receiver if r.get("backend", "ollama") == "ollama"})
+
+
+def holm_primary(d: Data) -> tuple[list[tuple[int, int, int, int, int]], list[float], list[float]]:
+    """The three primary tests of the second lock: counts, p values, Holm-adjusted p values."""
+    tests = [paired(d, locked_receivers(d), duty, x, y) for duty, x, y in ar.PRIMARY]
+    ps = [ar.mcnemar(t[3], t[4]) for t in tests]
+    order = sorted(range(3), key=lambda i: ps[i])
+    holm, running = [0.0] * 3, 0.0
+    for rank, i in enumerate(order):
+        running = max(running, min(1.0, (3 - rank) * ps[i]))
+        holm[i] = running
+    return tests, ps, holm
+
+
+def contrasts(d: Data) -> list[str]:
+    """Table 1: the paired contrasts the prose of Section 4.2 rests on."""
+    G, N, NANO, LUNA = "gemma4:latest", "nemotron3:33b", "gpt-5.4-nano", "gpt-6-luna"
+    locked = locked_receivers(d)
+    _, _, holm = holm_primary(d)
+    rows = [
+        ("no signal → signature line", "locked receivers, duty", "pre-registered", (locked, "duty", "none", "sig"), holm[0]),
+        ("no signal → ✔ Verified", "locked receivers, duty", "pre-registered", (locked, "duty", "none", "badge"), holm[1]),
+        ("", "nemotron3, duty", "part of the row above", ([N], "duty", "none", "badge"), None),
+        ("", "gpt-6-luna, discretion", "exploratory", ([LUNA], "discretion", "none", "badge"), None),
+        ("signature line → signature + scope note", "locked receivers, discretion", "pre-registered", (locked, "discretion", "sig", "scoped"), holm[2]),
+        ("", "nemotron3, duty", "exploratory", ([N], "duty", "sig", "scoped"), None),
+        ("", "gpt-6-luna, discretion", "exploratory", ([LUNA], "discretion", "sig", "scoped"), None),
+        ("no signal → evidence result (MISMATCH)", "gemma4, discretion", "descriptive (H8)", ([G], "discretion", "none", "evidence"), None),
+        ("", "nemotron3, discretion", "descriptive (H8)", ([N], "discretion", "none", "evidence"), None),
+        ("", "gpt-5.4-nano, discretion", "exploratory", ([NANO], "discretion", "none", "evidence"), None),
+    ]
+    lines = ["| Signal shown: first → second | Receivers, prompt | Status | Caught, first | Caught, second | Only first / only second | p |",
+             "|---|---|---|---|---|---|---|"]
+    for label, who, status, (recs, duty, a, b_), adj in rows:
+        n, k1, k2, b, c = paired(d, recs, duty, a, b_)
+        p_text = pfmt(ar.mcnemar(b, c)) + (f" (Holm {pfmt(adj)})" if adj is not None else "")
+        lines.append(f"| {label} | {who} | {status} | {k1}/{n} | {k2}/{n} | {b} / {c} | {p_text} |")
+    return lines
+
+
+def summary(d: Data) -> list[str]:
+    """Table 2: the kinds of false done against the safeguards, with two named receivers."""
+    G, LUNA = "gemma4:latest", "gpt-6-luna"
+
+    def rate(rs: list[dict], value=ar.caught) -> str:
+        return f"{round(100 * sum(bool(value(r)) for r in rs) / len(rs))}%" if len(rs) >= 20 else "–"
+
+    def study2(m: str) -> str:
+        return " / ".join(rate(d.false_dones(m, duty, "none")) for duty in PROMPTS)
+
+    def note(m: str) -> str:
+        return " / ".join(rate([r for s in ("none", "badge", "evidence") for r in d.ncells.get((m, duty, s), [])]) for duty in PROMPTS)
+
+    planted = [r for r in d.study1 if r["condition"] in ("lie", "fault") and r["arms"]["handoff"]]
+    wrong = [r for r in d.study1 if r["condition"] == "wrong" and r["arms"]["handoff"]]
+    mis, disclosed, quiet = [], [], []
+    for (model, cond), _ in d.groups.items():
+        for r in d.clean(model, cond):
+            t = r["truth"]
+            if not t["false_done"] or not t["claim_usable"]:
+                continue
+            if not t["claim_matches_state"]:
+                mis.append(r)
+            elif cond.removesuffix("_t") == "blocked" and mentions(r):
+                disclosed.append(r)
+            else:
+                quiet.append(r)
+
+    def rule(rs: list[dict], arm: str) -> str:
+        return rate(rs, lambda r: not r["arms"][arm])
+
+    lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | gemma4: left to decide / told which check / told the goal | gpt-6-luna: left to decide / told which check / told the goal |',
+             "|---|---|---|---|---|"]
+    lines.append(f"| differs from the table ({len(planted)} planted, {len(mis)} unplanted) | {rule(planted + mis, 'B')} | {rule(planted + mis, 'C')} | {study2(G)} | {study2(LUNA)} |")
+    lines.append(f"| is true and discloses the failure ({len(disclosed)}) | {rule(disclosed, 'B')} | {rule(disclosed, 'C')} | {note(G)} | {note(LUNA)} |")
+    lines.append(f"| is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted) | {rule(quiet + wrong, 'B')} | {rule(quiet + wrong, 'C')} | not run: nothing in the handoff to check against | not run |")
+    return lines
+
+
 def coverage(d: Data) -> list[str]:
     """Table 2: percentage of false dones stopped, by kind of failure and safeguard."""
     def rate(rs: list[dict], value) -> str:
@@ -298,8 +381,8 @@ def coverage(d: Data) -> list[str]:
 
 
 TABLES = {
-    "coverage": coverage,
-    "table1": table1, "table2": table2, "e1": e1, "e2_few": e2_few, "e2_read": e2_read, "e3": e3,
+    "contrasts": contrasts, "summary": summary, "coverage": coverage,
+    "table2": table2, "e1": e1, "e2_few": e2_few, "e2_read": e2_read, "e3": e3,
     "e4": e4, "e5": e5, "e6": e6, "e7": e7,
 }
 
@@ -391,6 +474,13 @@ def values(d: Data) -> dict[str, str]:
     v["nem_duty_wrong_none_to_badge"] = f"{k1} to {k2}"
     n, k1, k2, b, c = paired(d, [N], "duty", "none", "badge", lambda r: not ar.caught(r) and not r["wrong_payout"])
     v["nem_duty_unfinished_none"], v["nem_duty_unfinished_badge"], v["nem_duty_pairs"] = str(k1), str(k2), str(n)
+    for sig, tag in (("none", "none"), ("badge", "badge")):
+        rs = cell(N, "duty", sig)
+        v[f"nem_duty_{tag}_n"] = str(len(rs))
+        v[f"nem_duty_{tag}_held"] = str(sum(ar.caught(r) for r in rs))
+        v[f"nem_duty_{tag}_wrong"] = str(sum(r["wrong_payout"] for r in rs))
+        v[f"nem_duty_{tag}_unfinished"] = str(sum(not ar.caught(r) and not r["wrong_payout"] for r in rs))
+        v[f"nem_duty_{tag}_read"] = str(sum(r["looked"] for r in rs))
     n, k1, k2, b, c = paired(d, [N], "duty", "sig", "scoped")
     v["nem_duty_sig"], v["nem_duty_scoped"], v["nem_sig_scoped_p"] = of(k1, n), of(k2, n), pfmt(ar.mcnemar(b, c))
     rs = cell(N, "discretion", "evidence")
@@ -423,16 +513,16 @@ def values(d: Data) -> dict[str, str]:
     duty = [(sum(ar.caught(r) for r in cell(m, "duty", "none")), len(cell(m, "duty", "none"))) for m in low]
     v["disc_low_range"] = f"{min(round(100 * k / n) for k, n in disc)}% to {max(round(100 * k / n) for k, n in disc)}%"
     v["duty_low_range"] = f"{min(round(100 * k / n) for k, n in duty)}% to {max(round(100 * k / n) for k, n in duty)}%"
-    v["duty_low_min_pct"] = f"{min(round(100 * k / n) for k, n in duty)}%"
+    v["duty_low_min_pct"] = f"{min(math.floor(100 * k / n) for k, n in duty)}%"   # "N% or more"
     rates = []
     for m in low:
         rs = cell(m, "discretion", "evidence")
         rates.append(round(100 * sum(r["wrong_payout"] for r in rs) / len(rs)))
     v["mismatch_paid_range"] = f"{min(rates)}% to {max(rates)}%"
     every = [m for m in d.main]
-    v["duty_evidence_min_pct"] = f"{min(round(100 * sum(ar.caught(r) for r in cell(m, 'duty', 'evidence')) / len(cell(m, 'duty', 'evidence'))) for m in every)}%"
+    v["duty_evidence_min_pct"] = f"{min(math.floor(100 * sum(ar.caught(r) for r in cell(m, 'duty', 'evidence')) / len(cell(m, 'duty', 'evidence'))) for m in every)}%"
     rs = cell(N, "discretion", "none")
-    v["nem_disc_none_pct"] = pct(sum(ar.caught(r) for r in rs), len(rs))
+    v["nem_disc_none_pct"] = f"{math.ceil(100 * sum(ar.caught(r) for r in rs) / len(rs))}%"   # "N% or less"
     worst = 0.0
     for m in locked:
         for dty in ("discretion", "duty"):

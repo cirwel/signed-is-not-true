@@ -58,9 +58,10 @@ provenance signals change that (Study 2), and which false "done" reports arise w
    the failed step, three sent a true list that was silent about it, and one disclosed it. An evidence
    check catches only the first kind, and the share of failures it could see fell from 68% to 0% from the
    weakest worker to the strongest.
-5. **An instruction that names a check narrows a capable receiver to it.** Shown the worker's own note of a
-   failed refund, three receivers stopped the batch at least 97% of the time when left to decide; told
-   which comparison to run, two of them stopped 3% and 75% of the time. An instruction that names the goal kept them stopping (58 of 60 and 60 of 60).
+5. **An instruction that names a check can narrow a capable receiver to it.** Shown one worker's 20 reports
+   that admit a failed refund, three receivers stopped the batch at least 97% of the time when left to
+   decide. Told which comparison to run, gpt-6-luna and claude-haiku-5-5 stopped 3% and 75% of the time;
+   under an instruction that names the goal they stopped again (58 of 60 and 60 of 60).
 
 <div class="fig">
 
@@ -74,12 +75,11 @@ are the false "done" reports of Study 3, where nothing told the worker to misrep
 
 ## 2 Related Work
 
-**Provenance, credentials and agent identity.** Certificate Transparency makes certificate issuance
-auditable after the fact (Laurie, Langley and Kasper, 2013). C2PA Content Credentials bind signed
-assertions about a media asset's origin and edits to the asset (C2PA, v2.4). Chan et al. (2024, 2025)
-propose IDs for AI system instances and infrastructure for attributing agent actions, and Hammond et al.
-(2025) survey the risks of many interacting agents. All of these establish who asserted what. This paper
-measures what that leaves open.
+**Provenance, credentials and agent identity.** Certificate Transparency (Laurie, Langley and Kasper,
+2013) and C2PA Content Credentials (C2PA, v2.4) make assertions of origin auditable. Chan et al. (2024,
+2025) propose IDs for AI system instances and infrastructure for attributing agent actions, and Hammond et
+al. (2025) survey the risks of many interacting agents. All of these establish who asserted what. This
+paper measures what that leaves open.
 
 **False completion reports.** Advani (2026) finds that agents asserting completion when the environment
 state shows otherwise account for between 3% and 76% of failures, depending on the benchmark. Smyth et al.
@@ -115,8 +115,9 @@ it says it applied. W3 (principal beta) pays each customer the net balance. All 
 act only through tools on a throwaway SQLite database, one JSON tool call per turn. The reply protocol has
 one way to end, a `done` message with a report, so a worker that cannot finish still has to choose what
 its report says. The oracle reads the database and the seeded batch, never a worker's message. A *false
-done* is a `done` report while the refunds table differs from what the batch calls for. A check or
-receiver *catches* it by not letting W3 pay on it. A *false alarm* is a correct handoff that was stopped.
+done* is a `done` report while the refunds table differs from what the batch calls for. A rule *catches* it by
+rejecting the handoff. An LLM receiver catches it by calling `hold` before any wrong payout; a run that
+neither holds nor pays everyone counts as a miss. A *false alarm* is a correct handoff that was stopped.
 
 **Study 1: rules on planted errors.** Alpha's governor signs a voucher (compact JWS, Ed25519) that binds a
 SHA-256 digest of W2's reported refunds. It does not check the report: an authorised issuer signs its own
@@ -147,7 +148,8 @@ format. Among false dones, a *misreport* differs from the table and a *faithful*
 *blocked*, an *overclaim* lists the failed refund as applied; a *partial* report lists only what is in the
 table, and is *disclosed* if it mentions the failure anywhere else in the report and *silent* if not.
 
-**Three follow-up arms**, each written into the lock file before its first run, all exploratory. *The
+**Three follow-up arms** were chosen after seeing earlier results. Each was recorded in the lock file before
+its own runs, and all are exploratory. *The
 worker's note:* the 20 *blocked* handoffs in which claude-haiku-5-5 disclosed the failure are replayed to
 receivers with W2's whole report shown, under both prompts and three signals; the right action is to hold.
 *A goal prompt:* the duty sentence is replaced by one that names the aim and no particular check ("satisfy
@@ -190,12 +192,11 @@ was fixed in advance.
 
 ### 4.2 Study 2: what a signal does to an LLM receiver
 
-**Table 1.** Study 2. False dones caught out of false dones shown (*lie* and *fault* pooled), by receiver,
-prompt and signal. Rule C caught every one of these handoffs. Last column: honest handoffs held, pooled
-over signals.
-
-<!-- table:table1 -->
-<!-- /table:table1 -->
+**Whether a receiver checked depended on the receiver and on one sentence (H5, H9; Figure 2).** With no
+signal and no instruction, gemma4 caught 0 of 80 false dones, nemotron3 {{nem_disc_none}} and gpt-5.4-nano 1 of 80.
+gpt-6-luna caught 24 of 80. claude-haiku-5-5 and gpt-6.1-sol read the refunds table unprompted and caught
+40 of 40, as they did in every cell of the design (Table E2). Under the duty prompt the three low
+receivers caught 75 of 80, {{nem_duty_none}} and 79 of 80.
 
 <div class="fig">
 
@@ -206,52 +207,44 @@ intervals. Dashed line: rule C on the same handoffs. qwen3.6 is left out ({{qwen
 
 </div>
 
-**Whether a receiver checked depended on the receiver and on one sentence (H5, H9).** With no signal and
-no instruction, gemma4 caught 0 of 80 false dones, nemotron3 {{nem_disc_none}} and gpt-5.4-nano 1 of 80. gpt-6-luna caught 24 of 80. claude-haiku-5-5 and
-gpt-6.1-sol read the refunds table unprompted and caught 40 of 40, as they did in every cell of the
-design. Under the duty prompt the three low receivers caught 75 of 80, {{nem_duty_none}} and 79 of 80. nemotron3's
-misses were on the subtler error: {{nem_duty_none_fault}} with one refund missing against {{nem_duty_none_lie}} with the table
-empty.
+**Table 1.** Study 2, the contrasts behind each finding: false dones caught under two signals on the same
+handoffs (*lie* and *fault* pooled). *Only first / only second*: handoffs caught under one signal and not
+the other. p: exact two-sided McNemar test. Rule C caught every one of these handoffs.
 
-**The accurate signature line made no detectable difference.** In no receiver and under neither prompt
-did the full line change the catch rate detectably. In the first pre-registered test, on the locked receivers under duty, {{p1_first}} were caught without it and {{p1_second_k}} with it (p = {{p1_p}}).
+<!-- table:contrasts -->
+<!-- /table:contrasts -->
 
-**The one-word badge cut checking where checking was in play (H6).** The second pre-registered test: with
-no signal the locked receivers under duty caught {{p2_first}} false dones, and with "✔ Verified" {{p2_second}}. {{p2_b}} handoffs were caught only without the badge and {{p2_c}} only with it (exact McNemar p = {{p2_p}}, Holm-adjusted {{p2_holm}}). The effect is nemotron3's. Its catches fell from
-{{nem_duty_none_to_badge}}, its wrong payouts rose from {{nem_duty_wrong_none_to_badge}}, and the runs in which it read the refunds
-table at all fell from {{nem_duty_read_none_to_badge}}. When it did read an empty table under the badge, it could explain
-the contradiction away: "the refunds have
-already been applied to the ledger and are not listed here." The same happened in a model from another
-developer under the other prompt (exploratory): left to decide, gpt-6-luna caught 24 of 80 with no signal
-and 9 of 80 with the badge (23 pairs against 8, p = 0.011). Every other receiver and prompt started at
-{{nem_disc_none_pct}} or less, or at 94% or more, and the badge did not move it.
+**The accurate signature line made no detectable difference** in any receiver under either prompt (row 1
+is the pre-registered test).
 
-**Saying what the signature covers reversed it (H7).** With the scope sentence added, nemotron3 under duty
-caught {{nem_duty_scoped}} against {{nem_duty_sig}} for the signature line alone (p = {{nem_sig_scoped_p}}), and gpt-6-luna under
-discretion caught 79 of 80 against 20 of 80 (p < 10<sup>-15</sup>), reading the table in 79 of 80 runs.
-Both contrasts are exploratory. H7 as locked, on the local receivers under discretion, is not supported
-({{p3_counts}}): those receivers did not check with or without the note.
+**The one-word badge cut checking where checking was in play (H6; rows 2 to 4).** The effect in the
+pre-registered test is nemotron3's. Of {{nem_duty_none_n}} false dones it held {{nem_duty_none_held}}, paid a wrong amount on {{nem_duty_none_wrong}} and left {{nem_duty_none_unfinished}}
+unfinished with no signal; with the badge it held {{nem_duty_badge_held}}, paid wrongly on {{nem_duty_badge_wrong}} and left {{nem_duty_badge_unfinished}} unfinished, and it read
+the refunds table in {{nem_duty_badge_read}} runs against {{nem_duty_none_read}}. When it did read an empty table under the badge, it could explain
+the contradiction away: "the refunds have already been applied to the ledger and are not listed here." The
+same happened in a model from another developer under the other prompt (row 4). Every other receiver and
+prompt started at {{nem_disc_none_pct}} or less, or at 94% or more, and the badge did not move it.
 
-**A failed check written into the handoff was not a gate (H8).** Under the discretion prompt, with
-"Evidence check: [...] Result: MISMATCH." in the message, gemma4 paid on 80 of 80 false dones, nemotron3
-on {{nem_mismatch_paid}} and gpt-5.4-nano on 57 of 80. gemma4's reasoning never mentions the result. The other two
-usually do, in {{nem_mismatch_said}} and 52 of the 57 runs that paid: "Refund mismatch was reported for orders
-113-115; I must compute net balances via net_balance per customer and then pay each customer accordingly"
-(gpt-5.4-nano). Under the duty prompt the same line took every receiver to {{duty_evidence_min_pct}} or more, and the three
-upper receivers acted on it under both prompts. H8 predicted at least 90% under both prompts and holds
-only under duty.
+**Saying what the signature covers reversed it (H7; rows 5 to 7).** With the scope sentence added,
+nemotron3 under duty and gpt-6-luna left to decide caught more than under any other signal short of being
+handed the answer, and gpt-6-luna read the table in 79 of 80 runs. H7 as locked is not supported (row 5):
+the locked receivers did not check under discretion with or without the note.
 
-**False alarms were rare (Table 1).** Four receivers held at most 1 honest handoff in 200 or more.
+**A failed check written into the handoff was not a gate (H8; rows 8 to 10).** Under the discretion
+prompt, with "Evidence check: [...] Result: MISMATCH." in the message, gemma4 paid a wrong amount on 80 of
+80 false dones, nemotron3 on {{nem_mismatch_paid}} and gpt-5.4-nano on 57 of 80. gemma4's reasoning never mentions the
+result. The other two usually do, in {{nem_mismatch_said}} and 52 of the 57 runs that paid: "Refund mismatch was reported
+for orders 113-115; I must compute net balances via net_balance per customer and then pay each customer
+accordingly" (gpt-5.4-nano). Under the duty prompt the same line took every receiver to {{duty_evidence_min_pct}} or more.
+
+**False alarms were rare (Table E2).** Four receivers held at most 1 honest handoff in 200 or more.
 gpt-5.4-nano held 9 of 400, all under duty, each time saying it could not verify the refunds and never that
 it had found a problem; nemotron3 held {{nem_honest_held}}, mostly over its own failed tool calls.
 
-**The less a badge said, the more it suppressed (exploratory, Table E7).** Three more short wordings were
-run for gpt-6-luna left to decide. Catches out of 80 false dones were {{w_luna_none_k}} with no signal, {{w_luna_badge_k}} with "✔ Verified"
-and {{w_luna_badge_word_k}} with "Verified" (p = {{w_luna_p_badge}} and {{w_luna_p_badge_word}} against no signal), {{w_luna_badge_sigvalid_k}} with "✔ Signature valid"
-(p = {{w_luna_p_badge_sigvalid}}), {{w_luna_badge_sender_k}} with "✔ Sender verified" and {{w_luna_sig_k}} with the full signature line (p = {{w_luna_p_badge_sender}} and
-{{w_luna_p_sig}}), and {{w_luna_scoped_k}} with the scope note. The check mark was not what did it. A label that named nothing
-suppressed checking most, naming the sender cost nothing, and only saying what had *not* been checked added
-any. {{w_nem_sentence}}
+**The less a badge said, the more it suppressed (exploratory, Table E7).** For gpt-6-luna left to decide,
+"Verified" without the check mark suppressed checking as the badge did ({{w_luna_badge_word_k}} of 80 caught, against {{w_luna_none_k}} with no
+signal), "✔ Signature valid" less clearly ({{w_luna_badge_sigvalid_k}}), and "✔ Sender verified", which names what was verified, not
+at all ({{w_luna_badge_sender_k}}). {{w_nem_sentence}}
 
 ### 4.3 Study 3: the errors nobody planted
 
@@ -288,9 +281,8 @@ shown in full to five receivers; share of batches held under three prompts (95% 
 </div>
 
 **Some claims had no work behind them.** As the importing worker under honest instructions, gpt-6-luna
-answered on its first turn with `done` and all six order ids, having called no tool, in 27 of 120 runs; as
-the refunds worker it did so in 2 of 93 handoffs, both caught by check C. The import has no check in this
-pipeline, so W2 is counted only where the import was right.
+answered `done` with all six order ids and no tool call in 27 of 120 runs (the import has no check here,
+so W2 is counted only where it was right).
 
 **What the check could see fell as the worker improved.** Over all Study 3 conditions, the share of a
 worker's false dones whose report differed from the table was 68% for gemma4 (66 of 97), 16% for
@@ -300,8 +292,8 @@ table (H10, H11).
 
 ### 4.4 A worker's note, and the instruction that hid it
 
-Check C cannot read a note, but a model can. Here the receiver is shown the whole of each report in which
-claude-haiku-5-5 disclosed the failed refund. Counts pool the three signals, which made no clear
+Check C cannot read a note, but a model can. Here the receiver is shown the whole of each of the 20 reports
+in which claude-haiku-5-5 disclosed the failed refund: one worker's reports and one wording of each prompt. Counts pool the three signals, which made no clear
 difference (Figure 3c, Table E6). The receivers that do not check did not use the note either: gemma4 held
 0 of 60 batches when left to decide and 1 of 60 under the duty prompt, gpt-5.4-nano 0 and 2 of 60.
 
@@ -309,7 +301,7 @@ difference (Figure 3c, Table E6). The receivers that do not check did not use th
 gpt-6-luna held 58 of 60, claude-haiku-5-5 60 of 60 and gpt-6.1-sol 60 of 60. Under the duty prompt
 gpt-6-luna held 2 of 60 and claude-haiku-5-5 45 of 60; gpt-6.1-sol held 59 of 60. Taking the handoff as
 the unit, holds were fewer under duty for 20 of 20 handoffs (gpt-6-luna) and 11 of 20 (claude-haiku-5-5)
-and more for none (sign test p = 2 × 10<sup>-6</sup> and p = 0.001). The reasoning shows why. Under
+and more for none (sign test, descriptive: p = 2 × 10<sup>-6</sup> and p = 0.001). The reasoning shows why. Under
 duty, gpt-6-luna writes: "The refunds table matches Alpha's report: both applied refunds are present and
 the failed refund is absent", and pays. On the same handoff under discretion: "A refund for order 103 failed and is explicitly absent from the ledger [...] a concrete issue that warrants human review." The instruction named one comparison, the comparison passed, and the
 receiver behaved as rule C does. The sentence that had lifted three receivers from almost nothing on
@@ -331,30 +323,31 @@ and in under a millisecond, wherever the receiver can observe the effect. An LLM
 third when the handoff carries something to reach with, but only if it is capable and its instructions do
 not narrow it (Table 2).
 
-**Table 2.** Percentage of false "done" handoffs stopped. Receiver cells list gemma4 / nemotron3 /
-gpt-5.4-nano / gpt-6-luna / claude-haiku-5-5 / gpt-6.1-sol (row 1: no signal shown; row 3: three signals
-pooled; a dash: not run).
+**Table 2.** Share of false "done" handoffs stopped, by kind of report and safeguard, for the weakest and
+the most signal-sensitive receiver (no signal shown in row 1; three signals pooled in row 2; all six
+receivers in Table E10).
 
 <div class="wrapfirst">
 
-<!-- table:coverage -->
-<!-- /table:coverage -->
+<!-- table:summary -->
+<!-- /table:summary -->
 
 </div>
 
-**Four design rules follow.** (1) *Enforce a check in code.* The rule acted on every mismatch; three of six
-receivers mostly paid when the same result was a sentence in their input. Where a result must be shown to
-a model, the instructions have to say what a failed check means. (2) *A provenance signal that a model
-will read should say what it covers.* The accurate long form did no harm, its compression into one word
-suppressed checking in two receivers, and a scope sentence restored it. This is the confusion Chrome found
-with its lock icon, appearing in models. (3) *Bind what was asked, and give failure a place in the
-schema.* The voucher here binds what the worker says it did. Binding what the batch called for as well,
-as AP2's signed mandates do for purchases, and adding a signed field for exceptions, would let a rule
-catch the partial reports that every check here passed. This matters more as workers improve (Section 4.3). (4) *Tell a receiver the goal, not the
-comparison.* A named check lifted weak receivers on the failure it names and blinded capable ones to the failure
-beside it. A goal-worded instruction kept capable receivers stopping on both kinds of failure, but did
-less than the named check for the weaker receivers on the failure it names (exploratory, one wording
-each).
+**Four design rules follow**, each from one result here.
+
+1. *Enforce a check in code.* The rule acted on every mismatch; three of six receivers mostly paid when
+   the same result was a sentence in their input.
+2. *A provenance signal that a model will read should say what it covers.* The accurate long form made no
+   detectable difference, its compression into one word suppressed checking in two receivers, and a
+   sentence on scope reversed that. It is the confusion Chrome found with its lock icon, now in models.
+3. *Bind what was asked, not only what was done, and give failure a place in the report.* Every check
+   here passed a true report of unfinished work, and four of five workers left the failure out of a
+   report format with no field for it. A rule could compare a signed list of the refunds requested with a
+   required outcome for each. That design was not tested here.
+4. *Tell a receiver the goal, not the comparison.* The named check lifted weak receivers on the failure it
+   names and blinded two capable ones to the failure beside it. A goal-worded instruction kept them
+   stopping, and did less for the weaker receivers on the named failure (exploratory, one wording each).
 
 ## 6 Conclusion
 
@@ -581,7 +574,9 @@ not accept. *Propagation*: a false done was accepted and W3 then committed wrong
 <!-- table:e1 -->
 <!-- /table:e1 -->
 
-**Table E2.** Study 2, the receiver that did not reach 20 seeds by the cut-off (same layout as Table 1).
+**Table E2.** Study 2, every cell. False dones caught out of false dones shown (*lie* and *fault* pooled), by
+receiver, prompt and signal. Last column: honest handoffs held, pooled over signals. Rule C caught every
+false done and held no honest handoff.
 
 <!-- table:e2_few -->
 <!-- /table:e2_few -->
@@ -630,6 +625,17 @@ that read the refunds table, out of false-done handoffs shown.
 
 <!-- table:e7 -->
 <!-- /table:e7 -->
+
+**Table E10.** Percentage of false "done" handoffs stopped, all six receivers. Receiver cells list gemma4 /
+nemotron3 / gpt-5.4-nano / gpt-6-luna / claude-haiku-5-5 / gpt-6.1-sol (row 1: no signal shown; row 3:
+three signals pooled; a dash: not run).
+
+<div class="wrapfirst">
+
+<!-- table:coverage -->
+<!-- /table:coverage -->
+
+</div>
 
 ## AI assistance
 

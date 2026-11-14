@@ -55,3 +55,22 @@ checked 25 further numbers in the prose against the tables; all agreed.
 
 The reviewer's own estimate against the rubric before these fixes: Impact and Innovation 4 of 5,
 Execution 3 of 5, Presentation 3 of 5.
+
+## 4. Second pass by the same second-family reviewer, 14 November 2026, about 23:45 UTC
+
+**Reviewer:** gpt-6-sol again, read-only, on the revised draft. It confirmed six of its eight findings
+as fixed and two as partly fixed (the run totals were still moving while it read; the harness still
+allows a payout to be overwritten, which is now measured and disclosed). It was then asked what most
+held the report back on execution and on presentation.
+
+| Suggestion | What was done |
+|---|---|
+| Methods defined a catch as "not letting W3 pay", but the scoring needs a `hold` call and counts unfinished runs as misses | Methods now gives the scoring rule; the badge result is reported as holds, wrong payouts and unfinished runs |
+| "Each written into the lock file before its first run" could make the follow-up arms sound confirmatory | Reworded: chosen after seeing earlier results, recorded before their own runs, exploratory |
+| The note-carrying arm's p values should be labelled descriptive, and its scope stated | Done in Section 4.4 and in contribution 5 |
+| "A signed field for exceptions would let a rule catch the partial reports" claims more than was tested | Reworded as a design that was not tested here |
+| Table 1 (twelve rows) repeated Figure 2 | Replaced by a table of the contrasts the prose rests on; the full grid is Table E2 |
+| The summary table's six-number cells were hard to read | Table 2 now shows two named receivers; all six are in Table E10 |
+| Four recommendations in one paragraph | Now a numbered list, one rule and its supporting result each |
+| Cut the badge-wording catalogue and the aside on claims with no work behind them | Both shortened, not cut: each is one of the report's unplanted or mechanism findings |
+| Move "Prior work used" to an appendix | Not done: the sprint's rules ask for pre-sprint code to be marked in the report, so it stays in Methods |
