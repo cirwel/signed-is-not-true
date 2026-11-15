@@ -3,8 +3,10 @@
 #   bash scripts/regenerate.sh [out.pdf]        (default: report/signed-is-not-true.pdf)
 # Needs matplotlib, pandoc and Google Chrome. Nothing here calls a model.
 set -eu
+OUT="${1:-}"
+case "$OUT" in "" | /*) ;; *) OUT="$PWD/$OUT" ;; esac   # a relative path is taken from the caller's directory
 cd "$(dirname "$0")/.."
-OUT="${1:-report/signed-is-not-true.pdf}"
+OUT="${OUT:-$PWD/report/signed-is-not-true.pdf}"
 
 table() {  # table <output file> <module> <args...>; the old file stays if the module fails
   local out="$1"; shift

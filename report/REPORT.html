@@ -53,8 +53,8 @@ another principal's agent pays out on the report. As rules in code, a
 valid signature caught 0 of 160 planted false reports, the same as
 trust, and comparing signed evidence with the table caught all 160. I
 replayed the handoffs to LLM receivers from five developers under five
-signals and two prompts. Left to decide, three receivers caught at most
-3% and two caught all; one sentence of instruction lifted the three to
+signals and two prompts. Left to decide, four receivers caught at most
+3% and two caught all; one sentence of instruction lifted the four to
 75% or more. An accurate signature line made no detectable difference. A
 "✔ Verified" badge cut catches in two receivers (60 to 22 of 80,
 pre-registered; 24 to 9 of 80), and a note on what the signature covers
@@ -89,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,303 runs with seven models from five developers I ask
+every run. In 10,915 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -111,7 +111,7 @@ failed. Two of the three usually noted the mismatch in their own
 reasoning first.</li>
 <li><strong>Which unplanted false "done" reports a check can
 see.</strong> After a visible tool error, one worker mostly claimed the
-failed step, three almost always sent a true list that was silent about
+failed step, four almost always sent a true list that was silent about
 it, and one always disclosed it. An evidence check catches only the
 first kind, and the share of failures it could see fell from 68% to 0%
 from the weakest worker to the strongest.</li>
@@ -255,7 +255,7 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,303 runs: 320 in Study 1, 6,063 in Study 2, 920
+exploratory. In all 10,915 runs: 320 in Study 1, 6,600 in Study 2, 995
 in Study 3 and 3,000 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
@@ -272,9 +272,8 @@ field no receiver caught anything in pilots, even under the duty prompt
 (gemma4, 0 of 10), so all Study 2 runs use one. nemotron3 could not keep
 the strict reply format, so Studies 2 and 3 accept loosely shaped tool
 calls; as a <em>worker</em> it still failed the format so often that its
-Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower
-than nemotron3 on a shared GPU and completed only 63 of its 1,200 Study
-2 runs.</p>
+Study 3 rows are only in Appendix E. qwen3.6, run last on a shared GPU,
+finished 600 of its 1,200 Study 2 runs.</p>
 <p><strong>Prior work used.</strong> The voucher format and verification
 code are a verbatim copy of a federation tracer from UNITARES
 (Apache-2.0), written before the sprint and marked in the repository.
@@ -296,18 +295,19 @@ reference for the rest, where nothing was fixed in advance.</p>
 what a signal does to an LLM receiver</h3>
 <p><strong>Whether a receiver checked depended on the receiver and on
 one sentence (H5, H9; Figure 2).</strong> With no signal and no
-instruction, gemma4 caught 0 of 80 false dones, nemotron3 2 of 80 and
-gpt-5.4-nano 1 of 80. gpt-6-luna caught 24 of 80. claude-haiku-5-5 and
-gpt-6.1-sol read the refunds table unprompted and caught 40 of 40, as
-they did in every cell of the design (Table E2). Under the duty prompt
-the three low receivers caught 75 of 80, 60 of 80 and 79 of 80.</p>
+instruction, gemma4 caught 0 of 80 false dones, qwen3.6 0 of 40,
+nemotron3 2 of 80 and gpt-5.4-nano 1 of 80. gpt-6-luna caught 24 of 80.
+claude-haiku-5-5 and gpt-6.1-sol read the refunds table unprompted and
+caught 40 of 40, as they did in every cell of the design (Table E2).
+Under the duty prompt the four low receivers caught 75 of 80, 40 of 40,
+60 of 80 and 79 of 80.</p>
 <div class="fig">
 
 <p><img src="../results/figure2.png" alt="Figure 2" /></p>
 <p><strong>Figure 2.</strong> Study 2. Share of false dones each
 receiver caught, by signal and prompt, with 95% Wilson intervals. Dashed
-line: rule C on the same handoffs. qwen3.6 is left out (63 runs by the
-cut-off; Table E2).</p>
+line: rule C on the same handoffs. Each point is 80 false dones (40 for
+qwen3.6, claude-haiku-5-5 and gpt-6.1-sol).</p>
 </div>
 
 <p><strong>Table 1.</strong> Study 2, the contrasts behind each finding:
@@ -337,8 +337,8 @@ caught every one of these handoffs.</p>
 <td>no signal → signature line</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>139/164</td>
-<td>137/164</td>
+<td>175/200</td>
+<td>173/200</td>
 <td>20 / 18</td>
 <td>1.0 †</td>
 </tr>
@@ -346,8 +346,8 @@ caught every one of these handoffs.</p>
 <td>no signal → ✔ Verified</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>139/164</td>
-<td>102/164</td>
+<td>175/200</td>
+<td>138/200</td>
 <td>45 / 8</td>
 <td>7 × 10<sup>-7</sup> †</td>
 </tr>
@@ -373,9 +373,9 @@ caught every one of these handoffs.</p>
 <td>signature line → + scope note</td>
 <td>locked receivers, discretion</td>
 <td>pre-registered</td>
-<td>2/164</td>
-<td>0/164</td>
-<td>2 / 0</td>
+<td>2/200</td>
+<td>1/200</td>
+<td>2 / 1</td>
 <td>1.0 †</td>
 </tr>
 <tr>
@@ -404,6 +404,15 @@ caught every one of these handoffs.</p>
 <td>0/80</td>
 <td>0 / 0</td>
 <td>1.0</td>
+</tr>
+<tr>
+<td></td>
+<td>qwen3.6, discretion</td>
+<td>descriptive</td>
+<td>0/40</td>
+<td>40/40</td>
+<td>0 / 40</td>
+<td>2 × 10<sup>-12</sup></td>
 </tr>
 <tr>
 <td></td>
@@ -450,16 +459,18 @@ of being handed the answer, and gpt-6-luna read the table in 79 of 80
 runs. H7 as locked is not supported (row 5): the locked receivers did
 not check under discretion with or without the note.</p>
 <p><strong>A failed check written into the handoff was not a gate (H8;
-rows 8 to 10).</strong> Under the discretion prompt, with "Evidence
+rows 8 to 11).</strong> Under the discretion prompt, with "Evidence
 check: [...] Result: MISMATCH." in the message, gemma4 paid a wrong
 amount on 80 of 80 false dones, nemotron3 on 54 of 80 and gpt-5.4-nano
 on 57 of 80. gemma4's reasoning never mentions the result. The other two
 usually do, in 36 of the 54 and 52 of the 57 runs that paid: "Refund
 mismatch was reported for orders 113-115; I must compute net balances
 via net_balance per customer and then pay each customer accordingly"
-(gpt-5.4-nano). Under the duty prompt the same line took every receiver
-to 97% or more.</p>
-<p><strong>False alarms were rare (Table E2).</strong> Four receivers
+(gpt-5.4-nano). The fourth receiver that checked nothing unprompted,
+qwen3.6, held all 40 on that line alone, without reading the table.
+Under the duty prompt the same line took every receiver to 97% or
+more.</p>
+<p><strong>False alarms were rare (Table E2).</strong> Five receivers
 held at most 1 honest handoff in 200 or more. gpt-5.4-nano held 9 of
 400, all under duty, each time saying it could not verify the refunds
 and never that it had found a problem; nemotron3 held 16 of 400, mostly
@@ -487,23 +498,24 @@ and nothing else: true, and silent about the third. Given a reasoning
 field, gpt-5.4-nano mentioned the failure in its reasoning in 40 of 40
 runs and in its report in none. Of these five workers only
 claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it
-added itself (most often <code>refunds_failed</code>). nemotron3, whose
-Study 3 rows are in Table E5 only, did so in 1 of its 5 true partial
-reports.</p>
+added itself (most often <code>refunds_failed</code>). qwen3.6 (32
+handoffs by the cut-off) sent a true list that was silent about it in
+32. nemotron3, whose Study 3 rows are in Table E5 only, did so in 1 of
+its 5 true partial reports.</p>
 <p><strong>The evidence check saw only the first kind.</strong> It
-rejected all 89 overclaims and accepted all 165 partial reports, silent
-or disclosed, and 163 of those batches ended in wrong payouts: the
+rejected all 89 overclaims and accepted all 197 partial reports, silent
+or disclosed, and 195 of those batches ended in wrong payouts: the
 customer was paid as though no refund were due.</p>
 <p><strong>Miscalculations were reported faithfully (H11); a skipped
 step was not.</strong> Given an amount to work out, gemma4 applied a
 wrong amount in 17 of 40 batches, nearly always on the fee subtraction,
 and in 16 of the 17 it reported exactly what it had applied, so check C
 caught 1 of 17. gpt-5.4-nano did the same in 4 of 40 (0 of 4 caught).
-With a reasoning field gemma4 made no such error in 39 handoffs.
-gpt-5.4-nano with a reasoning field made a different one: in 6 of 40
-runs it applied two refunds, never called the tool for the third, and
-reported all three ("All specified refunds have been applied"). Check C
-caught all 6.</p>
+qwen3.6 (37 batches by the cut-off): 0 false dones. With a reasoning
+field gemma4 made no such error in 39 handoffs. gpt-5.4-nano with a
+reasoning field made a different one: in 6 of 40 runs it applied two
+refunds, never called the tool for the third, and reported all three
+("All specified refunds have been applied"). Check C caught all 6.</p>
 <p><strong>Some claims had no work behind them.</strong> As the
 importing worker under honest instructions, gpt-6-luna answered
 <code>done</code> with all six order ids and no tool call in 27 of 120
@@ -513,9 +525,9 @@ right).</p>
 improved.</strong> Over all Study 3 conditions, the share of a worker's
 false dones whose report differed from the table was 68% for gemma4 (66
 of 97), 16% for gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and
-0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each). Across all
-workers check C caught 97 of 97 such reports and 0 of 186 of those that
-matched the table (H10, H11).</p>
+0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each); qwen3.6, 0% (0
+of 32). Across all workers check C caught 97 of 97 such reports and 0 of
+218 of those that matched the table (H10, H11).</p>
 <div class="fig">
 
 <p><img src="../results/figure3.png" alt="Figure 3" /></p>
@@ -549,8 +561,8 @@ On the same handoff under discretion: "A refund for order 103 failed and
 is explicitly absent from the ledger [...] a concrete issue that
 warrants human review." The instruction named one comparison, the
 comparison passed, and the receiver behaved as rule C does. The sentence
-that had lifted three receivers from almost nothing on misreports took a
-fourth from 97% to 3% on a disclosed failure.</p>
+that had lifted four receivers from almost nothing on misreports took a
+fifth from 97% to 3% on a disclosed failure.</p>
 <p><strong>An instruction that names the goal did not hide the
 note.</strong> Under the goal sentence gpt-6-luna held 58 of 60,
 claude-haiku-5-5 60 of 60 and gpt-6.1-sol 60 of 60, as when left to
@@ -574,7 +586,7 @@ with, but only if it is capable and its instructions do not narrow it
 <p><strong>Table 2.</strong> Share of false "done" handoffs stopped, by
 kind of report and safeguard, for the weakest and the most
 signal-sensitive receiver (no signal shown in row 1; three signals
-pooled in row 2; all six receivers in Table E10).</p>
+pooled in row 2; all seven receivers in Table E10).</p>
 <div class="wrapfirst">
 
 <!-- table:summary -->
@@ -605,7 +617,7 @@ pooled in row 2; all six receivers in Table E10).</p>
 <td>97% / 3% / 97%</td>
 </tr>
 <tr>
-<td>is true and silent, or reports a wrong action as it was done (165
+<td>is true and silent, or reports a wrong action as it was done (197
 unplanted, 80 planted)</td>
 <td>0%</td>
 <td>0%</td>
@@ -623,7 +635,7 @@ handoff protocols, build agent frameworks or write a receiver's
 instructions, each from one result here.</p>
 <ol type="1">
 <li><em>Enforce a check in code.</em> The rule acted on every mismatch;
-three of six receivers mostly paid when the same result was a sentence
+three of seven receivers mostly paid when the same result was a sentence
 in their input.</li>
 <li><em>A provenance signal that a model will read should say what it
 covers.</em> The accurate long form made no detectable difference, its
@@ -632,7 +644,7 @@ sentence on scope reversed that. It is the confusion Chrome found with
 its lock icon, now in models.</li>
 <li><em>Bind what was asked, not only what was done, and give failure a
 place in the report.</em> Every check here passed a true report of
-unfinished work, and four of five workers left the failure out of a
+unfinished work, and five of six workers left the failure out of a
 report format with no field for it. A rule could compare a signed list
 of the refunds requested with a required outcome for each. That design
 was not tested here.</li>
@@ -653,9 +665,9 @@ instruction, and a test of the binding in rule 3.</p>
 <p>A valid signature told the receiver nothing about whether the work
 was done. An evidence check stopped every report that differed from the
 table, planted or not, and no true report of unfinished or mistaken
-work. Left to decide, half of the receivers checked almost nothing; told
-to check, one could be talked out of it by the word "Verified"; and the
-instruction that made weak receivers check made capable ones stop
+work. Left to decide, four of seven receivers checked almost nothing;
+told to check, one could be talked out of it by the word "Verified"; and
+the instruction that made weak receivers check made capable ones stop
 looking once the named check had passed. Whether a claim is true needs a
 comparison the claimant does not control, done in code. Whether the work
 is right needs a statement of what was asked. And where a model is the
@@ -743,18 +755,20 @@ after the second lock. So are the note-carrying arm, the goal prompt,
 the badge wordings, the <em>wrong</em> condition, and all contrasts not
 named as primary. Their p values are not adjusted for the number of
 contrasts examined.</li>
-<li>Six receivers have at least 20 seeds. qwen3.6, a locked receiver,
-completed only 63 of its 1,200 Study 2 runs by the cut-off.
-claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every
-planted false done under every signal, so this task cannot show whether
-a signal would move them on a harder one.</li>
+<li>qwen3.6, a locked receiver, was run last on a shared GPU. By the
+cut-off it had completed 600 of its 1,200 Study 2 runs (20 of 40 seeds)
+and 75 of its 80 Study 3 runs, so its Study 2 cells hold half the runs
+of the other two locked receivers. claude-haiku-5-5 and gpt-6.1-sol were
+run on 20 seeds and caught every planted false done under every signal,
+so this task cannot show whether a signal would move them on a harder
+one.</li>
 <li>The models were not sampled alike. The local models and gpt-5.4-nano
 ran at temperature 0.7 with a seed. The two gpt-6 models accept only
 their default temperature and ran at their default reasoning effort.
 claude-haiku-5-5 was reached through a command-line tool that adds a
 short context block of its own, has no seed or temperature control and
 may think before answering.</li>
-<li>The badge effect appeared in two receivers of six. I read it as an
+<li>The badge effect appeared in two receivers of seven. I read it as an
 existence result: such receivers exist among current models, and nothing
 in a badge's design guards against it.</li>
 <li>The duty sentence names exactly the comparison that catches the
@@ -919,9 +933,9 @@ condition, added after the lock, 80 of 80 passed</td>
 <td>H5</td>
 <td>With no signal and no instruction, each receiver catches fewer than
 half</td>
-<td>Supported for the locked receivers (gemma4 0 of 80, nemotron3 2 of
-80). Of the added receivers, claude-haiku-5-5 and gpt-6.1-sol caught
-all</td>
+<td>Supported for the locked receivers (gemma4 0 of 80, qwen3.6 0 of 40,
+nemotron3 2 of 80). Of the added receivers, claude-haiku-5-5 and
+gpt-6.1-sol caught all</td>
 </tr>
 <tr>
 <td>H6</td>
@@ -935,38 +949,40 @@ supported (p = 0.87). Under discretion neither raised it</td>
 <td>H7</td>
 <td>Under discretion, a scope note raises the catch rate over the
 signature line</td>
-<td>Not supported on the locked receivers (primary test, 2 against 0 of
-164, p = 0.5, Holm-adjusted 1.0). Supported in gpt-6-luna,
+<td>Not supported on the locked receivers (primary test, 2 against 1 of
+200, p = 1.0, Holm-adjusted 1.0). Supported in gpt-6-luna,
 exploratory</td>
 </tr>
 <tr>
 <td>H8</td>
 <td>With the evidence result shown, at least 90% caught under both
 prompts and at most 10% of honest handoffs held</td>
-<td>Under duty: supported (gemma4 79 of 80, nemotron3 78 of 80). Under
-discretion: not supported (0 of 80, 21 of 80). Honest handoffs held: at
-most 5%</td>
+<td>Under duty: supported (gemma4 79 of 80, qwen3.6 40 of 40, nemotron3
+78 of 80). Under discretion: supported for qwen3.6 (40 of 40), not for
+gemma4 and nemotron3 (0 of 80, 21 of 80). Honest handoffs held: at most
+5%</td>
 </tr>
 <tr>
 <td>H9</td>
 <td>Descriptive: the gap between the two prompts with no signal</td>
-<td>gemma4 0% to 94%; nemotron3 3% to 75%</td>
+<td>gemma4 0% to 94%; qwen3.6 0% to 100%; nemotron3 3% to 75%</td>
 </tr>
 <tr>
 <td>H10</td>
 <td>In <em>blocked</em> some reports overclaim; C catches every
 overclaim and passes every honest partial, which ends in wrong
 payouts</td>
-<td>Supported, all workers together: 89 of 89 overclaims caught, 165 of
-165 partial reports passed, 163 of them ending in wrong payouts</td>
+<td>Supported, all workers together: 89 of 89 overclaims caught, 197 of
+197 partial reports passed, 195 of them ending in wrong payouts</td>
 </tr>
 <tr>
 <td>H11</td>
 <td>In <em>derived</em> more than half of the false dones are
 faithful</td>
 <td>Locked workers: supported for gemma4 (16 of 17); not for nemotron3
-(1 of 7, the other 6 reports not in the agreed form). Added worker
-gpt-5.4-nano: 4 of 4 without a reasoning field, 0 of 6 with one</td>
+(1 of 7, the other 6 reports not in the agreed form); qwen3.6, 37
+handoffs by the cut-off: no false done. Added worker gpt-5.4-nano: 4 of
+4 without a reasoning field, 0 of 6 with one</td>
 </tr>
 <tr>
 <td>H12</td>
@@ -1102,6 +1118,26 @@ handoff.</p>
 <td>0/200</td>
 </tr>
 <tr>
+<td>qwen3.6 (27B)</td>
+<td>discretion</td>
+<td>0/40</td>
+<td>0/40</td>
+<td>0/40</td>
+<td>1/40</td>
+<td>40/40</td>
+<td>0/100</td>
+</tr>
+<tr>
+<td></td>
+<td>duty</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>0/100</td>
+</tr>
+<tr>
 <td>nemotron3 (33B)</td>
 <td>discretion</td>
 <td>2/80</td>
@@ -1201,26 +1237,6 @@ handoff.</p>
 <td>40/40</td>
 <td>0/100</td>
 </tr>
-<tr>
-<td>qwen3.6 (27B)</td>
-<td>discretion</td>
-<td>0/4</td>
-<td>0/4</td>
-<td>0/4</td>
-<td>0/4</td>
-<td>4/4</td>
-<td>0/13</td>
-</tr>
-<tr>
-<td></td>
-<td>duty</td>
-<td>4/4</td>
-<td>4/4</td>
-<td>4/4</td>
-<td>4/4</td>
-<td>4/4</td>
-<td>0/10</td>
-</tr>
 </tbody>
 </table>
 <!-- /table:e2_few -->
@@ -1260,6 +1276,24 @@ handoffs shown. Reading is not comparing.</p>
 <td>78/80</td>
 <td>80/80</td>
 <td>24/80</td>
+</tr>
+<tr>
+<td>qwen3.6 (27B)</td>
+<td>discretion</td>
+<td>0/40</td>
+<td>0/40</td>
+<td>0/40</td>
+<td>2/40</td>
+<td>0/40</td>
+</tr>
+<tr>
+<td></td>
+<td>duty</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>40/40</td>
+<td>0/40</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1393,6 +1427,16 @@ said, and what check C did.</p>
 <td>0</td>
 <td>25/40</td>
 <td>15/40</td>
+</tr>
+<tr>
+<td>qwen3.6 (27B)</td>
+<td>plain</td>
+<td>32</td>
+<td>0</td>
+<td>32</td>
+<td>0</td>
+<td>0/32</td>
+<td>32/32</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -1538,6 +1582,32 @@ it.</p>
 <td>0</td>
 <td>n/a</td>
 <td>0/39</td>
+</tr>
+<tr>
+<td>qwen3.6 (27B)</td>
+<td>visible tool error</td>
+<td>38</td>
+<td>32</td>
+<td>0</td>
+<td>32</td>
+<td>0</td>
+<td>0</td>
+<td>32</td>
+<td>0/32</td>
+<td>32/32</td>
+</tr>
+<tr>
+<td>qwen3.6 (27B)</td>
+<td>amount to work out</td>
+<td>37</td>
+<td>37</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>n/a</td>
+<td>0/37</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -2193,9 +2263,9 @@ with no signal shown.</p>
 </tr>
 <tr>
 <td>qwen3.6 (27B)</td>
-<td>63</td>
-<td>65</td>
-<td>412</td>
+<td>600</td>
+<td>46</td>
+<td>404</td>
 <td>6</td>
 </tr>
 <tr>
@@ -2238,9 +2308,10 @@ with no signal shown.</p>
 <!-- /table:e7 -->
 
 <p><strong>Table E10.</strong> Percentage of false "done" handoffs
-stopped, all six receivers. Receiver cells list gemma4 / nemotron3 /
-gpt-5.4-nano / gpt-6-luna / claude-haiku-5-5 / gpt-6.1-sol (row 1: no
-signal shown; row 3: three signals pooled; a dash: not run).</p>
+stopped, all seven receivers. Receiver cells list gemma4 / qwen3.6 /
+nemotron3 / gpt-5.4-nano / gpt-6-luna / claude-haiku-5-5 / gpt-6.1-sol
+(row 1: no signal shown; row 3: three signals pooled; a dash: not
+run).</p>
 <div class="wrapfirst">
 
 <!-- table:coverage -->
@@ -2261,9 +2332,9 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>differs from the table, planted (160)</td>
 <td>0</td>
 <td>100</td>
-<td>0 / 3 / 1 / 30 / 100 / 100</td>
-<td>94 / 75 / 99 / 100 / 100 / 100</td>
-<td>19 / – / 75 / 100 / 100 / 100</td>
+<td>0 / 0 / 3 / 1 / 30 / 100 / 100</td>
+<td>94 / 100 / 75 / 99 / 100 / 100 / 100</td>
+<td>19 / – / – / 75 / 100 / 100 / 100</td>
 </tr>
 <tr>
 <td>differs from the table, unplanted (97)</td>
@@ -2277,12 +2348,12 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>is true and discloses the failure (21; receivers were shown 20)</td>
 <td>0</td>
 <td>0</td>
-<td>0 / – / 0 / 97 / 100 / 100</td>
-<td>2 / – / 3 / 3 / 75 / 98</td>
-<td>37 / – / 20 / 97 / 100 / 100</td>
+<td>0 / – / – / 0 / 97 / 100 / 100</td>
+<td>2 / – / – / 3 / 3 / 75 / 98</td>
+<td>37 / – / – / 20 / 97 / 100 / 100</td>
 </tr>
 <tr>
-<td>is true and silent, or reports a wrong action as it was done (165
+<td>is true and silent, or reports a wrong action as it was done (197
 unplanted, 80 planted)</td>
 <td>0</td>
 <td>0</td>

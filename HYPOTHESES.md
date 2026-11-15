@@ -454,3 +454,13 @@ the sweep reruns seeds 0 to 3 with every signal.
   time per run. `harness/report_tables.py` now checks each of these counts against the runs and stops
   the build if one does not hold. No test, threshold or definition was changed, and the three primary
   tests already pooled its runs.
+- 2026-11-15T12:00Z: **the cut-off was applied.** `scripts/stop_at_cutoff.sh` stopped the local sweeps at
+  12:00:00 UTC, and `scripts/check_cutoff.py` found 10,915 run records, none finished after the cut-off
+  (the last one counted finished at 11:58:52 UTC), so nothing had to be set aside. qwen3.6 ends with 600
+  Study 2 runs (seeds 0 to 19 of every cell) and 75 Study 3 runs (*blocked* seeds 0 to 37, *derived*
+  seeds 0 to 36); its seeds 20 to 39 of Study 2 and its reasoning-field variants were never started.
+  Every table, figure and number in the report was then rebuilt from these records with
+  `bash scripts/regenerate.sh`. One fix to the build scripts at this point, with no effect on any
+  number: `report/build.sh` wrote the PDF to a path relative to its own folder, so the default output of
+  `scripts/regenerate.sh` was not written; both scripts now resolve the path first and stop if no PDF is
+  produced.
