@@ -1,6 +1,6 @@
 # Reviews of the analysis and the report
 
-Seven review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
+Eight review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
 the first version (section 7). All of them are AI models. The author read the report after the fourth
 pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6
 and 8. Section 8 is about the two arms added on the evening of 15 November, after the resubmission of
@@ -149,3 +149,10 @@ from the run records; all agreed.
 | Table 2 and Table E10 did not say which comparison "told which check" was in the row with the request shown, and did not show the rates under the new request sentence | Table 2's header names the comparison (duty: report against table) and its third row adds the rate under the request sentence; Table E10 has a column for the request sentence, and its caption says what "told which check" is |
 | A trim had turned "a median cost of 0.6 ms" into "in 0.6 ms", and Section 5 said "in under a millisecond"; 64 of the 320 Study 1 runs took 1 ms or more | Section 4.1 says "at a median of 0.6 ms" again and Section 5 says "in about a millisecond" |
 | Appendix A said the two arms were run "from 22:12 UTC", which is when the expectations were committed; the first run finished at 22:13:19 UTC | Appendix A now gives both times |
+
+**Verification pass, about 23:50 UTC.** The same reviewer then checked this work, read-only. It found all
+six points resolved, recounted the 900 records of the control (the most any receiver stopped without the
+request line was 2 of 60; the control uses exactly the 60 handoffs of the request arm; its first run
+finished after the commit that recorded the expectation), and confirmed the run totals (13,655 records in
+seven folders). It raised two small points, both fixed: Appendix A cited Table D2 for a run time that is
+in the lock file, and the caption of Figure 3 did not say that the control ran under three prompts.

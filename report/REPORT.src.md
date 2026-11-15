@@ -317,8 +317,8 @@ misreports took a fifth from 97% to 3% on a disclosed failure.
 
 **Figure 3.** (a): Study 3 by worker, coloured by what the evidence check can see. (b): 20 reports in
 which the worker noted the failed refund, shown to five receivers; batches held under three prompts.
-(c): {{rq_n}} false dones that every check passed, shown with the request (dotted: without it), under four
-prompts; receivers as in (b). 95% Wilson intervals.
+(c): {{rq_n}} false dones that every check passed, shown with the request under four prompts (dotted: without
+it, under the three that do not refer to it); receivers as in (b). 95% Wilson intervals.
 
 </div>
 
@@ -503,7 +503,7 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
   no tool call in 27 of 120 runs. The import has no check here, so W2 is counted only where it was right.
 - The two last arms were run after the cut-off of the locked sweeps, on 15 November, because the report
   as first rebuilt left its third design rule untested. What I expected of each was committed and pushed at
-  22:12 UTC, and the first run finished at 22:13 UTC (Table D2). The runs without the request line were
+  22:12 UTC (Table D2), and the first run finished at 22:13 UTC (the lock file has the dated record). The runs without the request line were
   added at 23:08 UTC, after a reviewer noted that the arm had no such control; the lock entry of 22:12 UTC
   had said none would be made. The request arm uses one wording of the request line and of the
   request sentence, and 60 false dones from three workers. The request it shows is the batch's own, so it
