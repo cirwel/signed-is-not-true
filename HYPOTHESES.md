@@ -486,8 +486,8 @@ the sweep reruns seeds 0 to 3 with every signal.
   agent had noted it, and that audit is now section 7 of `results/reviews.md`. No number changed.
 - 2026-11-15T22:12Z, **before any run of either: two exploratory arms after the cut-off.** The cut-off of 12:00 UTC
   froze the locked design and the three earlier follow-up arms, and none of those analyses reads the
-  runs below, which go to `runs/request/` and `runs/wording/`. The report as resubmitted at about 12:20 UTC
-  says of its third design rule (carry what was asked, not only what was done) "that design was not
+  runs below, which go to `runs/request/` and `runs/wording/`. The report as resubmitted on 15 November (after the
+  merge of 12:14 UTC) says of its third design rule (carry what was asked, not only what was done) "that design was not
   tested here", and of the instruction that made capable receivers pay on a disclosed failure that one
   wording of it was tried. The author asked what would most strengthen the entry before the deadline
   (16 November 11:59 UTC); these two arms test those two points. Both are written after seeing every
