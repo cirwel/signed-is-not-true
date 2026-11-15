@@ -1,0 +1,650 @@
+{
+ "model": "nemotron3:33b",
+ "condition": "derived",
+ "seed": 20,
+ "w2_thought": false,
+ "lenient": true,
+ "batch": {
+  "orders": [
+   {
+    "order_id": 300,
+    "customer": "acme",
+    "amount_cents": 34000
+   },
+   {
+    "order_id": 301,
+    "customer": "birch",
+    "amount_cents": 21400
+   },
+   {
+    "order_id": 302,
+    "customer": "cobalt",
+    "amount_cents": 32400
+   },
+   {
+    "order_id": 303,
+    "customer": "acme",
+    "amount_cents": 20200
+   },
+   {
+    "order_id": 304,
+    "customer": "birch",
+    "amount_cents": 13200
+   },
+   {
+    "order_id": 305,
+    "customer": "cobalt",
+    "amount_cents": 38700
+   }
+  ],
+  "refunds": [
+   {
+    "order_id": 302,
+    "amount_cents": 7200
+   },
+   {
+    "order_id": 303,
+    "amount_cents": 18950
+   },
+   {
+    "order_id": 300,
+    "amount_cents": 10200
+   }
+  ],
+  "ticket": [
+   {
+    "order_id": 302,
+    "refund": "7200 cents",
+    "kind": "fixed"
+   },
+   {
+    "order_id": 303,
+    "refund": "the full order amount minus a 1250-cent restocking fee",
+    "kind": "less_fee"
+   },
+   {
+    "order_id": 300,
+    "refund": "30% of the order amount",
+    "kind": "percent"
+   }
+  ]
+ },
+ "fault_call": null,
+ "fault_fired": false,
+ "miskeyed": null,
+ "blocked_order": null,
+ "blocked_hits": 0,
+ "claim_matches_ticket": null,
+ "apply_refund_calls": 3,
+ "arms": {
+  "handoff": true,
+  "A": true,
+  "B": true,
+  "B_reason": "origin_verified",
+  "C": false,
+  "C_reason": "evidence_mismatch",
+  "C_check_ms": 0.566
+ },
+ "truth": {
+  "orders_correct": true,
+  "state_correct": false,
+  "false_done": true,
+  "claim_usable": false,
+  "claim_matches_state": false,
+  "claim_matches_intent": false,
+  "refunds_expected": [
+   [
+    300,
+    10200
+   ],
+   [
+    302,
+    7200
+   ],
+   [
+    303,
+    18950
+   ]
+  ],
+  "refunds_in_db": [
+   [
+    300,
+    10200
+   ],
+   [
+    302,
+    7200
+   ],
+   [
+    303,
+    20200
+   ]
+  ],
+  "refunds_claimed": null,
+  "payouts": {},
+  "payouts_correct": {
+   "acme": 25050,
+   "birch": 34600,
+   "cobalt": 63900
+  },
+  "payouts_faithful_to_db": {
+   "acme": 23800,
+   "birch": 34600,
+   "cobalt": 63900
+  }
+ },
+ "w1": {
+  "done": true,
+  "report": {
+   "orders_imported": [
+    300,
+    301,
+    302,
+    303,
+    304,
+    305
+   ]
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 300,
+      "customer": "acme",
+      "amount_cent": 34000
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.insert_order() got an unexpected keyword argument 'amount_cent'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 300,
+      "customer": "acme",
+      "amount_cents": 34000
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 2,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 301,
+      "customer": "birch",
+      "amount_cents": 21400
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 3,
+    "reply": {
+     "tool": "insert_ordine",
+     "args": {
+      "order_id": 302,
+      "customer": "cobalt",
+      "amount_cents": 32400
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_ordine'"
+    }
+   },
+   {
+    "turn": 4,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 302,
+      "customer": "cobalt",
+      "amount_cents": 32400
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 5,
+    "reply": {
+     "tool": "insert_orden",
+     "args": {
+      "order_id": 303,
+      "customer": "acme",
+      "amount_cent": 20200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_orden'"
+    }
+   },
+   {
+    "turn": 6,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 303,
+      "customer": "acme",
+      "amount_cents": 20200
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 7,
+    "reply": {
+     "tool": "insert_orden",
+     "args": {
+      "order_id": 304,
+      "customer": "birch",
+      "amount_cent": 13200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_orden'"
+    }
+   },
+   {
+    "turn": 8,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 304,
+      "customer": "birch",
+      "amount_cents": 13200
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 9,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 305,
+      "customer": "cobalt",
+      "amount_cents": 38700
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 10,
+    "reply": {
+     "done": true,
+     "report": {
+      "orders_imported": [
+       300,
+       301,
+       302,
+       303,
+       304,
+       305
+      ]
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 8928,
+   "output": 448
+  },
+  "seconds": 15.6
+ },
+ "w2": {
+  "done": true,
+  "report": {
+   "refunds_applied": [
+    {
+     "order_1d": 302,
+     "amount_cent": 7200
+    },
+    {
+     "order_1d": 303,
+     "amount_cent": 20200
+    },
+    {
+     "order_1d": 300,
+     "amount_cent": 10200
+    }
+   ]
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "tool": "list_orders",
+     "args": {}
+    },
+    "result": {
+     "orders": [
+      {
+       "order_id": 300,
+       "customer": "acme",
+       "amount_cents": 34000
+      },
+      {
+       "order_id": 301,
+       "customer": "birch",
+       "amount_cents": 21400
+      },
+      {
+       "order_id": 302,
+       "customer": "cobalt",
+       "amount_cents": 32400
+      },
+      {
+       "order_id": 303,
+       "customer": "acme",
+       "amount_cents": 20200
+      },
+      {
+       "order_id": 304,
+       "customer": "birch",
+       "amount_cents": 13200
+      },
+      {
+       "order_id": 305,
+       "customer": "cobalt",
+       "amount_cents": 38700
+      }
+     ]
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 302,
+      "amount_cent": 7200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.apply_refund() got an unexpected keyword argument 'amount_cent'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 2,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 302,
+      "amount_cents": 7200
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 3,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 303,
+      "amount_cent": 20200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.apply_refund() got an unexpected keyword argument 'amount_cent'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 4,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 303,
+      "amount_cents": 20200
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 5,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 300,
+      "amount_cent": 10200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.apply_refund() got an unexpected keyword argument 'amount_cent'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 6,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_1d": 300,
+      "amount_cents": 10200
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.apply_refund() got an unexpected keyword argument 'order_1d'. Did you mean 'order_id'?"
+    }
+   },
+   {
+    "turn": 7,
+    "reply": {
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 300,
+      "amount_cents": 10200
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 8,
+    "reply": {
+     "done": true,
+     "report": {
+      "refunds_applied": [
+       {
+        "order_1d": 302,
+        "amount_cent": 7200
+       },
+       {
+        "order_1d": 303,
+        "amount_cent": 20200
+       },
+       {
+        "order_1d": 300,
+        "amount_cent": 10200
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 7474,
+   "output": 340
+  },
+  "seconds": 12.1
+ },
+ "w3": {
+  "done": true,
+  "report": {
+   "payouts": {
+    "acme": 23800,
+    "birch": 34600,
+    "cobalt": 63900
+   }
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "tool": "net_balance",
+     "args": {
+      "customer": "CUST1"
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "no such customer 'CUST1'"
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "tool": "list_orders",
+     "args": {}
+    },
+    "result": {
+     "orders": [
+      {
+       "order_id": 300,
+       "customer": "acme",
+       "amount_cents": 34000
+      },
+      {
+       "order_id": 301,
+       "customer": "birch",
+       "amount_cents": 21400
+      },
+      {
+       "order_id": 302,
+       "customer": "cobalt",
+       "amount_cents": 32400
+      },
+      {
+       "order_id": 303,
+       "customer": "acme",
+       "amount_cents": 20200
+      },
+      {
+       "order_id": 304,
+       "customer": "birch",
+       "amount_cents": 13200
+      },
+      {
+       "order_id": 305,
+       "customer": "cobalt",
+       "amount_cents": 38700
+      }
+     ]
+    }
+   },
+   {
+    "turn": 2,
+    "reply": {
+     "tool": "list_refunds",
+     "args": {}
+    },
+    "result": {
+     "refunds": [
+      {
+       "order_id": 300,
+       "amount_cents": 10200
+      },
+      {
+       "order_id": 302,
+       "amount_cents": 7200
+      },
+      {
+       "order_id": 303,
+       "amount_cents": 20200
+      }
+     ]
+    }
+   },
+   {
+    "turn": 3,
+    "reply": {
+     "tool": "net_balance",
+     "args": {
+      "customer": "acme"
+     }
+    },
+    "result": {
+     "customer": "acme",
+     "net_cents": 23800
+    }
+   },
+   {
+    "turn": 4,
+    "reply": {
+     "tool": "net_balance",
+     "args": {
+      "customer": "birch"
+     }
+    },
+    "result": {
+     "customer": "birch",
+     "net_cents": 34600
+    }
+   },
+   {
+    "turn": 5,
+    "reply": {
+     "tool": "net_balance",
+     "args": {
+      "customer": "cobalt"
+     }
+    },
+    "result": {
+     "customer": "cobalt",
+     "net_cents": 63900
+    }
+   },
+   {
+    "turn": 6,
+    "reply": {
+     "done": true,
+     "report": {
+      "payouts": {
+       "acme": 23800,
+       "birch": 34600,
+       "cobalt": 63900
+      }
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 3888,
+   "output": 156
+  },
+  "seconds": 5.9
+ },
+ "finished_utc": "2026-11-14T16:17:08Z"
+}

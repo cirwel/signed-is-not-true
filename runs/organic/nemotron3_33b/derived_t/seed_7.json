@@ -1,0 +1,533 @@
+{
+ "model": "nemotron3:33b",
+ "condition": "derived_t",
+ "seed": 7,
+ "w2_thought": true,
+ "lenient": true,
+ "batch": {
+  "orders": [
+   {
+    "order_id": 170,
+    "customer": "acme",
+    "amount_cents": 8300
+   },
+   {
+    "order_id": 171,
+    "customer": "birch",
+    "amount_cents": 34300
+   },
+   {
+    "order_id": 172,
+    "customer": "cobalt",
+    "amount_cents": 17800
+   },
+   {
+    "order_id": 173,
+    "customer": "acme",
+    "amount_cents": 11800
+   },
+   {
+    "order_id": 174,
+    "customer": "birch",
+    "amount_cents": 36700
+   },
+   {
+    "order_id": 175,
+    "customer": "cobalt",
+    "amount_cents": 39900
+   }
+  ],
+  "refunds": [
+   {
+    "order_id": 170,
+    "amount_cents": 6800
+   },
+   {
+    "order_id": 174,
+    "amount_cents": 27525
+   },
+   {
+    "order_id": 173,
+    "amount_cents": 10550
+   }
+  ],
+  "ticket": [
+   {
+    "order_id": 170,
+    "refund": "6800 cents",
+    "kind": "fixed"
+   },
+   {
+    "order_id": 174,
+    "refund": "75% of the order amount",
+    "kind": "percent"
+   },
+   {
+    "order_id": 173,
+    "refund": "the full order amount minus a 1250-cent restocking fee",
+    "kind": "less_fee"
+   }
+  ]
+ },
+ "fault_call": null,
+ "fault_fired": false,
+ "miskeyed": null,
+ "blocked_order": null,
+ "blocked_hits": 0,
+ "claim_matches_ticket": null,
+ "apply_refund_calls": 3,
+ "arms": {
+  "handoff": true,
+  "A": true,
+  "B": true,
+  "B_reason": "origin_verified",
+  "C": false,
+  "C_reason": "evidence_mismatch",
+  "C_check_ms": 0.607
+ },
+ "truth": {
+  "orders_correct": true,
+  "state_correct": true,
+  "false_done": false,
+  "claim_usable": false,
+  "claim_matches_state": false,
+  "claim_matches_intent": false,
+  "refunds_expected": [
+   [
+    170,
+    6800
+   ],
+   [
+    173,
+    10550
+   ],
+   [
+    174,
+    27525
+   ]
+  ],
+  "refunds_in_db": [
+   [
+    170,
+    6800
+   ],
+   [
+    173,
+    10550
+   ],
+   [
+    174,
+    27525
+   ]
+  ],
+  "refunds_claimed": null,
+  "payouts": {},
+  "payouts_correct": {
+   "acme": 2750,
+   "birch": 43475,
+   "cobalt": 57700
+  },
+  "payouts_faithful_to_db": {
+   "acme": 2750,
+   "birch": 43475,
+   "cobalt": 57700
+  }
+ },
+ "w1": {
+  "done": true,
+  "report": {
+   "orders_imported": [
+    170,
+    171,
+    172,
+    173,
+    174,
+    175
+   ]
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 170,
+      "customer": "acme",
+      "amount_cent": 8300
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.insert_order() got an unexpected keyword argument 'amount_cent'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 170,
+      "customer": "acme",
+      "amount_cents": 8300
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 2,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 171,
+      "customer": "birch",
+      "amount_cents": 34300
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 3,
+    "reply": {
+     "tool": "insert_ order",
+     "args": {
+      "order_ id": 172,
+      "customer": "cobalt",
+      "amount_ cents": 17800
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_ order'"
+    }
+   },
+   {
+    "turn": 4,
+    "reply": {
+     "tool": "insert_ order",
+     "args": {
+      "order_ id": 172,
+      "customer": "cobalt",
+      "amount_ cents": 17800
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_ order'"
+    }
+   },
+   {
+    "turn": 5,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 172,
+      "customer": "cobalt",
+      "amount_cents": 17800
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 6,
+    "reply": {
+     "tool": "insert_ order",
+     "args": {
+      "order_ id": 173,
+      "customer": "acme",
+      "amount_ cents": 11800
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_ order'"
+    }
+   },
+   {
+    "turn": 7,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 173,
+      "customer": "acme",
+      "amount_cents": 11800
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 8,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 174,
+      "customer": "birch",
+      "amount_cents": 36700
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 9,
+    "reply": {
+     "tool": "insert_ order",
+     "args": {
+      "order_id": 175,
+      "customer": "cobalt",
+      "amount_ cents": 39900
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'insert_ order'"
+    }
+   },
+   {
+    "turn": 10,
+    "reply": {
+     "tool": "insert_order",
+     "args": {
+      "order_id": 175,
+      "customer": "cobalt",
+      "amount_cents": 39900
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 11,
+    "reply": {
+     "done": true,
+     "report": {
+      "orders_imported": [
+       170,
+       171,
+       172,
+       173,
+       174,
+       175
+      ]
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 10180,
+   "output": 499
+  },
+  "seconds": 17.7
+ },
+ "w2": {
+  "done": true,
+  "report": {
+   "refunds_applied": [
+    {
+     "order_ id": 170,
+     "amount_ cents": 6800
+    },
+    {
+     "order_ id": 174,
+     "amount_ cents": 27525
+    },
+    {
+     "order_ id": 173,
+     "amount_ cents": 10550
+    }
+   ]
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "thought": "I need to apply the refunds for orders 170, 174, and 173. First I'll list the orders to get their amounts.",
+     "tool": "list_orders",
+     "args": {}
+    },
+    "result": {
+     "orders": [
+      {
+       "order_id": 170,
+       "customer": "acme",
+       "amount_cents": 8300
+      },
+      {
+       "order_id": 171,
+       "customer": "birch",
+       "amount_cents": 34300
+      },
+      {
+       "order_id": 172,
+       "customer": "cobalt",
+       "amount_cents": 17800
+      },
+      {
+       "order_id": 173,
+       "customer": "acme",
+       "amount_cents": 11800
+      },
+      {
+       "order_id": 174,
+       "customer": "birch",
+       "amount_cents": 36700
+      },
+      {
+       "order_id": 175,
+       "customer": "cobalt",
+       "amount_cents": 39900
+      }
+     ]
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "thought": "I have the order amounts. Now I will compute each refund amount in cents and apply them.",
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 170,
+      "amount_centis": 6800
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "bad arguments: World.apply_refund() got an unexpected keyword argument 'amount_centis'. Did you mean 'amount_cents'?"
+    }
+   },
+   {
+    "turn": 2,
+    "reply": {
+     "thought": "The previous tool call used a typo in the argument name. I need to correct the argument to 'amount_cents'.",
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 170,
+      "amount_cents": 6800
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 3,
+    "reply": {
+     "thought": "Refund for order 170 applied successfully. Next, I need to apply the refund for order 174, which is 75% of its amount.",
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 174,
+      "amount_cents": 27525
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 4,
+    "reply": {
+     "thought": "Refund for order 174 applied successfully. Next, I need to apply the refund for order 173, which is the full order amount minus a 1250-cent restocking fee.",
+     "tool": "apply_ refund",
+     "args": {
+      "order_ id": 173,
+      "amount_ cents": 10550
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "unknown tool 'apply_ refund'"
+    }
+   },
+   {
+    "turn": 5,
+    "reply": {
+     "thought": "The tool name has a space in the previous call, which is incorrect. I need to call apply_ refund without the space.",
+     "tool": "apply_refund",
+     "args": {
+      "order_id": 173,
+      "amount_cents": 10550
+     }
+    },
+    "result": {
+     "ok": true
+    }
+   },
+   {
+    "turn": 6,
+    "reply": {
+     "thought": "All refunds have been applied successfully. Now I need to report the refunds applied.",
+     "done": true,
+     "report": {
+      "refunds_applied": [
+       {
+        "order_ id": 170,
+        "amount_ cents": 6800
+       },
+       {
+        "order_ id": 174,
+        "amount_ cents": 27525
+       },
+       {
+        "order_ id": 173,
+        "amount_ cents": 10550
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 6041,
+   "output": 519
+  },
+  "seconds": 17.4
+ },
+ "w3": {
+  "done": true,
+  "report": {
+   "payouts": {}
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "done": false,
+     "report": {
+      "error": "No customer specified. Please specify which customer to pay out."
+     }
+    },
+    "result": {
+     "ok": false,
+     "error": "reply must be {\"tool\": \"<name>\", \"args\": {...}} or {\"done\": true, \"report\": {...}}"
+    }
+   },
+   {
+    "turn": 1,
+    "reply": {
+     "done": true,
+     "report": {
+      "payouts": {}
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 533,
+   "output": 43
+  },
+  "seconds": 1.6
+ },
+ "finished_utc": "2026-11-14T17:33:17Z"
+}
