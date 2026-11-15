@@ -299,9 +299,12 @@ def contrasts(d: Data) -> list[str]:
         ("", "nemotron3, duty", "exploratory", ([N], "duty", "sig", "scoped"), None),
         ("", "gpt-6-luna, discretion", "exploratory", ([LUNA], "discretion", "sig", "scoped"), None),
         ("no signal → “Result: MISMATCH”", "gemma4, discretion", "descriptive", ([G], "discretion", "none", "evidence"), None),
+        ("", "qwen3.6, discretion", "descriptive", ([Q3], "discretion", "none", "evidence"), None),
         ("", "nemotron3, discretion", "descriptive", ([N], "discretion", "none", "evidence"), None),
         ("", "gpt-5.4-nano, discretion", "exploratory", ([NANO], "discretion", "none", "evidence"), None),
     ]
+    if Q3 not in d.main:   # the fourth receiver that checked nothing unprompted has a row only with 20 seeds
+        rows = [row for row in rows if row[3][0] != [Q3]]
     # one line per row: the pre-registered rows show the Holm-adjusted p, marked with a dagger
     lines = ["| Signal shown: first → second | Receivers, prompt | Status | Caught, first | Caught, second | Only first / only second | p |",
              "|---|---|---|---|---|---|---|"]
@@ -472,6 +475,11 @@ def values(d: Data) -> dict[str, str]:
     v["runs_followup"] = f"{follow:,}"
     v["runs_total"] = f"{len(d.study1) + len(d.receiver) + len(d.note) + len(d.organic):,}"
     v["qwen_runs"] = str(sum(r["receiver"] == Q for r in main2))
+    q_per_seed: dict[int, int] = defaultdict(int)
+    for r in main2:
+        if r["receiver"] == Q:
+            q_per_seed[r["seed"]] += 1
+    v["qwen_seeds"] = str(sum(n == 30 for n in q_per_seed.values()))   # seeds with all 30 cells run
     per_seed: dict[int, int] = defaultdict(int)
     for r in main2:
         if r["receiver"] == N:
@@ -534,19 +542,78 @@ def values(d: Data) -> dict[str, str]:
     v["p3_counts"], v["p3_short"] = f"{a3} of {n3} against {b3} of {n3}", f"{a3} against {b3} of {n3}"
     v["p3_p"], v["p3_holm"] = pfmt(ps[2]), pfmt(holm[2])
 
-    # ranges over the three receivers that caught almost nothing when left to decide
-    low = [G, N, NANO]
+    # qwen3.6 in Study 2, the third locked receiver, with the seeds it finished by the cut-off
+    v["qwen_disc_none"] = caught_of(cell(Q, "discretion", "none"))
+    v["qwen_duty_none"] = caught_of(cell(Q, "duty", "none"))
+    v["qwen_disc_evidence"] = caught_of(cell(Q, "discretion", "evidence"))
+    v["qwen_duty_evidence"] = caught_of(cell(Q, "duty", "evidence"))
+    a, b_ = cell(Q, "discretion", "none"), cell(Q, "duty", "none")
+    v["qwen_gap"] = f"{pct(sum(ar.caught(r) for r in a), len(a))} to {pct(sum(ar.caught(r) for r in b_), len(b_))}" if a and b_ else "not run"
+    rs = cell(Q, "discretion", "evidence")
+    k = sum(ar.caught(r) for r in rs)
+    looked = sum(r["looked"] for r in rs)
+    v["qwen_mismatch_sentence"] = (
+        " The fourth receiver that checked nothing unprompted, qwen3.6, held "
+        + (f"all {len(rs)}" if k == len(rs) else of(k, len(rs)))
+        + (" on that line alone, without reading the table." if looked == 0 else ".")
+    ) if rs and Q in d.main else ""
+
+    # the receivers shown in Figure 2, and how many false dones stand behind each point
+    def bare(m: str) -> str:
+        return short(m).split(" (")[0]
+
+    def listing(names: list[str]) -> str:
+        return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+    by_n: dict[str, list[str]] = defaultdict(list)
+    for m in d.main:
+        ns = sorted({len(cell(m, dty, s)) for dty in ("discretion", "duty") for s in SIGNALS})
+        by_n[str(ns[0]) if len(ns) == 1 else f"{ns[0]} to {ns[-1]}"].append(bare(m))
+    groups = sorted(by_n.items(), key=lambda kv: -len(kv[1]))
+    v["fig2_n_sentence"] = (
+        f"Each point is {groups[0][0]} false dones"
+        + (" (" + "; ".join(f"{n} for {listing(ms)}" for n, ms in groups[1:]) + ")" if groups[1:] else "") + "."
+    )
+    v["h8_rows"] = "rows 8 to 11" if Q in d.main else "rows 8 to 10"   # Table 1 has a qwen3.6 row only with 20 seeds
+    v["main_n_word"] = WORDS[len(d.main)]
+    v["main_receivers_slash"] = " / ".join(bare(m) for m in d.main)
+
+    # ranges over the receivers that caught almost nothing when left to decide
+    paid3 = [G, N, NANO]   # the three that mostly paid on a handoff that said MISMATCH
+    low = [m for m in d.main if m in (G, Q, N, NANO)]
     disc = [(sum(ar.caught(r) for r in cell(m, "discretion", "none")), len(cell(m, "discretion", "none"))) for m in low]
     duty = [(sum(ar.caught(r) for r in cell(m, "duty", "none")), len(cell(m, "duty", "none"))) for m in low]
     v["disc_low_range"] = f"{min(whole(100 * k / n) for k, n in disc)}% to {max(whole(100 * k / n) for k, n in disc)}%"
     v["duty_low_range"] = f"{min(whole(100 * k / n) for k, n in duty)}% to {max(whole(100 * k / n) for k, n in duty)}%"
     v["duty_low_min_pct"] = f"{min(math.floor(100 * k / n) for k, n in duty)}%"   # "N% or more"
     rates = []
-    for m in low:
+    for m in paid3:
         rs = cell(m, "discretion", "evidence")
         rates.append(whole(100 * sum(r["wrong_payout"] for r in rs) / len(rs)))
     v["mismatch_paid_range"] = f"{min(rates)}% to {max(rates)}%"
     every = [m for m in d.main]
+
+    # Counts of receivers that the prose states in words. Each is checked here against the runs, so
+    # that a build fails loudly if the runs stop supporting a sentence.
+    def honest_held(m: str) -> tuple[int, int]:
+        hs = [r for dty in ("discretion", "duty") for s in SIGNALS for r in d.cells.get((m, dty, "honest", s), [])]
+        return sum(r["held"] for r in hs), len(hs)
+
+    def rate(m: str, dty: str, s: str, value=ar.caught) -> float:
+        rs = cell(m, dty, s)
+        return sum(value(r) for r in rs) / len(rs)
+
+    stated = {
+        "seven receivers are shown": len(d.main) == 7,
+        "four receivers caught at most 3% when left to decide": sorted(low) == sorted(m for m in d.main if whole(100 * rate(m, "discretion", "none")) <= 3) and len(low) == 4,
+        "one sentence lifted those four to 75% or more": all(rate(m, "duty", "none") >= 0.75 for m in low),
+        "two receivers caught all when left to decide": sum(rate(m, "discretion", "none") == 1 for m in d.main) == 2,
+        "three of seven receivers mostly paid on MISMATCH": sorted(paid3) == sorted(m for m in d.main if rate(m, "discretion", "evidence", lambda r: r["wrong_payout"]) > 0.5),
+        "five receivers held at most 1 honest handoff in 200 or more": sum(honest_held(m)[0] <= 1 and honest_held(m)[1] >= 200 for m in d.main) == 5,
+    }
+    failed = [claim for claim, holds in stated.items() if not holds]
+    if failed:
+        raise SystemExit("the prose states what the runs do not support: " + "; ".join(failed))
     v["duty_evidence_min_pct"] = f"{min(math.floor(100 * sum(ar.caught(r) for r in cell(m, 'duty', 'evidence')) / len(cell(m, 'duty', 'evidence'))) for m in every)}%"
     rs = cell(N, "discretion", "none")
     v["nem_disc_none_pct"] = f"{math.ceil(100 * sum(ar.caught(r) for r in rs) / len(rs))}%"   # "N% or less"

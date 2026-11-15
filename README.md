@@ -15,14 +15,14 @@ out on that report.
 - As rules in code, a valid signature caught none of the planted false "done" reports, the
   same as trust. Comparing signed evidence with the database caught all of them, with no
   false alarm.
-- Left to decide, three of six LLM receivers checked almost nothing and two checked every
-  time. One sentence of instruction made the three check.
+- Left to decide, four of seven LLM receivers checked almost nothing and two checked every
+  time. One sentence of instruction made the four check.
 - A one-word "✔ Verified" badge reduced checking in two receivers from two developers
   (a pre-registered test for one, exploratory for the other). An accurate signature line made
   no detectable difference, and a sentence saying what the signature covers reversed the
   badge's effect.
 - Three receivers paid on most handoffs whose text said that the evidence check had failed.
-- With nothing planted, four of five workers answered a failed tool call with a true but
+- With nothing planted, most workers answered a failed tool call with a true but
   incomplete report. The evidence check passes those.
 - Shown one worker's note admitting the failure, capable receivers stopped the batch, until
   an instruction naming one check made two of them pay. An instruction naming the goal did

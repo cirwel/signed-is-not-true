@@ -437,3 +437,20 @@ the sweep reruns seeds 0 to 3 with every signal.
   Figure 3 and Table E4, for a condition, only if it has at least 20 seeds there: the number the two
   smallest sweeps have (claude-haiku-5-5 and gpt-6.1-sol), and the same rule as for Study 2. The
   sentences that count workers are generated from the run files, so that they are correct either way.
+- 2026-11-15T11:17Z, before the cut-off: **qwen3.6 reached 20 seeds in Study 2 and is now shown.** With the
+  GPU to itself it ran faster than expected and finished seeds 0 to 19 of Study 2 at 11:10 UTC (600 of
+  its 1,200 runs) and of Study 3 at 07:45 UTC. By the rule recorded at 2026-11-14T23:38Z (f), which was
+  set before it had more than 18 runs, it is therefore drawn in Figure 2 and listed with the other
+  receivers, on half the seeds of the other two locked receivers. I had expected it to stay under 20
+  seeds, so the report's sentences that count receivers had been written for six. They now count seven:
+  left to decide, four receivers (not three) caught at most 3%, and the duty sentence lifted the four;
+  three of seven (not of six) mostly paid on a handoff that said MISMATCH; five (not four) held at most
+  one honest handoff. Its own results are stated where the others' are: 0 of 40 false dones caught when
+  left to decide, 40 of 40 under duty, no change under the signature line, the badge or the scope note,
+  and 40 of 40 held when the handoff said MISMATCH, without reading the table. Table 1 gained that last
+  contrast as a descriptive row, since it is the one locked receiver for which the written result did
+  work as a gate. The sentence in Methods that called it "about ten times slower than nemotron3" was
+  true while it shared the GPU and is replaced by "run last on a shared GPU"; Table E9 has its median
+  time per run. `harness/report_tables.py` now checks each of these counts against the runs and stops
+  the build if one does not hold. No test, threshold or definition was changed, and the three primary
+  tests already pooled its runs.

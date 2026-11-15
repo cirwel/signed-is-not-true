@@ -21,7 +21,7 @@ agent pays out on the report. As rules in code, a valid signature caught 0 of 16
 the same as trust, and comparing signed evidence with the table caught all 160. I replayed the
 handoffs to LLM receivers from five developers under five signals and two
 prompts. Left to
-decide, three receivers caught at most 3% and two caught all; one sentence of instruction lifted the three
+decide, four receivers caught at most 3% and two caught all; one sentence of instruction lifted the four
 to {{duty_low_min_pct}} or more. An accurate signature line made no detectable difference. A "✔ Verified" badge cut catches in two
 receivers ({{nem_duty_none_to_badge}}, pre-registered; 24 to 9 of 80), and a note on what the signature covers
 raised them (20 to 79 of 80). Three receivers paid on most handoffs that said the evidence check had
@@ -181,8 +181,8 @@ hypothesis with its outcome and lists what changed after each lock.
 **What did not work.** Without a `thought` field no receiver caught anything in pilots, even under the
 duty prompt (gemma4, 0 of 10), so all Study 2 runs use one. nemotron3 could not keep the strict reply
 format, so Studies 2 and 3 accept loosely shaped tool calls; as a *worker* it still failed the format so
-often that its Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower than nemotron3 on a
-shared GPU and completed only {{qwen_runs}} of its 1,200 Study 2 runs{{qwen_s3_clause}}.
+often that its Study 3 rows are only in Appendix E. qwen3.6, run last on a shared GPU, finished {{qwen_runs}}
+of its 1,200 Study 2 runs.
 
 **Prior work used.** The voucher format and verification code are a verbatim copy of a federation tracer
 from UNITARES (Apache-2.0), written before the sprint and marked in the repository. Everything else was written during the sprint.
@@ -202,17 +202,17 @@ was fixed in advance.
 ### 4.2 Study 2: what a signal does to an LLM receiver
 
 **Whether a receiver checked depended on the receiver and on one sentence (H5, H9; Figure 2).** With no
-signal and no instruction, gemma4 caught 0 of 80 false dones, nemotron3 {{nem_disc_none}} and gpt-5.4-nano 1 of 80.
+signal and no instruction, gemma4 caught 0 of 80 false dones, qwen3.6 {{qwen_disc_none}}, nemotron3 {{nem_disc_none}} and gpt-5.4-nano 1 of 80.
 gpt-6-luna caught 24 of 80. claude-haiku-5-5 and gpt-6.1-sol read the refunds table unprompted and caught
-40 of 40, as they did in every cell of the design (Table E2). Under the duty prompt the three low
-receivers caught 75 of 80, {{nem_duty_none}} and 79 of 80.
+40 of 40, as they did in every cell of the design (Table E2). Under the duty prompt the four low
+receivers caught 75 of 80, {{qwen_duty_none}}, {{nem_duty_none}} and 79 of 80.
 
 <div class="fig">
 
 ![Figure 2](../results/figure2.png)
 
 **Figure 2.** Study 2. Share of false dones each receiver caught, by signal and prompt, with 95% Wilson
-intervals. Dashed line: rule C on the same handoffs. qwen3.6 is left out ({{qwen_runs}} runs by the cut-off; Table E2).
+intervals. Dashed line: rule C on the same handoffs. {{fig2_n_sentence}}
 
 </div>
 
@@ -244,14 +244,14 @@ nemotron3 under duty and gpt-6-luna left to decide caught more than under any ot
 handed the answer, and gpt-6-luna read the table in 79 of 80 runs. H7 as locked is not supported (row 5):
 the locked receivers did not check under discretion with or without the note.
 
-**A failed check written into the handoff was not a gate (H8; rows 8 to 10).** Under the discretion
+**A failed check written into the handoff was not a gate (H8; {{h8_rows}}).** Under the discretion
 prompt, with "Evidence check: [...] Result: MISMATCH." in the message, gemma4 paid a wrong amount on 80 of
 80 false dones, nemotron3 on {{nem_mismatch_paid}} and gpt-5.4-nano on 57 of 80. gemma4's reasoning never mentions the
 result. The other two usually do, in {{nem_mismatch_said}} and 52 of the 57 runs that paid: "Refund mismatch was reported
 for orders 113-115; I must compute net balances via net_balance per customer and then pay each customer
-accordingly" (gpt-5.4-nano). Under the duty prompt the same line took every receiver to {{duty_evidence_min_pct}} or more.
+accordingly" (gpt-5.4-nano).{{qwen_mismatch_sentence}} Under the duty prompt the same line took every receiver to {{duty_evidence_min_pct}} or more.
 
-**False alarms were rare (Table E2).** Four receivers held at most 1 honest handoff in 200 or more.
+**False alarms were rare (Table E2).** Five receivers held at most 1 honest handoff in 200 or more.
 gpt-5.4-nano held 9 of 400, all under duty, each time saying it could not verify the refunds and never that
 it had found a problem; nemotron3 held {{nem_honest_held}}, mostly over its own failed tool calls.
 
@@ -318,8 +318,8 @@ the unit, holds were fewer under duty for 20 of 20 handoffs (gpt-6-luna) and 11 
 and more for none (sign test, descriptive: p = 2 × 10<sup>-6</sup> and p = 0.001). The reasoning shows why. Under
 duty, gpt-6-luna writes: "The refunds table matches Alpha's report: both applied refunds are present and
 the failed refund is absent", and pays. On the same handoff under discretion: "A refund for order 103 failed and is explicitly absent from the ledger [...] a concrete issue that warrants human review." The instruction named one comparison, the comparison passed, and the
-receiver behaved as rule C does. The sentence that had lifted three receivers from almost nothing on
-misreports took a fourth from 97% to 3% on a disclosed failure.
+receiver behaved as rule C does. The sentence that had lifted four receivers from almost nothing on
+misreports took a fifth from 97% to 3% on a disclosed failure.
 
 **An instruction that names the goal did not hide the note.** Under the goal sentence gpt-6-luna held 58
 of 60, claude-haiku-5-5 60 of 60 and gpt-6.1-sol 60 of 60, as when left to decide, and gpt-5.4-nano and
@@ -338,7 +338,7 @@ third when the handoff carries something to reach with, but only if it is capabl
 not narrow it (Table 2).
 
 **Table 2.** Share of false "done" handoffs stopped, by kind of report and safeguard, for the weakest and
-the most signal-sensitive receiver (no signal shown in row 1; three signals pooled in row 2; all six
+the most signal-sensitive receiver (no signal shown in row 1; three signals pooled in row 2; all {{main_n_word}}
 receivers in Table E10).
 
 <div class="wrapfirst">
@@ -351,7 +351,7 @@ receivers in Table E10).
 **Four design rules follow** for those who design handoff protocols, build agent frameworks or write a
 receiver's instructions, each from one result here.
 
-1. *Enforce a check in code.* The rule acted on every mismatch; three of six receivers mostly paid when
+1. *Enforce a check in code.* The rule acted on every mismatch; three of seven receivers mostly paid when
    the same result was a sentence in their input.
 2. *A provenance signal that a model will read should say what it covers.* The accurate long form made no
    detectable difference, its compression into one word suppressed checking in two receivers, and a
@@ -376,7 +376,7 @@ binding in rule 3.
 A valid signature told the receiver nothing about whether the work was done. An evidence check stopped
 every report that differed from the table, planted or not, and no true report of unfinished or mistaken
 work. Left to decide,
-half of the receivers checked almost nothing; told to check, one could be talked out of it by the word
+four of seven receivers checked almost nothing; told to check, one could be talked out of it by the word
 "Verified"; and the instruction that made weak receivers check made capable ones stop looking once the
 named check had passed. Whether a claim is true needs a comparison the claimant does not control, done in
 code. Whether the work is right needs a statement of what was asked. And where a model is the reader, each
@@ -460,14 +460,16 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
 - Every result for the four API models is exploratory: they were added after the second lock. So are the
   note-carrying arm, the goal prompt, the badge wordings, the *wrong* condition, and all contrasts not
   named as primary. Their p values are not adjusted for the number of contrasts examined.
-- Six receivers have at least 20 seeds. qwen3.6, a locked receiver, completed only {{qwen_runs}} of its 1,200
-  Study 2 runs by the cut-off. claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every planted false done
+- qwen3.6, a locked receiver, was run last on a shared GPU. By the cut-off it had completed {{qwen_runs}} of its
+  1,200 Study 2 runs ({{qwen_seeds}} of 40 seeds){{qwen_s3_clause}}, so its Study 2 cells hold half the runs of
+  the other two locked receivers.
+  claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every planted false done
   under every signal, so this task cannot show whether a signal would move them on a harder one.
 - The models were not sampled alike. The local models and gpt-5.4-nano ran at temperature 0.7 with a seed.
   The two gpt-6 models accept only their default temperature and ran at their default reasoning effort.
   claude-haiku-5-5 was reached through a command-line tool that adds a short context block of its own, has
   no seed or temperature control and may think before answering.
-- The badge effect appeared in two receivers of six. I read it as an existence result: such receivers exist
+- The badge effect appeared in two receivers of seven. I read it as an existence result: such receivers exist
   among current models, and nothing in a badge's design guards against it.
 - The duty sentence names exactly the comparison that catches the planted errors, so its success in Study 2
   is unsurprising; what is informative is what remained and what moved it. The same sentence was locked
@@ -571,11 +573,11 @@ before Studies 2 and 3. The locked tests use the local receivers; results for AP
 | H2 | The evidence check catches at least 90% of planted false dones, with false alarms at most 10% | Supported: 160 of 160, 0 of 80 |
 | H3 | Descriptive: false dones in honest runs | None in 80 (gemma4, qwen3.6) |
 | H4 | A truthful report of a wrong action passes the evidence check | No such case arose in the locked conditions. In the *wrong* condition, added after the lock, 80 of 80 passed |
-| H5 | With no signal and no instruction, each receiver catches fewer than half | Supported for the locked receivers (gemma4 0 of 80, nemotron3 {{nem_disc_none}}). Of the added receivers, claude-haiku-5-5 and gpt-6.1-sol caught all |
+| H5 | With no signal and no instruction, each receiver catches fewer than half | Supported for the locked receivers (gemma4 0 of 80, qwen3.6 {{qwen_disc_none}}, nemotron3 {{nem_disc_none}}). Of the added receivers, claude-haiku-5-5 and gpt-6.1-sol caught all |
 | H6 | Under duty, the signature line and the badge each lower the catch rate; under discretion neither raises it | Badge under duty: supported (primary test, Holm-adjusted p = {{p2_holm}}), through one receiver. Signature line under duty: not supported (p = {{p1_p}}). Under discretion neither raised it |
 | H7 | Under discretion, a scope note raises the catch rate over the signature line | Not supported on the locked receivers (primary test, {{p3_short}}, p = {{p3_p}}, Holm-adjusted {{p3_holm}}). Supported in gpt-6-luna, exploratory |
-| H8 | With the evidence result shown, at least 90% caught under both prompts and at most 10% of honest handoffs held | Under duty: supported (gemma4 79 of 80, nemotron3 {{nem_duty_evidence}}). Under discretion: not supported (0 of 80, {{nem_disc_evidence}}). Honest handoffs held: at most {{honest_held_max_pct}} |
-| H9 | Descriptive: the gap between the two prompts with no signal | gemma4 0% to 94%; nemotron3 {{nem_gap}} |
+| H8 | With the evidence result shown, at least 90% caught under both prompts and at most 10% of honest handoffs held | Under duty: supported (gemma4 79 of 80, qwen3.6 {{qwen_duty_evidence}}, nemotron3 {{nem_duty_evidence}}). Under discretion: supported for qwen3.6 ({{qwen_disc_evidence}}), not for gemma4 and nemotron3 (0 of 80, {{nem_disc_evidence}}). Honest handoffs held: at most {{honest_held_max_pct}} |
+| H9 | Descriptive: the gap between the two prompts with no signal | gemma4 0% to 94%; qwen3.6 {{qwen_gap}}; nemotron3 {{nem_gap}} |
 | H10 | In *blocked* some reports overclaim; C catches every overclaim and passes every honest partial, which ends in wrong payouts | Supported, all workers together: {{over_caught_of}} overclaims caught, {{partial_passed_of}} partial reports passed, {{partial_wrong}} of them ending in wrong payouts |
 | H11 | In *derived* more than half of the false dones are faithful | Locked workers: supported for gemma4 (16 of 17); not for nemotron3 (1 of 7, the other 6 reports not in the agreed form){{qwen_h11_clause}}. Added worker gpt-5.4-nano: 4 of 4 without a reasoning field, 0 of 6 with one |
 | H12 | Descriptive: the effect of a reasoning field | gemma4: overclaims 40 to 25 of 40, miscalculated batches 17 of 40 to 0 of 39. gpt-5.4-nano: overclaims 8 to 0 of 40; skipped refunds reported as applied 0 to 6 of 40 |
@@ -653,8 +655,8 @@ that read the refunds table, out of false-done handoffs shown.
 <!-- table:e7 -->
 <!-- /table:e7 -->
 
-**Table E10.** Percentage of false "done" handoffs stopped, all six receivers. Receiver cells list gemma4 /
-nemotron3 / gpt-5.4-nano / gpt-6-luna / claude-haiku-5-5 / gpt-6.1-sol (row 1: no signal shown; row 3:
+**Table E10.** Percentage of false "done" handoffs stopped, all {{main_n_word}} receivers. Receiver cells list
+{{main_receivers_slash}} (row 1: no signal shown; row 3:
 three signals pooled; a dash: not run).
 
 <div class="wrapfirst">

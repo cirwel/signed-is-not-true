@@ -58,7 +58,7 @@ RECEIVER_STYLE = {
 }
 
 
-MIN_SEEDS = 20   # every receiver but qwen3.6 reached at least 20 seeds
+MIN_SEEDS = 20   # a receiver is drawn in Figure 2 only with at least 20 seeds; qwen3.6 reached 20 just before the cut-off
 
 
 def figure2(root: Path, out: Path) -> None:
