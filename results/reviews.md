@@ -1,9 +1,10 @@
 # Reviews of the analysis and the report
 
-Six review passes by three reviewers were made on the rewritten report before it was resubmitted, and a
-fourth agent had audited the first version (section 7). All of them are AI models. The author read the
-report after the fourth pass and is responsible for it; the fifth and sixth passes and the changes that
-followed them are in sections 5 and 6.
+Seven review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
+the first version (section 7). All of them are AI models. The author read the report after the fourth
+pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6
+and 8. Section 8 is about the two arms added on the evening of 15 November, after the resubmission of
+that day.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
@@ -129,3 +130,22 @@ before the sprint; the page limit.
 | The abstract of the first version had 256 words, over the limit of 250 | The rewritten abstract has 248 |
 | Three page breaks in the first PDF split a sentence, a figure from its caption, and the conclusion | The rewritten report keeps each figure with its caption, and its main text ends on page 8 |
 | In `results/tables.md`, Table 7 was printed before Table 6 | The two are now numbered in the order they are printed (15 November, after the resubmission; no number changed) |
+
+## 8. Fifth pass by the same second-family reviewer, 15 November 2026, about 23:05 UTC
+
+**Reviewer:** gpt-6-sol again, read-only, on the report with the two arms run after the cut-off (the
+request carried in the handoff, and other wordings of the two instructions). It checked 477 numbers about
+the new arms and the run totals against `results/tables_request.md` and the run records, recounted the
+1,600 and 240 run files itself, and found no mismatch. It confirmed that the first runs finished after
+the commits that recorded what was expected, and that Table D2 reports the two expectations that held
+only in part as such. Before it, a script that does not import the analysis code had recounted both arms
+from the run records; all agreed.
+
+| Finding | What was done |
+|---|---|
+| "Carrying the request closed the gap" overstates what was measured: every run of the arm showed the request line, so there was no comparison on the same handoffs without it | A control was run: the same 60 false dones without the line, under the three prompts that do not refer to it (900 runs, `runs/request_base/`), with the expectation recorded in the lock file first (B1 in Table D2). The abstract, contribution 6, Section 4.5 and the conclusion now state the condition (request shown, instruction given), give the result without the line, and say that the arm is exploratory and was run after the cut-off |
+| Design rule 3 implied that a signed binding and a comparison with the table had been tested. The request was a line of text, no signature on it was verified, and the two weaker receivers often caught the shortfall from the message without reading the table | Rule 3 now says the request was shown as a line of the handoff and names a signed request compared by a rule in code as the next test; Section 4.5 points to the count of runs that read the table first (Table E11); Appendix A says the line's signature was neither made nor verified |
+| In Methods, "the last two were run after the cut-off" read as if it meant the last two badge wordings | The sentence now follows the two arms it is about and names them; Appendix D says "the first three follow-up arms" |
+| Table 2 and Table E10 did not say which comparison "told which check" was in the row with the request shown, and did not show the rates under the new request sentence | Table 2's header names the comparison (duty: report against table) and its third row adds the rate under the request sentence; Table E10 has a column for the request sentence, and its caption says what "told which check" is |
+| A trim had turned "a median cost of 0.6 ms" into "in 0.6 ms", and Section 5 said "in under a millisecond"; 64 of the 320 Study 1 runs took 1 ms or more | Section 4.1 says "at a median of 0.6 ms" again and Section 5 says "in about a millisecond" |
+| Appendix A said the two arms were run "from 22:12 UTC", which is when the expectations were committed; the first run finished at 22:13:19 UTC | Appendix A now gives both times |

@@ -167,7 +167,8 @@ def slopes(ax, cells: dict[tuple[str, str], list[dict]], prompts: list[str], tic
     ax.tick_params(axis="y", labelsize=6)
 
 
-def figure3(root: Path, out: Path, note_root: Path | None = None, request_root: Path | None = None) -> None:
+def figure3(root: Path, out: Path, note_root: Path | None = None, request_root: Path | None = None,
+            base_root: Path | None = None) -> None:
     """(a): one bar per worker and reply format after a visible tool error, split by what the evidence
     check can see. (b): the note-carrying arm, held under each prompt, one line per receiver. (c): the
     arm that carries the request (run after the cut-off), caught under each prompt."""
@@ -257,6 +258,22 @@ def figure3(root: Path, out: Path, note_root: Path | None = None, request_root: 
                 cells[(r["receiver"], r["duty"])].append(r)
         prompts = [d for d in ("discretion", "duty", "goal", "request") if any(k[1] == d for k in cells)]
         slopes(axes[-1], cells, prompts, tick, "(c) the request is shown", "share of false dones caught", 30, False)
+        if base_root and base_root.exists():
+            # the control: the same false dones without the request line; the highest share over the receivers
+            base: dict[tuple[str, str], list[dict]] = defaultdict(list)
+            for r in ar.load(base_root):
+                if "crashed" not in r:
+                    base[(r["receiver"], r["duty"])].append(r)
+            xs, tops = [], []
+            for x, duty in enumerate(prompts):
+                shares = [sum(ar.caught(r) for r in rs) / len(rs) for (rec, d), rs in base.items() if d == duty and len(rs) >= 30]
+                if shares:
+                    xs.append(x)
+                    tops.append(max(shares))
+            if xs:
+                axes[-1].plot(xs, tops, color="#888888", linestyle=(0, (1, 1.5)), linewidth=1.3, zorder=1)
+                axes[-1].text(xs[-1] + 0.12, max(tops) + 0.09, "without the request\n(highest of the five)", fontsize=5.2,
+                              color="#666666", va="bottom", ha="left", linespacing=1.15)
     fig.tight_layout(rect=(0, 0, 1, 0.86), w_pad=0.8)
     fig.savefig(out, dpi=300)
     print(out)
@@ -268,11 +285,12 @@ def main() -> None:
     out = Path(sys.argv[3] if len(sys.argv) > 3 else "results")
     note = Path(sys.argv[4] if len(sys.argv) > 4 else "runs/receiver_note")
     request = Path(sys.argv[5] if len(sys.argv) > 5 else "runs/request")
+    base = Path(sys.argv[6] if len(sys.argv) > 6 else "runs/request_base")
     out.mkdir(parents=True, exist_ok=True)
     if receiver.exists():
         figure2(receiver, out / "figure2.png")
     if organic.exists():
-        figure3(organic, out / "figure3.png", note, request)
+        figure3(organic, out / "figure3.png", note, request, base)
 
 
 if __name__ == "__main__":

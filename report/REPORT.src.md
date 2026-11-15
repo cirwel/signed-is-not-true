@@ -19,15 +19,15 @@ mandates. I measure what such signals catch, and what they do to a model reading
 with database ground truth: one principal's worker applies refunds and reports "done"; another's
 agent pays out on it. As rules in code, a valid signature caught 0 of 160 planted false reports,
 as trust did; comparing signed evidence with the table caught all 160. Seven LLM
-receivers saw the same handoffs under five signals and two prompts: left to
+receivers saw the same handoffs: left to
 decide, four caught at most 3% and two caught all; one sentence of instruction lifted the four
 to {{duty_low_min_pct}} or more. An accurate signature line made no detectable difference. A "✔ Verified" badge cut catches in two
 receivers ({{nem_duty_none_to_badge}} within the pre-registered test; 24 to 9, exploratory), and a note on what the signature covers
 raised them (to {{nem_duty_scoped_k}} and 79, exploratory). With nothing planted, most workers answered a failed tool call with a true report of
 unfinished work, which the evidence check always passed. Shown a note admitting the failure,
 capable receivers stopped the batch, until an instruction naming one check made two pay (stopping 2 and 45
-of 60). Carrying the request closed the gap: told to compare the table with it, five
-receivers stopped {{rq_request_min_pct}} or more of {{rq_n}} such reports (exploratory). What is caught depends on where a check
+of 60). Given the request and an instruction to compare the table with it, five
+receivers stopped {{rq_request_min_pct}} or more of {{rq_n}} such reports; without the request, {{rb_max_pct}} or less (exploratory). What is caught depends on where a check
 sits, what the handoff carries and how instructions are worded.
 
 </div>
@@ -71,8 +71,9 @@ provenance signals change that (Study 2), and which false "done" reports arise w
    gpt-6-luna and claude-haiku-5-5 stopped 3% and 75%; told the goal, they stopped again.
 6. **Carrying what was asked closes the gap, if the instruction points at it.** With the batch's request added
    to {{rq_n}} false dones that every check had passed, five receivers told to compare the table with it stopped
-   {{rq_request_min_pct}} or more; told to compare the report with the table, gpt-6-luna stopped {{rq_luna_duty}}, against
-   {{rq_luna_discretion}} with no instruction (run after the cut-off, with what I expected recorded first).
+   {{rq_request_min_pct}} or more, and at most {{rb_max_k}} without the request. Told to compare the report with the table, gpt-6-luna
+   stopped {{rq_luna_duty}}, against {{rq_luna_discretion}} with no instruction (exploratory, run after the cut-off, with what I
+   expected recorded first).
 
 <div class="fig">
 
@@ -162,12 +163,13 @@ worker's note:* the 20 *blocked* handoffs in which claude-haiku-5-5 disclosed th
 receivers with W2's whole report shown, under both prompts and three signals; the right action is to hold.
 *A goal prompt:* the duty sentence is replaced by one that names the aim and no particular check ("satisfy
 yourself that Alpha's refund work for this batch is complete and correct"; Appendix C). *Badge wordings:*
-"Verified", "✔ Signature valid" and "✔ Sender verified". The last two were run after the cut-off of the locked
-sweeps (15 November, 12:00 UTC), with what I expected recorded first (Table D2). *The request carried:* {{rq_n}}
+"Verified", "✔ Signature valid" and "✔ Sender verified". *The request carried:* {{rq_n}}
 false dones that every check passed (40 true reports of unfinished work from two workers, 20 mis-keyed
-tickets) and 20 honest handoffs are replayed with one more line, the refunds the batch asked for; a fourth
-prompt, *request*, says to check the table against it. *Other wordings:* two more sentences that name the
-report-table comparison and two that name the goal, on the worker's-note reports.
+tickets) and 20 honest handoffs are replayed with one more line, the refunds the batch asked for, and the
+false dones also without it; a fourth prompt, *request*, says to check the table against that line. *Other
+wordings:* two more sentences that name the report-table comparison and two that name the goal, on the
+worker's-note reports. These two arms were run after the cut-off of the locked sweeps (15 November, 12:00
+UTC), with what I expected recorded first (Table D2).
 
 **Models and runs.** Three open-weight models served locally by Ollama at temperature 0.7: gemma4 (8B,
 Google), nemotron3 (33B, NVIDIA) and qwen3.6 (27B, Alibaba). Four models through their developers' APIs:
@@ -197,7 +199,7 @@ from UNITARES (Apache-2.0), written before the sprint and marked in the reposito
 
 For gemma4 and qwen3.6 alike (Table E1), signature verification caught none of the 160
 planted lies and faults, the same as trust (H1): the issuer was authorised, so every voucher verified. The
-evidence check caught all 160 with no false alarm in 80 honest runs (H2), in 0.6 ms and with
+evidence check caught all 160 with no false alarm in 80 honest runs (H2), at a median of 0.6 ms and with
 no model tokens. It accepted all 80 mis-keyed tickets that a worker applied and reported as applied (H4, a
 condition added after the lock), and neither model made a false claim of its own in 80 honest runs (H3).
 These outcomes follow from how the checks are built; they are the reference for the rest, where nothing
@@ -315,8 +317,8 @@ misreports took a fifth from 97% to 3% on a disclosed failure.
 
 **Figure 3.** (a): Study 3 by worker, coloured by what the evidence check can see. (b): 20 reports in
 which the worker noted the failed refund, shown to five receivers; batches held under three prompts.
-(c): {{rq_n}} false dones that every check passed, shown with the request, under four prompts; receivers
-as in (b). 95% Wilson intervals.
+(c): {{rq_n}} false dones that every check passed, shown with the request (dotted: without it), under four
+prompts; receivers as in (b). 95% Wilson intervals.
 
 </div>
 
@@ -329,17 +331,18 @@ receiver held an honest handoff under it ({{goal_honest_held}}).
 
 ### 4.5 The request, and the instruction that used it
 
-This arm tests rule 3 of Section 5 on {{rq_n}} false dones that every check above passed, each shown with one
-more line, the refunds the batch asked for, so the shortfall is in the message itself (Figure 3c, Table E11).
+This exploratory arm, run after the cut-off, tests rule 3 of Section 5 on {{rq_n}} false dones that every check
+above passed, each shown with one more line, the refunds the batch asked for, so the shortfall is in the
+message itself (Figure 3c, Table E11). Without that line the same receivers stopped at most {{rb_max_k}} of the {{rq_n}}.
 
 **The request was enough for the receivers that check, and the named check narrowed one of them again.**
 Left to decide, claude-haiku-5-5, gpt-6.1-sol and gpt-6-luna stopped {{rq_haiku_discretion_k}}, {{rq_sol_discretion_k}} and {{rq_luna_discretion}}; gemma4 and
 gpt-5.4-nano, {{rq_gemma_discretion_k}} and {{rq_nano_discretion_k}}. Under the locked duty sentence (compare the report with the table) gpt-6-luna
 stopped {{rq_luna_duty}}: fewer holds on {{rq_luna_fewer}} handoffs, more on {{rq_luna_more}} (sign test, p = {{rq_luna_p}}). The two weaker
-receivers gained ({{rq_gemma_duty_k}} and {{rq_nano_duty_k}} of {{rq_n}}).
+receivers gained ({{rq_gemma_duty_k}} and {{rq_nano_duty_k}}).
 
 **Naming the comparison with the request closed the gap.** Told to check the table against it, the five
-stopped {{rq_gemma_request_k}}, {{rq_nano_request_k}}, {{rq_luna_request_k}}, {{rq_haiku_request_k}} and {{rq_sol_request_k}} of {{rq_n}}; under the goal sentence, {{rq_gemma_goal_k}}, {{rq_nano_goal_k}}, {{rq_luna_goal_k}}, {{rq_haiku_goal_k}} and {{rq_sol_goal_k}}. Honest handoffs held: {{rq_honest_held}}.
+stopped {{rq_gemma_request_k}}, {{rq_nano_request_k}}, {{rq_luna_request_k}}, {{rq_haiku_request_k}} and {{rq_sol_request_k}} of {{rq_n}} (the first two often from the message alone: Table E11); under the goal sentence, {{rq_gemma_goal_k}}, {{rq_nano_goal_k}}, {{rq_luna_goal_k}}, {{rq_haiku_goal_k}} and {{rq_sol_goal_k}}. Honest handoffs held: {{rq_honest_held}}.
 
 **The narrowing was not an artefact of one sentence, though its size varied (Table E12).** On the
 worker's-note reports, two further sentences naming the report-table comparison left gpt-6-luna holding {{wd_luna_duty_b_k}} and
@@ -350,9 +353,9 @@ worker's-note reports, two further sentences naming the report-table comparison 
 **Three links, and no single safeguard for all of them.** A handoff asks the receiver to believe three
 things: that the report comes from who it says, that it describes what was done, and that what was done is
 what was asked (Figure 1). A signature tests the first. An evidence digest tests the second, completely
-and in under a millisecond, wherever the receiver can observe the effect. An LLM receiver can reach the
-third when the handoff carries something to reach with, but only if it is capable and its instructions do
-not narrow it (Table 2).
+and in about a millisecond, wherever the receiver can observe the effect. An LLM receiver can reach the
+third when the handoff carries something to reach with, but only if it is capable or told where to look,
+and its instructions do not narrow it (Table 2).
 
 **Table 2.** False "done" handoffs stopped, by kind of report and safeguard, for the weakest and the most
 signal-sensitive receiver (row 1: no signal; row 2: three signals pooled; row 3: request shown; all: Table E10).
@@ -373,17 +376,19 @@ signal-sensitive receiver (row 1: no signal; row 2: three signals pooled; row 3:
    sentence on scope reversed that. It is the confusion Chrome found with its lock icon, now in models.
 3. *Bind what was asked, not only what was done, and give failure a place in the report.* Every check
    here passed a true report of unfinished work, and {{never_disclosed_of}} left the failure out of a
-   report format with no field for it. With the request in the handoff and an instruction to compare the
-   table with it, every receiver stopped {{rq_request_min_pct}} or more of such reports (4.5); a rule can make the same comparison.
-4. *Tell a receiver the goal, not the comparison.* The named check lifted weak receivers on the failure it
-   names and blinded two capable ones to the failure beside it. A goal-worded instruction kept them
-   stopping, and did less for the weaker receivers on the named failure (exploratory).
+   report format with no field for it. With the request shown as a line of the handoff and an instruction
+   to compare the table with it, every receiver stopped {{rq_request_min_pct}} or more (4.5). Next: a signed request,
+   compared by a rule in code.
+4. *Tell a receiver the goal, or the comparison that covers the failure.* The check named in the duty sentence
+   lifted weak receivers on the failure it names and blinded two capable ones to the failure beside it. A
+   goal-worded instruction kept them stopping and did less for the weaker receivers; naming the comparison
+   with the request served all five (exploratory).
 
 **Limitations and next steps.** This is a toy pipeline: one task and, in the locked design, one wording of each
 prompt and signal.
 Four of the seven models were added after the locks, so their results are exploratory, and the two
 strongest receivers caught everything, so the task cannot show what would move them (Appendix A has the
-full list). Next: a harder task, a rule in code for rule 3, and more wordings of each signal.
+full list). Next: a harder task, a signed request checked by a rule, and more wordings of each signal.
 
 ## 6. Conclusion
 
@@ -393,7 +398,7 @@ work. Left to decide,
 four of seven receivers caught almost nothing; told to check, one could be talked out of it by the word
 "Verified"; and the instruction that made weak receivers check made capable ones stop looking once the
 named check had passed. Whether a claim is true needs a comparison the claimant does not control, done in
-code. Whether the work is right needs the request itself in the handoff: with it, and an
+code. Whether the work is right needs the request itself in the handoff: in an exploratory arm, with it and an
 instruction that points at it, every receiver tested stopped {{rq_request_min_pct}} or more of the reports no check had caught. And
 where a model is the reader, each signal and each instruction should say what it covers.
 
@@ -466,7 +471,8 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
 - A toy, fully observed workflow: three workers, one table that matters, three refunds per batch. In real
   handoffs many effects cannot be read by the receiver at all, and there check C has nothing to compare.
 - One task, and one wording of each prompt and of each signal in the locked design. The badge wordings and
-  the goal prompt are single follow-up wordings written after seeing the results they respond to.
+  the goal prompt were single follow-up wordings written after seeing the results they respond to; the last
+  arm added two more wordings of each instruction, for three receivers.
 - Every result for the four API models is exploratory: they were added after the second lock. So are the
   note-carrying arm, the goal prompt, the badge wordings, the *wrong* condition, and all contrasts not
   named as primary. Their p values are not adjusted for the number of contrasts examined.
@@ -495,13 +501,16 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
   miscalculated often; with it, less or not at all. The split between kinds of report is the finding.
 - As the importing worker under honest instructions, gpt-6-luna answered `done` with all six order ids and
   no tool call in 27 of 120 runs. The import has no check here, so W2 is counted only where it was right.
-- The two last arms were run after the cut-off of the locked sweeps, on 15 November from 22:12 UTC, because
-  the report as first rebuilt left its third design rule untested. What I expected of each was recorded and
-  pushed before its first run (Table D2). The request arm uses one wording of the request line and of the
+- The two last arms were run after the cut-off of the locked sweeps, on 15 November, because the report
+  as first rebuilt left its third design rule untested. What I expected of each was committed and pushed at
+  22:12 UTC, and the first run finished at 22:13 UTC (Table D2). The runs without the request line were
+  added at 23:08 UTC, after a reviewer noted that the arm had no such control; the lock entry of 22:12 UTC
+  had said none would be made. The request arm uses one wording of the request line and of the
   request sentence, and 60 false dones from three workers. The request it shows is the batch's own, so it
   says nothing about a request that is itself wrong; and the shortfall can be read off the message without
   opening the table, so the arm tests whether a receiver uses the request, not whether it can find the
-  failure unaided.
+  failure unaided. The line says that the request is signed by Alpha; the harness neither signed nor
+  verified it, so nothing here is about how a request is authenticated.
 - The note-carrying arm replays 20 handoffs written by one worker, each under three signals and three
   prompts. Its tests take the handoff as the unit. The Study 2 tests, as locked, take each handoff shown
   to each receiver as a pair, although receivers share the same 80 false-done handoffs.
@@ -616,7 +625,7 @@ before Studies 2 and 3. The locked tests use the local receivers; results for AP
 
 **Changes after the locks** (the lock file gives each with its time and reason). After the first lock: W3
 was given a `net_balance` tool after a smoke test, and the *wrong* condition was added after Study 1's
-sweep. After the second lock: (1) the four API models were added as receivers and workers; (2) the three
+sweep. After the second lock: (1) the four API models were added as receivers and workers; (2) the first three
 follow-up arms of Section 3 were added, each recorded before its first run; (3) after an independent code
 review, W2's behaviour is counted only on handoffs where W1's import was right, wrong payouts in Study 3
 use Study 2's rule, and Figure 1 leaves out reports that are not in the agreed form; (4) descriptive tables
@@ -625,11 +634,12 @@ split of partial reports into silent and disclosed); (5) runs that failed becaus
 reached were set aside and rerun (8 runs, all claude-haiku-5-5), while server errors from the local model
 server stay in the tables as incomplete runs, because they may depend on what the model was writing;
 (6) after the cut-off of 15 November 12:00 UTC, which froze everything above, two more exploratory arms
-were run (the request carried, and other wordings of the two instructions); none of the locked analyses
-reads their runs.
+were run (the request carried, with a control added after a review, and other wordings of the two
+instructions); none of the locked analyses reads their runs.
 
 **Table D2.** The two arms run after the cut-off: what I expected, recorded in the lock file before the
-first run of either, and what happened. Counts are false dones caught, or batches held, out of those shown.
+runs it concerns (B1, for the control without the request line, at 23:08 UTC; the rest at 22:12 UTC), and
+what happened. Counts are false dones caught, or batches held, out of those shown.
 
 <div class="longtable">
 
@@ -700,7 +710,8 @@ that read the refunds table, out of false-done handoffs shown.
 
 **Table E10.** Percentage of false "done" handoffs stopped, all {{main_n_word}} receivers. Receiver cells list
 {{main_receivers_slash}} (row 1: no signal shown; row 3:
-three signals pooled; row 4: with the request shown; a dash: not run).
+three signals pooled; row 4: with the request shown; a dash: not run). In the columns, "told which check"
+is the locked duty sentence, which names the comparison of the report with the table.
 
 <div class="wrapfirst">
 
@@ -711,6 +722,7 @@ three signals pooled; row 4: with the request shown; a dash: not run).
 
 **Table E11.** The request carried in the handoff (run after the cut-off). False dones caught out of those
 shown, by receiver and prompt. Every one of these reports matches the refunds table, so check C passes it.
+Last column: the same false dones replayed without the request line.
 
 <!-- table:e11 -->
 <!-- /table:e11 -->

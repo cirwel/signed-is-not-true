@@ -29,8 +29,8 @@ out on that report.
   not.
 - Adding what was asked to the handoff closed the gap that every check had left: told to
   compare the table with the batch's request, every receiver tested stopped nearly all of
-  those reports. The instruction that names the other comparison made one capable receiver
-  pay again. (Run after the cut-off of the locked sweeps, with what was expected recorded
+  those reports, and almost none of them without the request. The instruction that names the
+  other comparison made one capable receiver pay again. (Run after the cut-off of the locked sweeps, with what was expected recorded
   first.)
 
 Counts, intervals and tests are in the report and under `results/`.
@@ -43,7 +43,7 @@ Counts, intervals and tests are in the report and under `results/`.
 | 2 | What does an LLM receiver do when the checking is left to it and it is shown a signature, a "Verified" badge, a scoped label or a check result? | `harness/receiver.py`, `harness/analyze_receiver.py` | `runs/receiver/` |
 | 3 | What false "done" reports arise when nobody plants them, and which can a check see? | `harness/run.py` (conditions `blocked`, `derived`), `harness/analyze_organic.py` | `runs/organic/` |
 | Follow-up arms (exploratory) | Does a receiver act on a worker's own note of a failure (`--full-report`)? Does an instruction that names the goal behave differently from one that names a check (`--duties goal`)? Does the wording of a short badge matter (`--signals badge_word,...`)? | `harness/receiver.py` | `runs/receiver_note/`, `runs/receiver/` |
-| Two arms after the cut-off (exploratory) | With the batch's request added to the handoff (`--request`), does a receiver stop the false dones that every check passed, and under which instruction? Does the narrowing by an instruction that names a check depend on one wording? | `harness/receiver.py`, `harness/analyze_request.py` | `runs/request/`, `runs/wording/` |
+| Two arms after the cut-off (exploratory) | With the batch's request added to the handoff (`--request`), does a receiver stop the false dones that every check passed, and under which instruction? What does it do with the same handoffs without that line? Does the narrowing by an instruction that names a check depend on one wording? | `harness/receiver.py`, `harness/analyze_request.py` | `runs/request/`, `runs/request_base/`, `runs/wording/` |
 
 Seven models from five developers: three open-weight models served locally (gemma4,
 nemotron3, qwen3.6), three reached through the OpenAI API (gpt-5.4-nano, gpt-6-luna,
@@ -84,7 +84,7 @@ any Study 3 run beyond an 8-run smoke test.
 - `scripts/`: the sweep scripts, `regenerate.sh` (rebuilds every table, figure and the report
   from the run records) and `check_cutoff.py` (lists runs of the locked sweeps and the first
   three follow-up arms that finished after the cut-off of the second lock; the two arms run
-  after it are kept apart in `runs/request/` and `runs/wording/`). `report/`: the report text,
+  after it are kept apart in `runs/request/`, `runs/request_base/` and `runs/wording/`). `report/`: the report text,
   stylesheet and build script.
 - All runs and results, including the pilot and smoke-test files under `results/`.
 
@@ -128,6 +128,7 @@ bash scripts/sweep_openai_wording.sh  # badge wordings
 bash scripts/sweep_goal.sh            # the goal prompt (also runs gemma4 and, through the CLI, claude-haiku-5-5)
 bash scripts/sweep_note.sh gemma4:latest
 bash scripts/sweep_request.sh         # the request carried in the handoff (also gemma4 and claude-haiku-5-5)
+bash scripts/sweep_request_base.sh    # its control: the same false dones without the request line
 bash scripts/sweep_wording.sh         # other wordings of the two instructions
 ```
 

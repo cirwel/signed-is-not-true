@@ -561,3 +561,13 @@ the sweep reruns seeds 0 to 3 with every signal.
   three prompts: nothing in the message or the ledger says that a third refund was due or that an
   amount was mis-keyed. If a receiver stops more than that, the report will say so and the sentence
   about what the request adds will be weakened to match.
+- 2026-11-15T23:47Z: **the control finished (first run 23:08:15 UTC, last 23:46:36 UTC; 900 runs, none crashed, none
+  lost to an unreachable API, one ended by a local server error and counted as incomplete).** B1 held:
+  without the request line every receiver stopped 0 of the 60 false dones under every prompt, except
+  gpt-5.4-nano under the duty sentence, which stopped 2. The report's sentences about the request now
+  give both sides of that comparison. The other points of the review that led to this control (what
+  design rule 3 does and does not show, the dating of the arms in Methods, the column headers of Table 2
+  and Table E10, a median that a trim had turned into a flat figure, a start time in Appendix A) are in
+  section 8 of `results/reviews.md` with what was done about each. Figure 3's third panel shows the
+  control as a dotted line. In all, 2,740 runs were made after the cut-off of 12:00 UTC, in three
+  folders that no locked analysis reads: `runs/request/`, `runs/request_base/` and `runs/wording/`.
