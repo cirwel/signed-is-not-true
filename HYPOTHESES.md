@@ -549,3 +549,15 @@ the sweep reruns seeds 0 to 3 with every signal.
   longer mentions the handoffs that said the evidence check had failed or the goal instruction, and the
   line height went from 1.32 to 1.30. `harness/report_tables.py` checks what Section 4.5 says in words
   against the complete runs and stops the build if a statement does not hold.
+- 2026-11-15T23:08Z, **before any run of it: a control for the request arm.** A review of the new section by the
+  second-family reviewer (section 8 of `results/reviews.md`) pointed out that every run of the request arm
+  showed the request line, so the report could not say what the line itself added. The entry of 22:12Z
+  said no run without the line would be made; that was a mistake of design, and this corrects it. The
+  same 60 false dones are replayed to the same five receivers without the request line, as plain Study 2
+  handoffs with no signal, under the three prompts that do not refer to a request (*discretion*, *duty*,
+  *goal*): 900 runs, to `runs/request_base/` (`scripts/sweep_request_base.sh`). Honest handoffs are not
+  rerun: the same 20, without the line, are already in Study 2 and in the goal arm for these receivers.
+  What I expect. (B1) Without the request line no receiver stops more than 3 of the 60 under any of the
+  three prompts: nothing in the message or the ledger says that a third refund was due or that an
+  amount was mis-keyed. If a receiver stops more than that, the report will say so and the sentence
+  about what the request adds will be weakened to match.
