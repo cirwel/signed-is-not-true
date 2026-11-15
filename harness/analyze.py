@@ -107,7 +107,7 @@ def main() -> None:
                 f"{faithful} applied and reported exactly the ticket as given |"
             )
 
-    print("\n## Table 7. W3's own errors, separate from the handoff\n")
+    print("\n## Table 6. W3's own errors, separate from the handoff\n")
     print("Payouts that differ from what the database W3 read implies (its own arithmetic or tool slips).\n")
     print("| Model | Condition | W3 payouts not faithful to the database | W3 did not finish |")
     print("|---|---|---|---|")
@@ -117,7 +117,7 @@ def main() -> None:
         unfinished = sum(not r["w3"]["done"] for r in handed)
         print(f"| {model} | {cond} | {wilson(k, len(handed))} | {unfinished} |")
 
-    print("\n## Table 6. Cost\n")
+    print("\n## Table 7. Cost\n")
     print("| Model | Median W1+W2+W3 seconds | Median output tokens | Median C check (ms) | C added model tokens |")
     print("|---|---|---|---|---|")
     by_model: dict[str, list[dict]] = defaultdict(list)
