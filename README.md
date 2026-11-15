@@ -51,7 +51,9 @@ any Study 3 run beyond an 8-run smoke test.
 - `harness/analyze*.py`: the full tables. `harness/paper_tables.py`: the compact tables and
   the counts quoted in the report's prose. `harness/report_tables.py`: writes the report's
   own tables into `report/REPORT.md`. `harness/figure*.py`: the figures.
-- `scripts/`: the sweep scripts. `report/`: the report text, stylesheet and build script.
+- `scripts/`: the sweep scripts, `regenerate.sh` (rebuilds every table, figure and the report
+  from the run records) and `check_cutoff.py` (lists runs finished after the cut-off of the
+  second lock). `report/`: the report text, stylesheet and build script.
 - All runs and results, including the pilot and smoke-test files under `results/`.
 
 ## Reproduce

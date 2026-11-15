@@ -89,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,226 runs with seven models from five developers I ask
+every run. In 10,242 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -255,8 +255,8 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,226 runs: 320 in Study 1, 6,018 in Study 2, 902
-in Study 3 and 2,986 in the follow-up arms
+exploratory. In all 10,242 runs: 320 in Study 1, 6,018 in Study 2, 904
+in Study 3 and 3,000 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
 Signals are compared with exact two-sided McNemar tests on pairs of the
@@ -469,9 +469,9 @@ Table E7).</strong> For gpt-6-luna left to decide, "Verified" without
 the check mark suppressed checking as the badge did (12 of 80 caught,
 against 24 with no signal), "✔ Signature valid" less clearly (14), and
 "✔ Sender verified", which names what was verified, not at all (24).
-nemotron3 under duty gave the same order on the 18 seeds finished by the
-cut-off: 8 of 36 caught with the badge, 15, 20 and 24 with the three
-wordings as listed, and 24 with no signal.</p>
+nemotron3 under duty gave the same order on seeds 0 to 19: 8 of 40
+caught with the badge, 18, 23 and 27 with the three wordings as listed,
+and 27 with no signal.</p>
 <h3 id="43-study-3-the-errors-nobody-planted">4.3 Study 3: the errors
 nobody planted</h3>
 <p><strong>After a visible tool error there were three kinds of report
@@ -1578,9 +1578,9 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>visible tool error, reasoning field</td>
-<td>34</td>
-<td>20</td>
-<td>12</td>
+<td>35</td>
+<td>21</td>
+<td>13</td>
 <td>8</td>
 <td>3</td>
 <td>0</td>
@@ -1604,15 +1604,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>amount to work out, reasoning field</td>
-<td>34</td>
-<td>28</td>
+<td>35</td>
+<td>29</td>
 <td>19</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>n/a</td>
-<td>0/9</td>
+<td>0/10</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -1981,25 +1981,25 @@ refunds table, out of false-done handoffs shown.</p>
 <td>nemotron3 (33B)</td>
 <td>duty</td>
 <td>caught</td>
-<td>24/36</td>
-<td>8/36</td>
-<td>15/36</td>
-<td>20/36</td>
-<td>24/36</td>
-<td>23/36</td>
-<td>33/36</td>
+<td>27/40</td>
+<td>8/40</td>
+<td>18/40</td>
+<td>23/40</td>
+<td>27/40</td>
+<td>27/40</td>
+<td>37/40</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td>read the table</td>
-<td>34/36</td>
-<td>17/36</td>
-<td>29/36</td>
-<td>29/36</td>
-<td>35/36</td>
-<td>33/36</td>
-<td>36/36</td>
+<td>38/40</td>
+<td>17/40</td>
+<td>33/40</td>
+<td>33/40</td>
+<td>39/40</td>
+<td>37/40</td>
+<td>40/40</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>

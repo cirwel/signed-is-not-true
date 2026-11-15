@@ -51,7 +51,7 @@ reader is now a property of models as well as of signals.
 
 I measure both in one small, fully observed pipeline. A worker for one principal applies refunds and
 reports "done"; an agent for a second principal pays out on that report; a database gives the ground truth
-for every run. In 10,226 runs with seven models from five developers I ask what each check catches
+for every run. In 10,242 runs with seven models from five developers I ask what each check catches
 when it is a rule in code (Study 1), what an LLM receiver does when the checking is left to it and how
 provenance signals change that (Study 2), and which false "done" reports arise when nobody plants them
 (Study 3). My main contributions are:
@@ -170,7 +170,7 @@ yourself that Alpha's refund work for this batch is complete and correct"; Appen
 Google), nemotron3 (33B, NVIDIA) and qwen3.6 (27B, Alibaba). Four models through their developers' APIs:
 gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and claude-haiku-5-5 (Anthropic). The local models were
 named in the locks; the API models were added afterwards, so every result for them is exploratory.
-In all 10,226 runs: 320 in Study 1, 6,018 in Study 2, 902 in Study 3 and 2,986 in the follow-up arms
+In all 10,242 runs: 320 in Study 1, 6,018 in Study 2, 904 in Study 3 and 3,000 in the follow-up arms
 (`results/paper_tables.md` gives the count for each model). Rates carry n and, in the repository's tables, a 95% Wilson interval. Signals are compared
 with exact two-sided McNemar tests on pairs of the same handoff shown to the same receiver.
 
@@ -273,7 +273,7 @@ it had found a problem; nemotron3 held 16 of 400, mostly over its own failed too
 **The less a badge said, the more it suppressed (exploratory, Table E7).** For gpt-6-luna left to decide,
 "Verified" without the check mark suppressed checking as the badge did (12 of 80 caught, against 24 with no
 signal), "✔ Signature valid" less clearly (14), and "✔ Sender verified", which names what was verified, not
-at all (24). nemotron3 under duty gave the same order on the 18 seeds finished by the cut-off: 8 of 36 caught with the badge, 15, 20 and 24 with the three wordings as listed, and 24 with no signal.
+at all (24). nemotron3 under duty gave the same order on seeds 0 to 19: 8 of 40 caught with the badge, 18, 23 and 27 with the three wordings as listed, and 27 with no signal.
 
 ### 4.3 Study 3: the errors nobody planted
 
@@ -725,9 +725,9 @@ check C could compare, so C rejected it.
 | nemotron3 (33B) | honest | 40 | 28 | 10 | 0 | 0 | 0 | 0 | n/a | 0/18 |
 | nemotron3 (33B) | honest, reasoning field | 34 | 29 | 13 | 0 | 0 | 0 | 0 | n/a | 0/16 |
 | nemotron3 (33B) | visible tool error | 40 | 23 | 8 | 15 | 10 | 5 | 0 | 15/15 | 0/15 |
-| nemotron3 (33B) | visible tool error, reasoning field | 34 | 20 | 12 | 8 | 3 | 0 | 5 | 3/8 | 3/8 |
+| nemotron3 (33B) | visible tool error, reasoning field | 35 | 21 | 13 | 8 | 3 | 0 | 5 | 3/8 | 3/8 |
 | nemotron3 (33B) | amount to work out | 40 | 29 | 16 | 7 | 0 | 6 | 1 | 6/7 | 0/13 |
-| nemotron3 (33B) | amount to work out, reasoning field | 34 | 28 | 19 | 0 | 0 | 0 | 0 | n/a | 0/9 |
+| nemotron3 (33B) | amount to work out, reasoning field | 35 | 29 | 19 | 0 | 0 | 0 | 0 | n/a | 0/10 |
 | gpt-5.4-nano | honest | 40 | 40 | 0 | 0 | 0 | 0 | 0 | n/a | 0/40 |
 | gpt-5.4-nano | honest, reasoning field | 40 | 40 | 0 | 0 | 0 | 0 | 0 | n/a | 0/40 |
 | gpt-5.4-nano | visible tool error | 40 | 40 | 0 | 40 | 8 | 0 | 32 | 8/40 | 32/40 |
@@ -780,8 +780,8 @@ that read the refunds table, out of false-done handoffs shown.
 
 | Receiver | Prompt | Measure | no signal | ✔ Verified | Verified | ✔ Signature valid | ✔ Sender verified | full signature line | signature + scope note |
 |---|---|---|---|---|---|---|---|---|---|
-| nemotron3 (33B) | duty | caught | 24/36 | 8/36 | 15/36 | 20/36 | 24/36 | 23/36 | 33/36 |
-| | | read the table | 34/36 | 17/36 | 29/36 | 29/36 | 35/36 | 33/36 | 36/36 |
+| nemotron3 (33B) | duty | caught | 27/40 | 8/40 | 18/40 | 23/40 | 27/40 | 27/40 | 37/40 |
+| | | read the table | 38/40 | 17/40 | 33/40 | 33/40 | 39/40 | 37/40 | 40/40 |
 | gpt-5.4-nano | discretion | caught | 1/80 | 0/80 | 0/80 | 1/80 | 3/80 | 1/80 | 1/80 |
 | | | read the table | 29/80 | 37/80 | 30/80 | 29/80 | 30/80 | 33/80 | 55/80 |
 | gpt-5.4-nano | duty | caught | 79/80 | 79/80 | 77/80 | 80/80 | 79/80 | 79/80 | 78/80 |
