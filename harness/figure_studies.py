@@ -119,6 +119,7 @@ def figure2(root: Path, out: Path) -> None:
 
 
 CAUGHT, SILENT, NOTED, FINE = "#009E73", "#D55E00", "#CC79A7", "#d4d4d8"   # Okabe-Ito
+LATE_WORKER = "qwen3.6:27b-coding-mxfp8"
 ROWS = (
     ("gemma4:latest", "", "gemma4"), ("gemma4:latest", "_t", "gemma4, reasoning field"),
     ("gpt-5.4-nano", "", "gpt-5.4-nano"), ("gpt-5.4-nano", "_t", "gpt-5.4-nano, reasoning field"),
@@ -130,10 +131,18 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
     """(a) and (b): one bar per worker and reply format, split by what the evidence check can see.
     (c): the note-carrying arm, held under each prompt, one line per receiver."""
     groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    seeds: dict[tuple[str, str], set] = defaultdict(set)
     for r in load(root):
+        if "crashed" in r:
+            continue
+        seeds[(r["model"], r["condition"])].add(r["seed"])
         # handoffs where W1 had imported the orders correctly: see analyze_organic.clean
-        if "crashed" not in r and r["arms"]["handoff"] and r["truth"]["orders_correct"]:
+        if r["arms"]["handoff"] and r["truth"]["orders_correct"]:
             groups[(r["model"], r["condition"])].append(r)
+    # qwen3.6 is a sixth worker in a panel only if it ran at least MIN_SEEDS seeds of that condition
+    # (HYPOTHESES.md, 2026-11-15T04:05Z); the row is added to both panels so that they stay aligned
+    late = {cond for cond in ("blocked", "derived") if len(seeds[(LATE_WORKER, cond)]) >= MIN_SEEDS}
+    rows = ROWS[:2] + ((LATE_WORKER, "", "qwen3.6"),) + ROWS[2:] if late else ROWS
 
     def split(rs: list[dict], blocked: bool) -> dict[str, int]:
         out = {"fine": 0, "caught": 0, "silent": 0, "noted": 0}
@@ -164,8 +173,8 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
               ("derived", "(b) amount to work out from a rule", False))
     for ax, (cond, title, blocked) in zip(axes[:2], panels):
         ys, labels = [], []
-        for y, (model, suffix, label) in enumerate(ROWS):
-            rs = groups.get((model, cond + suffix), [])
+        for y, (model, suffix, label) in enumerate(rows):
+            rs = groups.get((model, cond + suffix), []) if model != LATE_WORKER or cond in late else []
             labels.append(label)
             ys.append(y)
             if not rs:

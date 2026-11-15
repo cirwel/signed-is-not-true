@@ -89,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,288 runs with seven models from five developers I ask
+every run. In 10,303 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -255,7 +255,7 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,288 runs: 320 in Study 1, 6,048 in Study 2, 920
+exploratory. In all 10,303 runs: 320 in Study 1, 6,063 in Study 2, 920
 in Study 3 and 3,000 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
@@ -273,7 +273,7 @@ field no receiver caught anything in pilots, even under the duty prompt
 the strict reply format, so Studies 2 and 3 accept loosely shaped tool
 calls; as a <em>worker</em> it still failed the format so often that its
 Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower
-than nemotron3 on a shared GPU and completed only 48 of its 1,200 Study
+than nemotron3 on a shared GPU and completed only 63 of its 1,200 Study
 2 runs.</p>
 <p><strong>Prior work used.</strong> The voucher format and verification
 code are a verbatim copy of a federation tracer from UNITARES
@@ -306,7 +306,7 @@ the three low receivers caught 75 of 80, 60 of 80 and 79 of 80.</p>
 <p><img src="../results/figure2.png" alt="Figure 2" /></p>
 <p><strong>Figure 2.</strong> Study 2. Share of false dones each
 receiver caught, by signal and prompt, with 95% Wilson intervals. Dashed
-line: rule C on the same handoffs. qwen3.6 is left out (48 runs by the
+line: rule C on the same handoffs. qwen3.6 is left out (63 runs by the
 cut-off; Table E2).</p>
 </div>
 
@@ -337,8 +337,8 @@ caught every one of these handoffs.</p>
 <td>no signal → signature line</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>137/162</td>
-<td>135/162</td>
+<td>139/164</td>
+<td>137/164</td>
 <td>20 / 18</td>
 <td>1.0 †</td>
 </tr>
@@ -346,8 +346,8 @@ caught every one of these handoffs.</p>
 <td>no signal → ✔ Verified</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>137/162</td>
-<td>100/162</td>
+<td>139/164</td>
+<td>102/164</td>
 <td>45 / 8</td>
 <td>7 × 10<sup>-7</sup> †</td>
 </tr>
@@ -744,7 +744,7 @@ the badge wordings, the <em>wrong</em> condition, and all contrasts not
 named as primary. Their p values are not adjusted for the number of
 contrasts examined.</li>
 <li>Six receivers have at least 20 seeds. qwen3.6, a locked receiver,
-completed only 48 of its 1,200 Study 2 runs by the cut-off.
+completed only 63 of its 1,200 Study 2 runs by the cut-off.
 claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every
 planted false done under every signal, so this task cannot show whether
 a signal would move them on a harder one.</li>
@@ -1209,17 +1209,17 @@ handoff.</p>
 <td>0/4</td>
 <td>0/4</td>
 <td>4/4</td>
-<td>0/10</td>
+<td>0/13</td>
 </tr>
 <tr>
 <td></td>
 <td>duty</td>
-<td>2/2</td>
-<td>2/2</td>
-<td>2/2</td>
-<td>2/2</td>
-<td>2/2</td>
-<td>0/8</td>
+<td>4/4</td>
+<td>4/4</td>
+<td>4/4</td>
+<td>4/4</td>
+<td>4/4</td>
+<td>0/10</td>
 </tr>
 </tbody>
 </table>
@@ -2193,10 +2193,10 @@ with no signal shown.</p>
 </tr>
 <tr>
 <td>qwen3.6 (27B)</td>
-<td>48</td>
-<td>73</td>
-<td>442</td>
-<td>8</td>
+<td>63</td>
+<td>65</td>
+<td>412</td>
+<td>6</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>

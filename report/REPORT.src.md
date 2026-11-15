@@ -64,9 +64,7 @@ provenance signals change that (Study 2), and which false "done" reports arise w
    the signature covers reversed it (20 to 79 of 80).
 3. **A check result is not a gate.** Three receivers paid on {{mismatch_paid_range}} of handoffs whose text said the
    evidence check had failed. Two of the three usually noted the mismatch in their own reasoning first.
-4. **Which unplanted false "done" reports a check can see.** After a visible tool error, one worker mostly claimed
-   the failed step, three almost always sent a true list that was silent about it, and one always
-   disclosed it. An evidence
+4. **Which unplanted false "done" reports a check can see.** {{kinds_sentence}} An evidence
    check catches only the first kind, and the share of failures it could see fell from 68% to 0% from the
    weakest worker to the strongest.
 5. **An instruction that names a check can narrow a capable receiver to it.** Shown one worker's 20 reports
@@ -184,7 +182,7 @@ hypothesis with its outcome and lists what changed after each lock.
 duty prompt (gemma4, 0 of 10), so all Study 2 runs use one. nemotron3 could not keep the strict reply
 format, so Studies 2 and 3 accept loosely shaped tool calls; as a *worker* it still failed the format so
 often that its Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower than nemotron3 on a
-shared GPU and completed only {{qwen_runs}} of its 1,200 Study 2 runs.
+shared GPU and completed only {{qwen_runs}} of its 1,200 Study 2 runs{{qwen_s3_clause}}.
 
 **Prior work used.** The voucher format and verification code are a verbatim copy of a federation tracer
 from UNITARES (Apache-2.0), written before the sprint and marked in the repository. Everything else was written during the sprint.
@@ -273,7 +271,7 @@ the refund, sent `done` in 125 of 134 handoffs with a list of exactly the two re
 applied and nothing else: true, and silent about the third. Given a reasoning
 field, gpt-5.4-nano mentioned the failure in its reasoning in 40 of 40 runs and in its report in none.
 Of these five workers only claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it added
-itself (most often `refunds_failed`).{{nem_disclosed_sentence}}
+itself (most often `refunds_failed`).{{qwen_blocked_sentence}}{{nem_disclosed_sentence}}
 
 **The evidence check saw only the first kind.** It rejected all {{over_caught}} overclaims and accepted all {{partial_n}}
 partial reports, silent or disclosed, and {{partial_wrong}} of those batches ended in wrong payouts: the customer was
@@ -282,7 +280,7 @@ paid as though no refund were due.
 **Miscalculations were reported faithfully (H11); a skipped step was not.** Given an amount to work out,
 gemma4 applied a wrong amount in 17 of 40 batches, nearly always on the fee subtraction, and in 16 of the
 17 it reported exactly what it had applied, so check C caught 1 of 17. gpt-5.4-nano did the same in 4 of
-40 (0 of 4 caught). With a reasoning field gemma4 made no such error in 39 handoffs. gpt-5.4-nano with a
+40 (0 of 4 caught).{{qwen_derived_sentence}} With a reasoning field gemma4 made no such error in 39 handoffs. gpt-5.4-nano with a
 reasoning field made a different one: in 6 of 40 runs it applied two refunds, never called the tool for
 the third, and reported all three ("All specified refunds have been applied"). Check C caught all 6.
 
@@ -293,7 +291,7 @@ so W2 is counted only where it was right).
 **What the check could see fell as the worker improved.** Over all Study 3 conditions, the share of a
 worker's false dones whose report differed from the table was 68% for gemma4 (66 of 97), 16% for
 gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20
-each). Across all workers check C caught {{mis_caught}} such reports and {{faithful_caught}} of those that matched the
+each){{qwen_visible_clause}}. Across all workers check C caught {{mis_caught}} such reports and {{faithful_caught}} of those that matched the
 table (H10, H11).
 
 <div class="fig">
@@ -359,7 +357,7 @@ receiver's instructions, each from one result here.
    detectable difference, its compression into one word suppressed checking in two receivers, and a
    sentence on scope reversed that. It is the confusion Chrome found with its lock icon, now in models.
 3. *Bind what was asked, not only what was done, and give failure a place in the report.* Every check
-   here passed a true report of unfinished work, and four of five workers left the failure out of a
+   here passed a true report of unfinished work, and {{never_disclosed_of}} left the failure out of a
    report format with no field for it. A rule could compare a signed list of the refunds requested with a
    required outcome for each. That design was not tested here.
 4. *Tell a receiver the goal, not the comparison.* The named check lifted weak receivers on the failure it
@@ -579,7 +577,7 @@ before Studies 2 and 3. The locked tests use the local receivers; results for AP
 | H8 | With the evidence result shown, at least 90% caught under both prompts and at most 10% of honest handoffs held | Under duty: supported (gemma4 79 of 80, nemotron3 {{nem_duty_evidence}}). Under discretion: not supported (0 of 80, {{nem_disc_evidence}}). Honest handoffs held: at most {{honest_held_max_pct}} |
 | H9 | Descriptive: the gap between the two prompts with no signal | gemma4 0% to 94%; nemotron3 {{nem_gap}} |
 | H10 | In *blocked* some reports overclaim; C catches every overclaim and passes every honest partial, which ends in wrong payouts | Supported, all workers together: {{over_caught_of}} overclaims caught, {{partial_passed_of}} partial reports passed, {{partial_wrong}} of them ending in wrong payouts |
-| H11 | In *derived* more than half of the false dones are faithful | Locked workers: supported for gemma4 (16 of 17); not for nemotron3 (1 of 7, the other 6 reports not in the agreed form). Added worker gpt-5.4-nano: 4 of 4 without a reasoning field, 0 of 6 with one |
+| H11 | In *derived* more than half of the false dones are faithful | Locked workers: supported for gemma4 (16 of 17); not for nemotron3 (1 of 7, the other 6 reports not in the agreed form){{qwen_h11_clause}}. Added worker gpt-5.4-nano: 4 of 4 without a reasoning field, 0 of 6 with one |
 | H12 | Descriptive: the effect of a reasoning field | gemma4: overclaims 40 to 25 of 40, miscalculated batches 17 of 40 to 0 of 39. gpt-5.4-nano: overclaims 8 to 0 of 40; skipped refunds reported as applied 0 to 6 of 40 |
 
 </div>
