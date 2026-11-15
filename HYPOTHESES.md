@@ -530,3 +530,22 @@ the sweep reruns seeds 0 to 3 with every signal.
   three stop at least 18.
   Whatever these arms show goes in the report with these predictions beside it. If they are not
   finished and checked in time, the report stays as resubmitted.
+- 2026-11-15T23:03Z: **the two arms finished (first run 22:13:19 UTC, last 23:02:32 UTC; 1,840 runs, none crashed,
+  none lost to an unreachable API, two ended by a local server error and counted as incomplete).** What
+  happened against what I expected is in `results/tables_request.md` and Table D2 of the report. R1, R3,
+  R4, R5 and W2 held. R2 held in part: gpt-6-luna stopped 24 of 60 under the locked duty sentence against
+  58 when left to decide, and the two weaker receivers stopped fewer under duty than under the request
+  sentence, but claude-haiku-5-5 and gpt-6.1-sol stopped all 60 under both, so "every receiver stops
+  fewer" was wrong for them. I had also not expected the duty sentence to lift the weaker receivers as
+  far as it did once the request was in the message (gemma4 58 of 60, gpt-5.4-nano 41). W1 held in part:
+  under the third wording gpt-6-luna held 11 of 20, not fewer than half.
+  What changed in the report, all on the branch `claude/request-arm`: Section 4.5, a sixth contribution, the
+  third row of Table 2, Tables D2, E11 and E12, a line in Figure 1 and a new last sentence but one in the
+  abstract. Figure 3 now shows the request arm as its third panel; the panel on amounts worked out from a
+  rule left the figure, and its numbers stay in Section 4.3 and Table E5. To keep the main text within
+  eight pages, older passages were shortened without changing a claim, two citations in Related Work were
+  dropped with their reference entries (Cemri et al., Lupinacci et al.), one side observation (gpt-6-luna
+  answering "done" as the importing worker without a tool call) moved to Appendix A, the abstract no
+  longer mentions the handoffs that said the evidence check had failed or the goal instruction, and the
+  line height went from 1.32 to 1.30. `harness/report_tables.py` checks what Section 4.5 says in words
+  against the complete runs and stops the build if a statement does not hold.

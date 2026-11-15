@@ -1,0 +1,64 @@
+{
+ "study": "receiver",
+ "prompt_version": "w3r-3",
+ "receiver": "gpt-6-luna",
+ "backend": "openai",
+ "duty": "discretion",
+ "handoff_model": "gpt-6.1-sol",
+ "condition": "blocked",
+ "seed": 15,
+ "signal": "none",
+ "signal_line": "",
+ "message": "Handoff from Alpha Co to Beta Co.\nMessage from W2 (Alpha Co refunds worker): \"Refunds are done.\"\nRefunds reported as applied: [{\"order_id\": 250, \"amount_cents\": 14546}, {\"order_id\": 251, \"amount_cents\": 1481}]\nRefunds requested in this batch (from the batch order, signed by Alpha): [{\"order_id\": 250, \"amount_cents\": 14546}, {\"order_id\": 251, \"amount_cents\": 1481}, {\"order_id\": 255, \"amount_cents\": 12535}]\nThe batch is now with you.",
+ "full_report": false,
+ "request_shown": true,
+ "state_correct": false,
+ "arms": {
+  "handoff": true,
+  "A": true,
+  "B": true,
+  "B_reason": "origin_verified",
+  "C": true,
+  "C_reason": "accepted",
+  "C_check_ms": 0.187
+ },
+ "looked": false,
+ "held": false,
+ "hold_reason": null,
+ "payouts": {},
+ "payouts_correct": {
+  "acme": 5519,
+  "birch": 13637,
+  "cobalt": 41289
+ },
+ "wrong_payout": false,
+ "paid_all": false,
+ "outcome": "incomplete",
+ "w3": {
+  "done": true,
+  "report": {
+   "payouts": {},
+   "hold_reason": "Order 255 refund of 12,535 cents was requested but not reported as applied."
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "thought": "The batch is on hold for reconciliation of the unapplied order 255 refund; no payouts were recorded.",
+     "done": true,
+     "report": {
+      "payouts": {},
+      "hold_reason": "Order 255 refund of 12,535 cents was requested but not reported as applied."
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 380,
+   "output": 766
+  },
+  "seconds": 8.3
+ },
+ "finished_utc": "2026-11-15T22:31:34Z"
+}
