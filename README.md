@@ -72,16 +72,9 @@ python3 -m harness.run --models gemma4:latest,qwen3.6:27b-coding-mxfp8 --conditi
 bash scripts/sweep_studies_2_3.sh
 bash scripts/sweep_qwen.sh
 
-# tables and figures
-python3 -m harness.analyze runs/full > results/tables.md
-python3 -m harness.analyze_receiver runs/receiver > results/tables_receiver.md
-python3 -m harness.analyze_organic runs/organic > results/tables_organic.md
-python3 -m harness.paper_tables runs/receiver runs/organic runs/receiver_note runs/full > results/paper_tables.md
-python3 -m harness.figure_chain runs/full runs/organic results/figure1.png
-python3 -m harness.figure_studies runs/receiver runs/organic results runs/receiver_note
-python3 -m harness.figure runs/full results/figure_study1.png
-python3 -m harness.report_tables   # rewrites the tables inside report/REPORT.md
-bash report/build.sh               # needs pandoc and Google Chrome
+# every table, every figure and the report, from the run files (no model is called;
+# the PDF needs pandoc and Google Chrome)
+bash scripts/regenerate.sh
 ```
 
 The Claude Haiku runs were made through Anthropic's `claude` command-line tool in
@@ -92,7 +85,7 @@ python3 -m harness.receiver --backend claude-cli --handoffs runs/full/gemma4_lat
 python3 -m harness.run --lenient --backend claude-cli --models claude-haiku-5-5 --conditions honest,blocked,derived --seeds 0-19 --out runs/organic
 ```
 
-The OpenAI runs need `OPENAI_API_KEY` in the environment (about 12 US dollars for
+The OpenAI runs need `OPENAI_API_KEY` in the environment (about 13 US dollars for
 everything here):
 
 ```bash

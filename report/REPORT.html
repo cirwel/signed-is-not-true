@@ -80,7 +80,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 9,979 runs with seven models from five developers I ask
+every run. In 10,173 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -246,8 +246,8 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 9,979 runs: 320 in Study 1, 6,016 in Study 2, 860 in
-Study 3 and 2,783 in the follow-up arms
+exploratory. In all 10,173 runs: 320 in Study 1, 6,018 in Study 2, 891
+in Study 3 and 2,944 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
 Signals are compared with exact two-sided McNemar tests on pairs of the
@@ -370,8 +370,8 @@ test. Rule C caught every one of these handoffs.</p>
 <td></td>
 <td>nemotron3, duty</td>
 <td>exploratory</td>
-<td>55/79</td>
-<td>70/79</td>
+<td>56/80</td>
+<td>71/80</td>
 <td>3 / 18</td>
 <td>0.001</td>
 </tr>
@@ -427,7 +427,7 @@ wrongly on 46 and left 12 unfinished, and it read the refunds table in
 could explain the contradiction away: "the refunds have already been
 applied to the ledger and are not listed here." The same happened in a
 model from another developer under the other prompt (row 4). Every other
-receiver and prompt started at 3% or less, or at 94% or more, and the
+receiver and prompt started at 3% or less, or at 93% or more, and the
 badge did not move it.</p>
 <p><strong>Saying what the signature covers reversed it (H7; rows 5 to
 7).</strong> With the scope sentence added, nemotron3 under duty and
@@ -454,9 +454,10 @@ over its own failed tool calls.</p>
 Table E7).</strong> For gpt-6-luna left to decide, "Verified" without
 the check mark suppressed checking as the badge did (12 of 80 caught,
 against 24 with no signal), "✔ Signature valid" less clearly (14), and
-"✔ Sender verified", which names what was verified, not at all (24). The
-same wordings for nemotron3 under duty had not finished when this draft
-was built.</p>
+"✔ Sender verified", which names what was verified, not at all (24).
+nemotron3 under duty gave the same order on the 14 seeds finished by the
+cut-off: 8 of 28 caught with the badge, 12, 15 and 17 with the three
+wordings as listed, and 21 with no signal.</p>
 <h3 id="43-study-3-the-errors-nobody-planted">4.3 Study 3: the errors
 nobody planted</h3>
 <p><strong>After a visible tool error there were three kinds of report
@@ -474,7 +475,7 @@ runs and in its report in none. Only claude-haiku-5-5 put it in the
 report, in 20 of 20 runs, in a field it added itself (most often
 <code>refunds_failed</code>).</p>
 <p><strong>The evidence check saw only the first kind.</strong> It
-rejected all 86 overclaims and accepted all 163 partial reports, silent
+rejected all 87 overclaims and accepted all 163 partial reports, silent
 or disclosed, and 162 of those batches ended in wrong payouts: the
 customer was paid as though no refund were due.</p>
 <p><strong>Miscalculations were reported faithfully (H11); a skipped
@@ -507,7 +508,7 @@ improved.</strong> Over all Study 3 conditions, the share of a worker's
 false dones whose report differed from the table was 68% for gemma4 (66
 of 97), 16% for gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and
 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each). Across all
-workers check C caught 94 of 94 such reports and 0 of 184 of those that
+workers check C caught 95 of 95 such reports and 0 of 184 of those that
 matched the table (H10, H11).</p>
 <h3 id="44-a-workers-note-and-the-instruction-that-hid-it">4.4 A
 worker's note, and the instruction that hid it</h3>
@@ -541,8 +542,8 @@ decide, and gpt-5.4-nano and gemma4 held 12 of 60 and 22 of 60, where
 each had held at most 2. On the planted misreports of Study 2 (no
 signal) it served gpt-6-luna as well as the named check (80 of 80) and
 the weaker receivers less well: gpt-5.4-nano caught 60 of 80 against 79
-under duty, gemma4 11 of 55 against 75 of 80 (Table E8). No receiver
-held an honest handoff under it (0 of 148). One wording of each
+under duty, gemma4 15 of 80 against 75 of 80 (Table E8). No receiver
+held an honest handoff under it (0 of 160). One wording of each
 instruction was tried.</p>
 <h2 id="5-discussion">5 Discussion</h2>
 <p><strong>Three links, and no single safeguard for all of
@@ -574,10 +575,10 @@ pooled in row 2; all six receivers in Table E10).</p>
 </thead>
 <tbody>
 <tr>
-<td>differs from the table (160 planted, 94 unplanted)</td>
+<td>differs from the table (160 planted, 95 unplanted)</td>
 <td>0%</td>
 <td>100%</td>
-<td>0% / 94% / 20%</td>
+<td>0% / 94% / 19%</td>
 <td>30% / 100% / 100%</td>
 </tr>
 <tr>
@@ -714,10 +715,10 @@ the badge wordings, the <em>wrong</em> condition, and all contrasts not
 named as primary. Their p values are not adjusted for the number of
 contrasts examined.</li>
 <li>Six receivers have at least 20 seeds. qwen3.6, a locked receiver,
-completed only 18 of its 1,200 Study 2 runs by the cut-off (nemotron3:
-39 of 40 seeds). claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds
-and caught every planted false done under every signal, so this task
-cannot show whether a signal would move them on a harder one.</li>
+completed only 18 of its 1,200 Study 2 runs by the cut-off.
+claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every
+planted false done under every signal, so this task cannot show whether
+a signal would move them on a harder one.</li>
 <li>The models were not sampled alike. The local models and gpt-5.4-nano
 ran at temperature 0.7 with a seed. The two gpt-6 models accept only
 their default temperature and ran at their default reasoning effort.
@@ -911,7 +912,7 @@ exploratory</td>
 <td>H8</td>
 <td>With the evidence result shown, at least 90% caught under both
 prompts and at most 10% of honest handoffs held</td>
-<td>Under duty: supported (gemma4 79 of 80, nemotron3 77 of 79). Under
+<td>Under duty: supported (gemma4 79 of 80, nemotron3 78 of 80). Under
 discretion: not supported (0 of 80, 21 of 80). Honest handoffs held: at
 most 5%</td>
 </tr>
@@ -925,7 +926,7 @@ most 5%</td>
 <td>In <em>blocked</em> some reports overclaim; C catches every
 overclaim and passes every honest partial, which ends in wrong
 payouts</td>
-<td>Supported, all workers together: 86 of 86 overclaims caught, 163 of
+<td>Supported, all workers together: 87 of 87 overclaims caught, 163 of
 163 partial reports passed, 162 of them ending in wrong payouts</td>
 </tr>
 <tr>
@@ -1085,8 +1086,8 @@ handoff.</p>
 <td>60/80</td>
 <td>56/80</td>
 <td>22/80</td>
-<td>70/79</td>
-<td>77/79</td>
+<td>71/80</td>
+<td>78/80</td>
 <td>13/200</td>
 </tr>
 <tr>
@@ -1244,8 +1245,8 @@ handoffs shown. Reading is not comparing.</p>
 <td>78/80</td>
 <td>75/80</td>
 <td>40/80</td>
-<td>77/79</td>
-<td>6/79</td>
+<td>78/80</td>
+<td>6/80</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -1523,15 +1524,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>honest, reasoning field</td>
-<td>20</td>
-<td>17</td>
-<td>8</td>
+<td>30</td>
+<td>25</td>
+<td>11</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>n/a</td>
-<td>0/9</td>
+<td>0/14</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1549,15 +1550,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>visible tool error, reasoning field</td>
-<td>20</td>
-<td>12</td>
-<td>7</td>
-<td>5</td>
-<td>2</td>
+<td>31</td>
+<td>17</td>
+<td>11</td>
+<td>6</td>
+<td>3</td>
 <td>0</td>
 <td>3</td>
-<td>2/5</td>
-<td>2/5</td>
+<td>3/6</td>
+<td>2/6</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1575,15 +1576,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>amount to work out, reasoning field</td>
-<td>20</td>
-<td>17</td>
-<td>12</td>
+<td>30</td>
+<td>25</td>
+<td>16</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>n/a</td>
-<td>0/5</td>
+<td>0/9</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -1949,6 +1950,30 @@ refunds table, out of false-done handoffs shown.</p>
 </thead>
 <tbody>
 <tr>
+<td>nemotron3 (33B)</td>
+<td>duty</td>
+<td>caught</td>
+<td>21/28</td>
+<td>8/28</td>
+<td>12/28</td>
+<td>15/27</td>
+<td>17/27</td>
+<td>17/28</td>
+<td>26/28</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>read the table</td>
+<td>28/28</td>
+<td>17/28</td>
+<td>23/28</td>
+<td>21/27</td>
+<td>27/27</td>
+<td>27/28</td>
+<td>28/28</td>
+</tr>
+<tr>
 <td>gpt-5.4-nano</td>
 <td>discretion</td>
 <td>caught</td>
@@ -2069,10 +2094,10 @@ with no signal shown.</p>
 <td>gemma4 (8B)</td>
 <td>0/80</td>
 <td>75/80</td>
-<td>11/55</td>
+<td>15/80</td>
 <td>0/40</td>
 <td>0/40</td>
-<td>0/28</td>
+<td>0/40</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -2144,7 +2169,7 @@ with no signal shown.</p>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
-<td>1198</td>
+<td>1200</td>
 <td>23</td>
 <td>596</td>
 <td>10</td>
@@ -2207,10 +2232,10 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>100</td>
 <td>0 / 2 / 1 / 30 / 100 / 100</td>
 <td>94 / 75 / 99 / 100 / 100 / 100</td>
-<td>20 / – / 75 / 100 / 100 / 100</td>
+<td>19 / – / 75 / 100 / 100 / 100</td>
 </tr>
 <tr>
-<td>differs from the table, unplanted (94)</td>
+<td>differs from the table, unplanted (95)</td>
 <td>0</td>
 <td>100</td>
 <td>not run</td>

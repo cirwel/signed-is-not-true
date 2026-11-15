@@ -223,7 +223,7 @@ unfinished with no signal; with the badge it held {{nem_duty_badge_held}}, paid 
 the refunds table in {{nem_duty_badge_read}} runs against {{nem_duty_none_read}}. When it did read an empty table under the badge, it could explain
 the contradiction away: "the refunds have already been applied to the ledger and are not listed here." The
 same happened in a model from another developer under the other prompt (row 4). Every other receiver and
-prompt started at {{nem_disc_none_pct}} or less, or at 94% or more, and the badge did not move it.
+prompt started at {{nem_disc_none_pct}} or less, or at 93% or more, and the badge did not move it.
 
 **Saying what the signature covers reversed it (H7; rows 5 to 7).** With the scope sentence added,
 nemotron3 under duty and gpt-6-luna left to decide caught more than under any other signal short of being
@@ -436,7 +436,7 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
   note-carrying arm, the goal prompt, the badge wordings, the *wrong* condition, and all contrasts not
   named as primary. Their p values are not adjusted for the number of contrasts examined.
 - Six receivers have at least 20 seeds. qwen3.6, a locked receiver, completed only {{qwen_runs}} of its 1,200
-  Study 2 runs by the cut-off (nemotron3: {{nem_seeds}} of 40 seeds). claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every planted false done
+  Study 2 runs by the cut-off. claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every planted false done
   under every signal, so this task cannot show whether a signal would move them on a harder one.
 - The models were not sampled alike. The local models and gpt-5.4-nano ran at temperature 0.7 with a seed.
   The two gpt-6 models accept only their default temperature and ran at their default reasoning effort.

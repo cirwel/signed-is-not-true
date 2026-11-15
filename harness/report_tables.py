@@ -585,13 +585,20 @@ def values(d: Data) -> dict[str, str]:
         for s, _ in WORDINGS[1:]:
             n, k1, k2, b, c = paired(d, [rec], dty, "none", s)
             v[f"w_{tag}_p_{s}"] = pfmt(ar.mcnemar(b, c))
-    if int(v["w_nem_n"]) >= 20:
+    k = {s: int(v[f"w_nem_{s}_k"]) for s, _ in WORDINGS}
+    n = int(v["w_nem_n"])
+    if n >= 20:
+        # "the same order" is written only if it holds: badge <= each wording in turn <= no signal
+        same = k["badge"] <= k["badge_word"] <= k["badge_sigvalid"] <= k["badge_sender"] <= k["none"]
+        lead = "gave the same order" if same else "did not give the same order"
+        span = "seeds 0 to 19" if n == 40 else f"the {n // 2} seeds finished by the cut-off"
         v["w_nem_sentence"] = (
-            f"For nemotron3 under duty (seeds 0 to 19) the same seven signals gave, in the same order, "
-            + ", ".join(v[f"w_nem_{s}_k"] for s, _ in WORDINGS[:5]) + f", {v['w_nem_sig_k']} and {v['w_nem_scoped_k']} of {v['w_nem_n']}."
+            f"nemotron3 under duty {lead} on {span}: {k['badge']} of {n} caught with the badge, "
+            f"{k['badge_word']}, {k['badge_sigvalid']} and {k['badge_sender']} with the three wordings as listed, "
+            f"and {k['none']} with no signal."
         )
     else:
-        v["w_nem_sentence"] = "The same wordings for nemotron3 under duty had not finished when this draft was built."
+        v["w_nem_sentence"] = "The same wordings for nemotron3 under duty had not finished by the cut-off."
     return v
 
 
