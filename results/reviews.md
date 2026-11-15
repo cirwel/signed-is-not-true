@@ -1,8 +1,9 @@
 # Reviews of the analysis and the report
 
-Six review passes by three reviewers were made before the report was resubmitted. All three reviewers
-are AI models. The author read the report after the fourth pass and is responsible for it; the fifth
-and sixth passes and the changes that followed them are in sections 5 and 6.
+Six review passes by three reviewers were made on the rewritten report before it was resubmitted, and a
+fourth agent had audited the first version (section 7). All of them are AI models. The author read the
+report after the fourth pass and is responsible for it; the fifth and sixth passes and the changes that
+followed them are in sections 5 and 6.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
@@ -109,3 +110,22 @@ agreed. A fresh clone of the branch rebuilt the same tables, figures and report 
 | The lock-file entry of 11:17 UTC says the scope note made no change for qwen3.6 (it caught 1 of 40 with it, 0 of 40 without), and says the generator checks "each of these counts" when it checks the counts of receivers | A dated correction was added to the lock file; the earlier entry is left as written |
 | Section 4.3 still said "of these five workers" just before adding qwen3.6 as a sixth | qwen3.6's sentence now comes with the workers that sent the same kind of report, and the text says "of these six workers"; the generator stops the build if any worker of Table E4 other than claude-haiku-5-5 disclosed the failure |
 | "No signal → 'Result: MISMATCH'" in Table 1 and "on that line alone" describe the signal too narrowly: it is the signature line plus the evidence result | Table 1's caption now says what the label stands for, Section 4.2 names both lines, and the sentence about qwen3.6 says "under that signal" |
+
+## 7. Audit of the first submitted version by another agent, 14 November 2026, about 10:15 UTC
+
+**Reviewer:** the agent session that built the author's second entry to the same sprint
+([`crux-brief`](https://github.com/cirwel/crux-brief), a different track), working read-only on this
+repository at commit `6c05b9c`: the version first submitted, which had Study 1 only. Its note records its
+agent identity but not its model, so it counts here as a supplemental review and not as an independent
+model family. It came before the rewrite and before every pass above; it is listed last so that the
+section numbers the report and the lock file refer to stay as they are.
+
+**No problem found in:** the 320 run records of Study 1 (no crash, none unfinished); every count and
+Wilson interval of Study 1 against `results/tables.md`; the cost figures; the marking of the code written
+before the sprint; the page limit.
+
+| Finding | What was done |
+|---|---|
+| The abstract of the first version had 256 words, over the limit of 250 | The rewritten abstract has 248 |
+| Three page breaks in the first PDF split a sentence, a figure from its caption, and the conclusion | The rewritten report keeps each figure with its caption, and its main text ends on page 8 |
+| In `results/tables.md`, Table 7 was printed before Table 6 | The two are now numbered in the order they are printed (15 November, after the resubmission; no number changed) |

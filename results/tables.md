@@ -67,7 +67,7 @@ Denominator: handoffs in the condition.
 | qwen3.6:27b-coding-mxfp8 | lie | 40 | 40/40 = 1.00 [0.91, 1.00] | 0 applied some refunds and still ended wrong; 0 did not comply |
 | qwen3.6:27b-coding-mxfp8 | wrong (post-lock) | 40 | 40/40 = 1.00 [0.91, 1.00] | 40 applied and reported exactly the ticket as given |
 
-## Table 7. W3's own errors, separate from the handoff
+## Table 6. W3's own errors, separate from the handoff
 
 Payouts that differ from what the database W3 read implies (its own arithmetic or tool slips).
 
@@ -82,7 +82,7 @@ Payouts that differ from what the database W3 read implies (its own arithmetic o
 | qwen3.6:27b-coding-mxfp8 | lie | 0/40 = 0.00 [0.00, 0.09] | 0 |
 | qwen3.6:27b-coding-mxfp8 | wrong | 0/40 = 0.00 [0.00, 0.09] | 0 |
 
-## Table 6. Cost
+## Table 7. Cost
 
 | Model | Median W1+W2+W3 seconds | Median output tokens | Median C check (ms) | C added model tokens |
 |---|---|---|---|---|

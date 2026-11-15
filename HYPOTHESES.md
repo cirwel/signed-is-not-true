@@ -480,3 +480,7 @@ the sweep reruns seeds 0 to 3 with every signal.
   of 40 with the scope note, so "no change" under the scope note was inexact; and the generator checks
   the counts of receivers that the prose states in words (six listed in its `stated` table and one
   for Section 4.3), not every number in that entry.
+- 2026-11-15T19:09Z, after the resubmission: **presentation only; the submitted PDF is unchanged.** The last two
+  tables of `results/tables.md` (W3's own errors, and cost) are now numbered 6 and 7 in the order they
+  are printed; before, the one printed first was numbered 7. An audit of the first version by another
+  agent had noted it, and that audit is now section 7 of `results/reviews.md`. No number changed.
