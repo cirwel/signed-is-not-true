@@ -8,6 +8,30 @@ measures that gap in a small pipeline of LLM agents working for two principals, 
 database as ground truth: one agent applies refunds and reports "done", and another pays
 out on that report.
 
+## Findings in brief
+
+![Share of false dones each receiver caught, by signal and prompt](results/figure2.png)
+
+- As rules in code, a valid signature caught none of the planted false "done" reports, the
+  same as trust. Comparing signed evidence with the database caught all of them, with no
+  false alarm.
+- Left to decide, three of six LLM receivers checked almost nothing and two checked every
+  time. One sentence of instruction made the three check.
+- A one-word "✔ Verified" badge reduced checking in two receivers from two developers
+  (a pre-registered test for one, exploratory for the other). An accurate signature line made
+  no detectable difference, and a sentence saying what the signature covers reversed the
+  badge's effect.
+- Three receivers paid on most handoffs whose text said that the evidence check had failed.
+- With nothing planted, four of five workers answered a failed tool call with a true but
+  incomplete report. The evidence check passes those.
+- Shown one worker's note admitting the failure, capable receivers stopped the batch, until
+  an instruction naming one check made two of them pay. An instruction naming the goal did
+  not.
+
+Counts, intervals and tests are in the report and under `results/`.
+
+## What is here
+
 | Study | Question | Code | Runs |
 |---|---|---|---|
 | 1 | What does each check catch when it is a rule: trust (A), signature (B), signature and evidence (C)? | `harness/run.py`, `harness/analyze.py` | `runs/full/` |

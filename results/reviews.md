@@ -1,7 +1,8 @@
 # Reviews of the analysis and the report
 
-Three reviews were made before the report was resubmitted. All three reviewers are AI models. The
-author read the report afterwards and is responsible for it.
+Five review passes by three reviewers were made before the report was resubmitted. All three reviewers
+are AI models. The author read the report after the fourth pass and is responsible for it; the fifth
+pass and the changes that followed it are in section 5.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
@@ -74,3 +75,17 @@ held the report back on execution and on presentation.
 | Four recommendations in one paragraph | Now a numbered list, one rule and its supporting result each |
 | Cut the badge-wording catalogue and the aside on claims with no work behind them | Both shortened, not cut: each is one of the report's unplanted or mechanism findings |
 | Move "Prior work used" to an appendix | Not done: the sprint's rules ask for pre-sprint code to be marked in the report, so it stays in Methods |
+
+## 5. Third pass by the same second-family reviewer, 15 November 2026, about 03:50 UTC
+
+**Reviewer:** gpt-6-sol again, read-only, after nemotron3 had finished its runs and the report had been
+aligned with the sprint's official template. It checked 341 numbers in the main text against the tables
+and the run records and found no mismatch. Before it, the nemotron3 cells, every row of Table 1 and the
+badge-wording counts were recounted from the run records by a script that does not import the analysis
+code; all agreed.
+
+| Finding | What was done |
+|---|---|
+| "Left 3 unfinished" and "left 12 unfinished" count nemotron3's runs with neither a hold nor a wrong payout; Table R5 counts 7 and 18 runs that neither held nor paid every customer, because some of those had already paid a wrong amount | Section 4.2 now gives the three-way split in words that say what it is (held before any wrong payout, paid a wrong amount, neither); Appendix A gives both counts, each with its definition |
+| "Four of five workers answered a failed tool call with a true but incomplete report" leaves out that gemma4 did the same in 15 of 40 runs with a reasoning field | The abstract now says "most workers" and "a true report of unfinished work"; contribution 4 says which worker did what "mostly", "almost always" and "always" |
+| "One wording of each prompt and signal" in the new limitations paragraph overlooks the follow-up wordings | Now "in the locked design, one wording of each prompt and signal" |

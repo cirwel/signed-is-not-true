@@ -492,6 +492,8 @@ def values(d: Data) -> dict[str, str]:
         v[f"nem_duty_{tag}_held"] = str(sum(ar.caught(r) for r in rs))
         v[f"nem_duty_{tag}_wrong"] = str(sum(r["wrong_payout"] for r in rs))
         v[f"nem_duty_{tag}_unfinished"] = str(sum(not ar.caught(r) and not r["wrong_payout"] for r in rs))
+        # Table R5's wider count: neither held nor paid every customer, whatever was paid before
+        v[f"nem_duty_{tag}_incomplete"] = str(sum(r["outcome"] == "incomplete" for r in rs))
         v[f"nem_duty_{tag}_read"] = str(sum(r["looked"] for r in rs))
     n, k1, k2, b, c = paired(d, [N], "duty", "sig", "scoped")
     v["nem_duty_sig"], v["nem_duty_scoped"], v["nem_sig_scoped_p"] = of(k1, n), of(k2, n), pfmt(ar.mcnemar(b, c))

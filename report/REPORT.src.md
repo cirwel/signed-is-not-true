@@ -25,8 +25,8 @@ decide, three receivers caught at most 3% and two caught all; one sentence of in
 to {{duty_low_min_pct}} or more. An accurate signature line made no detectable difference. A "✔ Verified" badge cut catches in two
 receivers ({{nem_duty_none_to_badge}}, pre-registered; 24 to 9 of 80), and a note on what the signature covers
 raised them (20 to 79 of 80). Three receivers paid on most handoffs that said the evidence check had
-failed. With nothing planted, four of five workers answered a failed tool call with a true but
-incomplete report, which the evidence check always passed. Shown one worker's note admitting the failure,
+failed. With nothing planted, most workers answered a failed tool call with a true report of
+unfinished work, which the evidence check always passed. Shown one worker's note admitting the failure,
 capable receivers stopped the batch, until an instruction naming one check made two of them pay (58 to 2
 of 60); an instruction naming the goal did not. What is caught depends on where a check sits and how it is
 worded.
@@ -64,8 +64,9 @@ provenance signals change that (Study 2), and which false "done" reports arise w
    the signature covers reversed it (20 to 79 of 80).
 3. **A check result is not a gate.** Three receivers paid on {{mismatch_paid_range}} of handoffs whose text said the
    evidence check had failed. Two of the three usually noted the mismatch in their own reasoning first.
-4. **Which unplanted false "done" reports a check can see.** After a visible tool error, one worker claimed
-   the failed step, three sent a true list that was silent about it, and one disclosed it. An evidence
+4. **Which unplanted false "done" reports a check can see.** After a visible tool error, one worker mostly claimed
+   the failed step, three almost always sent a true list that was silent about it, and one always
+   disclosed it. An evidence
    check catches only the first kind, and the share of failures it could see fell from 68% to 0% from the
    weakest worker to the strongest.
 5. **An instruction that names a check can narrow a capable receiver to it.** Shown one worker's 20 reports
@@ -233,8 +234,8 @@ caught every one of these handoffs.
 is the pre-registered test).
 
 **The one-word badge cut checking where checking was in play (H6; rows 2 to 4).** The effect in the
-pre-registered test is nemotron3's. Of {{nem_duty_none_n}} false dones it held {{nem_duty_none_held}}, paid a wrong amount on {{nem_duty_none_wrong}} and left {{nem_duty_none_unfinished}}
-unfinished with no signal; with the badge it held {{nem_duty_badge_held}}, paid wrongly on {{nem_duty_badge_wrong}} and left {{nem_duty_badge_unfinished}} unfinished, and it read
+pre-registered test is nemotron3's. Of {{nem_duty_none_n}} false dones, with no signal it held {{nem_duty_none_held}} before any wrong payout, paid a wrong amount
+on {{nem_duty_none_wrong}} and did neither in {{nem_duty_none_unfinished}}; with the badge the counts were {{nem_duty_badge_held}}, {{nem_duty_badge_wrong}} and {{nem_duty_badge_unfinished}}, and it read
 the refunds table in {{nem_duty_badge_read}} runs against {{nem_duty_none_read}}. When it did read an empty table under the badge, it could explain
 the contradiction away: "the refunds have already been applied to the ledger and are not listed here." The
 same happened in a model from another developer under the other prompt (row 4). Every other receiver and
@@ -349,7 +350,8 @@ receivers in Table E10).
 
 </div>
 
-**Four design rules follow**, each from one result here.
+**Four design rules follow** for those who design handoff protocols, build agent frameworks or write a
+receiver's instructions, each from one result here.
 
 1. *Enforce a check in code.* The rule acted on every mismatch; three of six receivers mostly paid when
    the same result was a sentence in their input.
@@ -364,7 +366,8 @@ receivers in Table E10).
    names and blinded two capable ones to the failure beside it. A goal-worded instruction kept them
    stopping, and did less for the weaker receivers on the named failure (exploratory, one wording each).
 
-**Limitations and next steps.** This is a toy pipeline: one task, one wording of each prompt and signal.
+**Limitations and next steps.** This is a toy pipeline: one task and, in the locked design, one wording of each
+prompt and signal.
 Four of the seven models were added after the locks, so their results are exploratory, and the two
 strongest receivers caught everything, so the task cannot show what would move them (Appendix A has the
 full list). Next: a harder task, several wordings of each signal and instruction, and a test of the
@@ -493,10 +496,12 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
   was writing a reply. They stay in the counts as incomplete, which for a false-done handoff means not
   caught. For gemma4 the error always came on the reply after it had read the refunds table, and 9 of the
   14 false dones it did not catch under the duty prompt were such runs.
-- A catch needs a `hold` call with no wrong payout before it. A run that neither held nor paid every
-  customer counts as not caught: mostly replies that never became a tool call. For nemotron3 under duty
-  that was {{nem_duty_unfinished_badge}} of {{nem_duty_pairs}} runs with the badge against {{nem_duty_unfinished_none}} with no signal, so a part of the
-  badge's effect on its catch rate is unfinished runs and not payments.
+- A catch needs a `hold` call with no wrong payout before it. A run that ended with neither a hold nor a
+  wrong payout counts as not caught: mostly replies that never became a tool call. For nemotron3 under
+  duty there were {{nem_duty_badge_unfinished}} such runs of {{nem_duty_badge_n}} with the badge against {{nem_duty_none_unfinished}} with no signal, so a part of the badge's
+  effect on its catch rate is unfinished runs and not payments. Counting every run that neither held nor
+  paid every customer, including those that had already paid a wrong amount, gives {{nem_duty_badge_incomplete}} against {{nem_duty_none_incomplete}}
+  (Table R5 in the repository).
 
 ## Appendix B: Dual-Use and Ethical Considerations
 

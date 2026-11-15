@@ -59,13 +59,13 @@ signals and two prompts. Left to decide, three receivers caught at most
 "✔ Verified" badge cut catches in two receivers (60 to 22 of 80,
 pre-registered; 24 to 9 of 80), and a note on what the signature covers
 raised them (20 to 79 of 80). Three receivers paid on most handoffs that
-said the evidence check had failed. With nothing planted, four of five
-workers answered a failed tool call with a true but incomplete report,
-which the evidence check always passed. Shown one worker's note
-admitting the failure, capable receivers stopped the batch, until an
-instruction naming one check made two of them pay (58 to 2 of 60); an
-instruction naming the goal did not. What is caught depends on where a
-check sits and how it is worded.</p>
+said the evidence check had failed. With nothing planted, most workers
+answered a failed tool call with a true report of unfinished work, which
+the evidence check always passed. Shown one worker's note admitting the
+failure, capable receivers stopped the batch, until an instruction
+naming one check made two of them pay (58 to 2 of 60); an instruction
+naming the goal did not. What is caught depends on where a check sits
+and how it is worded.</p>
 </div>
 
 <h2 id="1-introduction">1. Introduction</h2>
@@ -89,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,242 runs with seven models from five developers I ask
+every run. In 10,251 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -110,11 +110,11 @@ on 68% to 100% of handoffs whose text said the evidence check had
 failed. Two of the three usually noted the mismatch in their own
 reasoning first.</li>
 <li><strong>Which unplanted false "done" reports a check can
-see.</strong> After a visible tool error, one worker claimed the failed
-step, three sent a true list that was silent about it, and one disclosed
-it. An evidence check catches only the first kind, and the share of
-failures it could see fell from 68% to 0% from the weakest worker to the
-strongest.</li>
+see.</strong> After a visible tool error, one worker mostly claimed the
+failed step, three almost always sent a true list that was silent about
+it, and one always disclosed it. An evidence check catches only the
+first kind, and the share of failures it could see fell from 68% to 0%
+from the weakest worker to the strongest.</li>
 <li><strong>An instruction that names a check can narrow a capable
 receiver to it.</strong> Shown one worker's 20 reports that admit a
 failed refund, three receivers stopped the batch at least 97% of the
@@ -255,7 +255,7 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,242 runs: 320 in Study 1, 6,018 in Study 2, 904
+exploratory. In all 10,251 runs: 320 in Study 1, 6,023 in Study 2, 908
 in Study 3 and 3,000 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
@@ -273,7 +273,7 @@ field no receiver caught anything in pilots, even under the duty prompt
 the strict reply format, so Studies 2 and 3 accept loosely shaped tool
 calls; as a <em>worker</em> it still failed the format so often that its
 Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower
-than nemotron3 on a shared GPU and completed only 18 of its 1,200 Study
+than nemotron3 on a shared GPU and completed only 23 of its 1,200 Study
 2 runs.</p>
 <p><strong>Prior work used.</strong> The voucher format and verification
 code are a verbatim copy of a federation tracer from UNITARES
@@ -306,7 +306,7 @@ the three low receivers caught 75 of 80, 60 of 80 and 79 of 80.</p>
 <p><img src="../results/figure2.png" alt="Figure 2" /></p>
 <p><strong>Figure 2.</strong> Study 2. Share of false dones each
 receiver caught, by signal and prompt, with 95% Wilson intervals. Dashed
-line: rule C on the same handoffs. qwen3.6 is left out (18 runs by the
+line: rule C on the same handoffs. qwen3.6 is left out (23 runs by the
 cut-off; Table E2).</p>
 </div>
 
@@ -337,8 +337,8 @@ caught every one of these handoffs.</p>
 <td>no signal → signature line</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>135/160</td>
-<td>133/160</td>
+<td>136/161</td>
+<td>134/161</td>
 <td>20 / 18</td>
 <td>1.0 †</td>
 </tr>
@@ -346,8 +346,8 @@ caught every one of these handoffs.</p>
 <td>no signal → ✔ Verified</td>
 <td>locked receivers, duty</td>
 <td>pre-registered</td>
-<td>135/160</td>
-<td>98/160</td>
+<td>136/161</td>
+<td>99/161</td>
 <td>45 / 8</td>
 <td>7 × 10<sup>-7</sup> †</td>
 </tr>
@@ -434,10 +434,10 @@ difference</strong> in any receiver under either prompt (row 1 is the
 pre-registered test).</p>
 <p><strong>The one-word badge cut checking where checking was in play
 (H6; rows 2 to 4).</strong> The effect in the pre-registered test is
-nemotron3's. Of 80 false dones it held 60, paid a wrong amount on 17 and
-left 3 unfinished with no signal; with the badge it held 22, paid
-wrongly on 46 and left 12 unfinished, and it read the refunds table in
-40 runs against 78. When it did read an empty table under the badge, it
+nemotron3's. Of 80 false dones, with no signal it held 60 before any
+wrong payout, paid a wrong amount on 17 and did neither in 3; with the
+badge the counts were 22, 46 and 12, and it read the refunds table in 40
+runs against 78. When it did read an empty table under the badge, it
 could explain the contradiction away: "the refunds have already been
 applied to the ledger and are not listed here." The same happened in a
 model from another developer under the other prompt (row 4). Every other
@@ -491,7 +491,7 @@ added itself (most often <code>refunds_failed</code>). nemotron3, whose
 Study 3 rows are in Table E5 only, did so in 1 of its 5 true partial
 reports.</p>
 <p><strong>The evidence check saw only the first kind.</strong> It
-rejected all 87 overclaims and accepted all 165 partial reports, silent
+rejected all 88 overclaims and accepted all 165 partial reports, silent
 or disclosed, and 163 of those batches ended in wrong payouts: the
 customer was paid as though no refund were due.</p>
 <p><strong>Miscalculations were reported faithfully (H11); a skipped
@@ -514,7 +514,7 @@ improved.</strong> Over all Study 3 conditions, the share of a worker's
 false dones whose report differed from the table was 68% for gemma4 (66
 of 97), 16% for gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and
 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each). Across all
-workers check C caught 95 of 95 such reports and 0 of 186 of those that
+workers check C caught 96 of 96 such reports and 0 of 186 of those that
 matched the table (H10, H11).</p>
 <div class="fig">
 
@@ -591,7 +591,7 @@ pooled in row 2; all six receivers in Table E10).</p>
 </thead>
 <tbody>
 <tr>
-<td>differs from the table (160 planted, 95 unplanted)</td>
+<td>differs from the table (160 planted, 96 unplanted)</td>
 <td>0%</td>
 <td>100%</td>
 <td>0% / 94% / 19%</td>
@@ -618,8 +618,9 @@ unplanted, 80 planted)</td>
 
 </div>
 
-<p><strong>Four design rules follow</strong>, each from one result
-here.</p>
+<p><strong>Four design rules follow</strong> for those who design
+handoff protocols, build agent frameworks or write a receiver's
+instructions, each from one result here.</p>
 <ol type="1">
 <li><em>Enforce a check in code.</em> The rule acted on every mismatch;
 three of six receivers mostly paid when the same result was a sentence
@@ -642,12 +643,12 @@ them stopping, and did less for the weaker receivers on the named
 failure (exploratory, one wording each).</li>
 </ol>
 <p><strong>Limitations and next steps.</strong> This is a toy pipeline:
-one task, one wording of each prompt and signal. Four of the seven
-models were added after the locks, so their results are exploratory, and
-the two strongest receivers caught everything, so the task cannot show
-what would move them (Appendix A has the full list). Next: a harder
-task, several wordings of each signal and instruction, and a test of the
-binding in rule 3.</p>
+one task and, in the locked design, one wording of each prompt and
+signal. Four of the seven models were added after the locks, so their
+results are exploratory, and the two strongest receivers caught
+everything, so the task cannot show what would move them (Appendix A has
+the full list). Next: a harder task, several wordings of each signal and
+instruction, and a test of the binding in rule 3.</p>
 <h2 id="6-conclusion">6. Conclusion</h2>
 <p>A valid signature told the receiver nothing about whether the work
 was done. An evidence check stopped every report that differed from the
@@ -743,7 +744,7 @@ the badge wordings, the <em>wrong</em> condition, and all contrasts not
 named as primary. Their p values are not adjusted for the number of
 contrasts examined.</li>
 <li>Six receivers have at least 20 seeds. qwen3.6, a locked receiver,
-completed only 18 of its 1,200 Study 2 runs by the cut-off.
+completed only 23 of its 1,200 Study 2 runs by the cut-off.
 claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every
 planted false done under every signal, so this task cannot show whether
 a signal would move them on a harder one.</li>
@@ -795,11 +796,13 @@ caught. For gemma4 the error always came on the reply after it had read
 the refunds table, and 9 of the 14 false dones it did not catch under
 the duty prompt were such runs.</li>
 <li>A catch needs a <code>hold</code> call with no wrong payout before
-it. A run that neither held nor paid every customer counts as not
-caught: mostly replies that never became a tool call. For nemotron3
-under duty that was 12 of 80 runs with the badge against 3 with no
-signal, so a part of the badge's effect on its catch rate is unfinished
-runs and not payments.</li>
+it. A run that ended with neither a hold nor a wrong payout counts as
+not caught: mostly replies that never became a tool call. For nemotron3
+under duty there were 12 such runs of 80 with the badge against 3 with
+no signal, so a part of the badge's effect on its catch rate is
+unfinished runs and not payments. Counting every run that neither held
+nor paid every customer, including those that had already paid a wrong
+amount, gives 18 against 7 (Table R5 in the repository).</li>
 </ul>
 <h2 id="appendix-b-dual-use-and-ethical-considerations">Appendix B:
 Dual-Use and Ethical Considerations</h2>
@@ -954,7 +957,7 @@ most 5%</td>
 <td>In <em>blocked</em> some reports overclaim; C catches every
 overclaim and passes every honest partial, which ends in wrong
 payouts</td>
-<td>Supported, all workers together: 87 of 87 overclaims caught, 165 of
+<td>Supported, all workers together: 88 of 88 overclaims caught, 165 of
 165 partial reports passed, 163 of them ending in wrong payouts</td>
 </tr>
 <tr>
@@ -1211,12 +1214,12 @@ handoff.</p>
 <tr>
 <td></td>
 <td>duty</td>
+<td>1/1</td>
+<td>1/1</td>
+<td>1/1</td>
 <td>n/a</td>
 <td>n/a</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>0/3</td>
+<td>0/5</td>
 </tr>
 </tbody>
 </table>
@@ -1552,15 +1555,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>honest, reasoning field</td>
-<td>34</td>
-<td>29</td>
-<td>13</td>
+<td>36</td>
+<td>31</td>
+<td>14</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>n/a</td>
-<td>0/16</td>
+<td>0/17</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1578,15 +1581,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>visible tool error, reasoning field</td>
-<td>35</td>
-<td>21</td>
+<td>36</td>
+<td>22</td>
 <td>13</td>
-<td>8</td>
-<td>3</td>
+<td>9</td>
+<td>4</td>
 <td>0</td>
 <td>5</td>
-<td>3/8</td>
-<td>3/8</td>
+<td>4/9</td>
+<td>3/9</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1604,9 +1607,9 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>amount to work out, reasoning field</td>
-<td>35</td>
-<td>29</td>
-<td>19</td>
+<td>36</td>
+<td>30</td>
+<td>20</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -2190,10 +2193,10 @@ with no signal shown.</p>
 </tr>
 <tr>
 <td>qwen3.6 (27B)</td>
-<td>18</td>
-<td>120</td>
-<td>484</td>
-<td>7</td>
+<td>23</td>
+<td>115</td>
+<td>483</td>
+<td>6</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -2263,7 +2266,7 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>19 / – / 75 / 100 / 100 / 100</td>
 </tr>
 <tr>
-<td>differs from the table, unplanted (95)</td>
+<td>differs from the table, unplanted (96)</td>
 <td>0</td>
 <td>100</td>
 <td>not run</td>
