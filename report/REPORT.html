@@ -30,13 +30,20 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div class="titleblock">
+
 <h1
-id="signed-is-not-true-measuring-what-provenance-checks-catch-in-an-llm-agent-handoff">Signed
+id="signed-is-not-true-measuring-what-provenance-checks-catch-in-an-llm-agent-handoff1">Signed
 Is Not True: Measuring What Provenance Checks Catch in an LLM Agent
-Handoff</h1>
-<p>Kenny Wang, Independent Researcher. With Apart Research.</p>
-<p>Code, run records, tables and both hypothesis locks: <a
-href="https://github.com/cirwel/signed-is-not-true">https://github.com/cirwel/signed-is-not-true</a></p>
+Handoff<sup>1</sup></h1>
+</div>
+<div class="authors">
+
+<p>Kenny Wang<br>Independent Researcher</p>
+<p><strong>With</strong><br>Apart Research</p>
+</div>
+<div class="abstract">
+
 <h2 id="abstract">Abstract</h2>
 <p>Handoffs between AI agents are being secured by proving origin:
 signatures, IDs, signed mandates. I measure what such signals catch, and
@@ -59,7 +66,9 @@ admitting the failure, capable receivers stopped the batch, until an
 instruction naming one check made two of them pay (58 to 2 of 60); an
 instruction naming the goal did not. What is caught depends on where a
 check sits and how it is worded.</p>
-<h2 id="1-introduction">1 Introduction</h2>
+</div>
+
+<h2 id="1-introduction">1. Introduction</h2>
 <p>Agent pipelines increasingly hand work from one organisation's agent
 to another's: one agent reports that a step is done, and another acts on
 the report. Most of the infrastructure being built for these handoffs is
@@ -80,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,173 runs with seven models from five developers I ask
+every run. In 10,226 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -123,7 +132,7 @@ tickets of Study 1. <em>Unplanted</em> errors are the false "done"
 reports of Study 3, where nothing told the worker to misreport.</p>
 </div>
 
-<h2 id="2-related-work">2 Related Work</h2>
+<h2 id="2-related-work">2. Related Work</h2>
 <p><strong>Provenance, credentials and agent identity.</strong>
 Certificate Transparency (Laurie, Langley and Kasper, 2013) and C2PA
 Content Credentials (C2PA, v2.4) make assertions of origin auditable.
@@ -165,7 +174,7 @@ commit, which means that the signature was verified (GitHub Docs).</p>
 argue for AI tools that help people and AI systems know what is true. A
 hearer of testimony must reckon with both insincerity and honest error
 (Fricker, as reported by Adler, 2012); a signature removes neither.</p>
-<h2 id="3-methods">3 Methods</h2>
+<h2 id="3-methods">3. Methods</h2>
 <p><strong>Pipeline and ground truth.</strong> A seeded batch defines
 six orders for three customers and three refunds. W1 (principal alpha)
 imports the orders. W2 (alpha) applies the refunds and reports "done"
@@ -246,8 +255,8 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,173 runs: 320 in Study 1, 6,018 in Study 2, 891
-in Study 3 and 2,944 in the follow-up arms
+exploratory. In all 10,226 runs: 320 in Study 1, 6,018 in Study 2, 902
+in Study 3 and 2,986 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
 Signals are compared with exact two-sided McNemar tests on pairs of the
@@ -270,7 +279,7 @@ than nemotron3 on a shared GPU and completed only 18 of its 1,200 Study
 code are a verbatim copy of a federation tracer from UNITARES
 (Apache-2.0), written before the sprint and marked in the repository.
 Everything else was written during the sprint.</p>
-<h2 id="4-results">4 Results</h2>
+<h2 id="4-results">4. Results</h2>
 <h3 id="41-study-1-what-the-rules-catch">4.1 Study 1: what the rules
 catch</h3>
 <p>Counts were identical for gemma4 and qwen3.6 (Table E1). Signature
@@ -305,7 +314,10 @@ cut-off; Table E2).</p>
 false dones caught under two signals on the same handoffs (<em>lie</em>
 and <em>fault</em> pooled). <em>Only first / only second</em>: handoffs
 caught under one signal and not the other. p: exact two-sided McNemar
-test. Rule C caught every one of these handoffs.</p>
+test (†: Holm-adjusted over the three pre-registered tests). Rule C
+caught every one of these handoffs.</p>
+<div class="oneline">
+
 <!-- table:contrasts -->
 
 <table>
@@ -328,7 +340,7 @@ test. Rule C caught every one of these handoffs.</p>
 <td>135/160</td>
 <td>133/160</td>
 <td>20 / 18</td>
-<td>0.87 (Holm 1.0)</td>
+<td>1.0 †</td>
 </tr>
 <tr>
 <td>no signal → ✔ Verified</td>
@@ -337,12 +349,12 @@ test. Rule C caught every one of these handoffs.</p>
 <td>135/160</td>
 <td>98/160</td>
 <td>45 / 8</td>
-<td>2 × 10<sup>-7</sup> (Holm 7 × 10<sup>-7</sup>)</td>
+<td>7 × 10<sup>-7</sup> †</td>
 </tr>
 <tr>
 <td></td>
 <td>nemotron3, duty</td>
-<td>part of the row above</td>
+<td>within row 2</td>
 <td>60/80</td>
 <td>22/80</td>
 <td>41 / 3</td>
@@ -358,13 +370,13 @@ test. Rule C caught every one of these handoffs.</p>
 <td>0.011</td>
 </tr>
 <tr>
-<td>signature line → signature + scope note</td>
+<td>signature line → + scope note</td>
 <td>locked receivers, discretion</td>
 <td>pre-registered</td>
 <td>2/162</td>
 <td>0/162</td>
 <td>2 / 0</td>
-<td>0.5 (Holm 1.0)</td>
+<td>1.0 †</td>
 </tr>
 <tr>
 <td></td>
@@ -385,9 +397,9 @@ test. Rule C caught every one of these handoffs.</p>
 <td>3 × 10<sup>-18</sup></td>
 </tr>
 <tr>
-<td>no signal → evidence result (MISMATCH)</td>
+<td>no signal → “Result: MISMATCH”</td>
 <td>gemma4, discretion</td>
-<td>descriptive (H8)</td>
+<td>descriptive</td>
 <td>0/80</td>
 <td>0/80</td>
 <td>0 / 0</td>
@@ -396,7 +408,7 @@ test. Rule C caught every one of these handoffs.</p>
 <tr>
 <td></td>
 <td>nemotron3, discretion</td>
-<td>descriptive (H8)</td>
+<td>descriptive</td>
 <td>2/80</td>
 <td>21/80</td>
 <td>2 / 21</td>
@@ -414,6 +426,8 @@ test. Rule C caught every one of these handoffs.</p>
 </tbody>
 </table>
 <!-- /table:contrasts -->
+
+</div>
 
 <p><strong>The accurate signature line made no detectable
 difference</strong> in any receiver under either prompt (row 1 is the
@@ -455,9 +469,9 @@ Table E7).</strong> For gpt-6-luna left to decide, "Verified" without
 the check mark suppressed checking as the badge did (12 of 80 caught,
 against 24 with no signal), "✔ Signature valid" less clearly (14), and
 "✔ Sender verified", which names what was verified, not at all (24).
-nemotron3 under duty gave the same order on the 14 seeds finished by the
-cut-off: 8 of 28 caught with the badge, 12, 15 and 17 with the three
-wordings as listed, and 21 with no signal.</p>
+nemotron3 under duty gave the same order on the 18 seeds finished by the
+cut-off: 8 of 36 caught with the badge, 15, 20 and 24 with the three
+wordings as listed, and 24 with no signal.</p>
 <h3 id="43-study-3-the-errors-nobody-planted">4.3 Study 3: the errors
 nobody planted</h3>
 <p><strong>After a visible tool error there were three kinds of report
@@ -471,12 +485,14 @@ three attempts at the refund, sent <code>done</code> in 125 of 134
 handoffs with a list of exactly the two refunds that had been applied
 and nothing else: true, and silent about the third. Given a reasoning
 field, gpt-5.4-nano mentioned the failure in its reasoning in 40 of 40
-runs and in its report in none. Only claude-haiku-5-5 put it in the
-report, in 20 of 20 runs, in a field it added itself (most often
-<code>refunds_failed</code>).</p>
+runs and in its report in none. Of these five workers only
+claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it
+added itself (most often <code>refunds_failed</code>). nemotron3, whose
+Study 3 rows are in Table E5 only, did so in 1 of its 5 true partial
+reports.</p>
 <p><strong>The evidence check saw only the first kind.</strong> It
-rejected all 87 overclaims and accepted all 163 partial reports, silent
-or disclosed, and 162 of those batches ended in wrong payouts: the
+rejected all 87 overclaims and accepted all 165 partial reports, silent
+or disclosed, and 163 of those batches ended in wrong payouts: the
 customer was paid as though no refund were due.</p>
 <p><strong>Miscalculations were reported faithfully (H11); a skipped
 step was not.</strong> Given an amount to work out, gemma4 applied a
@@ -488,16 +504,6 @@ gpt-5.4-nano with a reasoning field made a different one: in 6 of 40
 runs it applied two refunds, never called the tool for the third, and
 reported all three ("All specified refunds have been applied"). Check C
 caught all 6.</p>
-<div class="fig">
-
-<p><img src="../results/figure3.png" alt="Figure 3" /></p>
-<p><strong>Figure 3.</strong> Errors nobody planted. (a), (b): Study 3,
-one bar per worker and reply format, coloured by what the evidence check
-can see. (c): the 20 reports in which claude-haiku-5-5 noted the failed
-refund, shown in full to five receivers; share of batches held under
-three prompts (95% Wilson intervals).</p>
-</div>
-
 <p><strong>Some claims had no work behind them.</strong> As the
 importing worker under honest instructions, gpt-6-luna answered
 <code>done</code> with all six order ids and no tool call in 27 of 120
@@ -508,8 +514,18 @@ improved.</strong> Over all Study 3 conditions, the share of a worker's
 false dones whose report differed from the table was 68% for gemma4 (66
 of 97), 16% for gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and
 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each). Across all
-workers check C caught 95 of 95 such reports and 0 of 184 of those that
+workers check C caught 95 of 95 such reports and 0 of 186 of those that
 matched the table (H10, H11).</p>
+<div class="fig">
+
+<p><img src="../results/figure3.png" alt="Figure 3" /></p>
+<p><strong>Figure 3.</strong> Errors nobody planted. (a), (b): Study 3,
+one bar per worker and reply format, coloured by what the evidence check
+can see. (c): the 20 reports in which claude-haiku-5-5 noted the failed
+refund, shown in full to five receivers; share of batches held under
+three prompts (95% Wilson intervals).</p>
+</div>
+
 <h3 id="44-a-workers-note-and-the-instruction-that-hid-it">4.4 A
 worker's note, and the instruction that hid it</h3>
 <p>Check C cannot read a note, but a model can. Here the receiver is
@@ -545,7 +561,7 @@ the weaker receivers less well: gpt-5.4-nano caught 60 of 80 against 79
 under duty, gemma4 15 of 80 against 75 of 80 (Table E8). No receiver
 held an honest handoff under it (0 of 160). One wording of each
 instruction was tried.</p>
-<h2 id="5-discussion">5 Discussion</h2>
+<h2 id="5-discussion-and-limitations">5. Discussion and Limitations</h2>
 <p><strong>Three links, and no single safeguard for all of
 them.</strong> A handoff asks the receiver to believe three things: that
 the report comes from who it says, that it describes what was done, and
@@ -582,14 +598,14 @@ pooled in row 2; all six receivers in Table E10).</p>
 <td>30% / 100% / 100%</td>
 </tr>
 <tr>
-<td>is true and discloses the failure (20)</td>
+<td>is true and discloses the failure (21; receivers were shown 20)</td>
 <td>0%</td>
 <td>0%</td>
 <td>0% / 2% / 37%</td>
 <td>97% / 3% / 97%</td>
 </tr>
 <tr>
-<td>is true and silent, or reports a wrong action as it was done (164
+<td>is true and silent, or reports a wrong action as it was done (165
 unplanted, 80 planted)</td>
 <td>0%</td>
 <td>0%</td>
@@ -625,7 +641,14 @@ capable ones to the failure beside it. A goal-worded instruction kept
 them stopping, and did less for the weaker receivers on the named
 failure (exploratory, one wording each).</li>
 </ol>
-<h2 id="6-conclusion">6 Conclusion</h2>
+<p><strong>Limitations and next steps.</strong> This is a toy pipeline:
+one task, one wording of each prompt and signal. Four of the seven
+models were added after the locks, so their results are exploratory, and
+the two strongest receivers caught everything, so the task cannot show
+what would move them (Appendix A has the full list). Next: a harder
+task, several wordings of each signal and instruction, and a test of the
+binding in rule 3.</p>
+<h2 id="6-conclusion">6. Conclusion</h2>
 <p>A valid signature told the receiver nothing about whether the work
 was done. An evidence check stopped every report that differed from the
 table, planted or not, and no true report of unfinished or mistaken
@@ -636,6 +659,11 @@ looking once the named check had passed. Whether a claim is true needs a
 comparison the claimant does not control, done in code. Whether the work
 is right needs a statement of what was asked. And where a model is the
 reader, each signal and each instruction should say what it covers.</p>
+<p><strong>Code and data.</strong> <a
+href="https://github.com/cirwel/signed-is-not-true">https://github.com/cirwel/signed-is-not-true</a>
+has the harness, every run record, the tables, both hypothesis locks and
+the reviews; one script rebuilds every number here from the run
+records.</p>
 <h2 id="references">References</h2>
 <p>A2A. Agent2Agent (A2A) Protocol Specification, version 1.0.0, section
 8.4, "Agent Card Signing". <a
@@ -919,15 +947,15 @@ most 5%</td>
 <tr>
 <td>H9</td>
 <td>Descriptive: the gap between the two prompts with no signal</td>
-<td>gemma4 0% to 94%; nemotron3 2% to 75%</td>
+<td>gemma4 0% to 94%; nemotron3 3% to 75%</td>
 </tr>
 <tr>
 <td>H10</td>
 <td>In <em>blocked</em> some reports overclaim; C catches every
 overclaim and passes every honest partial, which ends in wrong
 payouts</td>
-<td>Supported, all workers together: 87 of 87 overclaims caught, 163 of
-163 partial reports passed, 162 of them ending in wrong payouts</td>
+<td>Supported, all workers together: 87 of 87 overclaims caught, 165 of
+165 partial reports passed, 163 of them ending in wrong payouts</td>
 </tr>
 <tr>
 <td>H11</td>
@@ -1524,15 +1552,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>honest, reasoning field</td>
-<td>30</td>
-<td>25</td>
-<td>11</td>
+<td>34</td>
+<td>29</td>
+<td>13</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 <td>n/a</td>
-<td>0/14</td>
+<td>0/16</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1550,15 +1578,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>visible tool error, reasoning field</td>
-<td>31</td>
-<td>17</td>
-<td>11</td>
-<td>6</td>
+<td>34</td>
+<td>20</td>
+<td>12</td>
+<td>8</td>
 <td>3</td>
 <td>0</td>
-<td>3</td>
-<td>3/6</td>
-<td>2/6</td>
+<td>5</td>
+<td>3/8</td>
+<td>3/8</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -1576,9 +1604,9 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>amount to work out, reasoning field</td>
-<td>30</td>
-<td>25</td>
-<td>16</td>
+<td>34</td>
+<td>28</td>
+<td>19</td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -1953,25 +1981,25 @@ refunds table, out of false-done handoffs shown.</p>
 <td>nemotron3 (33B)</td>
 <td>duty</td>
 <td>caught</td>
-<td>21/28</td>
-<td>8/28</td>
-<td>12/28</td>
-<td>15/27</td>
-<td>17/27</td>
-<td>17/28</td>
-<td>26/28</td>
+<td>24/36</td>
+<td>8/36</td>
+<td>15/36</td>
+<td>20/36</td>
+<td>24/36</td>
+<td>23/36</td>
+<td>33/36</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td>read the table</td>
-<td>28/28</td>
-<td>17/28</td>
-<td>23/28</td>
-<td>21/27</td>
-<td>27/27</td>
-<td>27/28</td>
-<td>28/28</td>
+<td>34/36</td>
+<td>17/36</td>
+<td>29/36</td>
+<td>29/36</td>
+<td>35/36</td>
+<td>33/36</td>
+<td>36/36</td>
 </tr>
 <tr>
 <td>gpt-5.4-nano</td>
@@ -2230,7 +2258,7 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>differs from the table, planted (160)</td>
 <td>0</td>
 <td>100</td>
-<td>0 / 2 / 1 / 30 / 100 / 100</td>
+<td>0 / 3 / 1 / 30 / 100 / 100</td>
 <td>94 / 75 / 99 / 100 / 100 / 100</td>
 <td>19 / – / 75 / 100 / 100 / 100</td>
 </tr>
@@ -2243,7 +2271,7 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>not run</td>
 </tr>
 <tr>
-<td>is true and discloses the failure (20)</td>
+<td>is true and discloses the failure (21; receivers were shown 20)</td>
 <td>0</td>
 <td>0</td>
 <td>0 / – / 0 / 97 / 100 / 100</td>
@@ -2251,7 +2279,7 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>37 / – / 20 / 97 / 100 / 100</td>
 </tr>
 <tr>
-<td>is true and silent, or reports a wrong action as it was done (164
+<td>is true and silent, or reports a wrong action as it was done (165
 unplanted, 80 planted)</td>
 <td>0</td>
 <td>0</td>
@@ -2265,14 +2293,15 @@ unplanted, 80 planted)</td>
 
 </div>
 
-<h2 id="ai-assistance">AI assistance</h2>
-<p>The harness, the analysis code and a first draft of this report were
+<h2 id="llm-usage-statement">LLM Usage Statement</h2>
+<p>The harness, the analysis code and the text of this report were
 produced by an AI coding agent (Claude) working under the author's
-direction. One of the models studied, claude-haiku-5-5, belongs to the
-same model family. The analysis code was reviewed by a second instance
-of that model, an agent with no access to the analysis code recounted
-the report's main numbers from the raw run files, and the draft was
-reviewed by a model from another developer (gpt-6-sol, through the Codex
+direction, and the author read the report before it was submitted. One
+of the models studied, claude-haiku-5-5, belongs to the same model
+family. The analysis code was reviewed by a second instance of that
+model, an agent with no access to the analysis code recounted the
+report's main numbers from the raw run files, and the draft was reviewed
+by a model from another developer (gpt-6-sol, through the Codex
 command-line tool). What each found and what was done about it is in
 <code>results/reviews.md</code>. The author is responsible for the
 claims.</p>

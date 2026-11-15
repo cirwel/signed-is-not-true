@@ -418,3 +418,15 @@ the sweep reruns seeds 0 to 3 with every signal.
   one command. (f) qwen3.6's Study 2 rows are shown in a table of their own (Table E2) and left out of
   Table 1 and Figure 2 unless it reaches 20 seeds, the number every other receiver has; its runs stay in
   the three primary tests.
+- 2026-11-15T03:30Z: **presentation only, before the cut-off; no run and no test was changed.**
+  (a) The report now follows the sections of the sprint's official template (title footnote,
+  "Discussion and Limitations", "Code and data", "LLM Usage Statement"), and the main text gained a short
+  paragraph that points to the limitations in Appendix A. (b) Table 1 shows the Holm-adjusted p value
+  for the three pre-registered tests (marked with a dagger) and the unadjusted value for the other rows;
+  both values for the primary tests stay in Table R6b of `results/tables_receiver.md` and in Table D1.
+  (c) Percentages in the report round halves up (2.5% is printed as 3%); before, Python's rounding
+  printed 2.5% as 2%. (d) nemotron3, which is not one of the five workers of Table E4, disclosed the
+  failed refund in one of its reports with a reasoning field (seed 33); the sentence that said only
+  claude-haiku-5-5 did so now says "of these five workers" and gives nemotron3's count, and Table 2
+  says that the receivers were shown 20 of the 21 such reports. (e) `scripts/regenerate.sh` rebuilds
+  every table, figure and the report in one command.

@@ -108,7 +108,8 @@ used as evidence of what happened.
 
 ## AI assistance
 
-The harness, the analysis code and a first draft of the report were written during the
-sprint by an AI coding agent (Claude) working under the author's direction. One of the
+The harness, the analysis code and the text of the report were written during the
+sprint by an AI coding agent (Claude) working under the author's direction, and the author
+read the report before it was submitted. One of the
 models studied, claude-haiku-5-5, comes from the same model family. The author is
 responsible for the report and its claims.

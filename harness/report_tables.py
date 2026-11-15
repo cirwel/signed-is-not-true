@@ -32,6 +32,11 @@ WORDINGS = (
 PROMPTS = ("discretion", "duty", "goal")
 
 
+def whole(x: float) -> int:
+    """Nearest whole number, halves up. Python's round() sends 2.5 to 2 and 3.5 to 4."""
+    return int(x + 0.5)
+
+
 def frac(k: int, n: int) -> str:
     return f"{k}/{n}" if n else "n/a"
 
@@ -275,22 +280,29 @@ def contrasts(d: Data) -> list[str]:
     rows = [
         ("no signal → signature line", "locked receivers, duty", "pre-registered", (locked, "duty", "none", "sig"), holm[0]),
         ("no signal → ✔ Verified", "locked receivers, duty", "pre-registered", (locked, "duty", "none", "badge"), holm[1]),
-        ("", "nemotron3, duty", "part of the row above", ([N], "duty", "none", "badge"), None),
+        ("", "nemotron3, duty", "within row 2", ([N], "duty", "none", "badge"), None),
         ("", "gpt-6-luna, discretion", "exploratory", ([LUNA], "discretion", "none", "badge"), None),
-        ("signature line → signature + scope note", "locked receivers, discretion", "pre-registered", (locked, "discretion", "sig", "scoped"), holm[2]),
+        ("signature line → + scope note", "locked receivers, discretion", "pre-registered", (locked, "discretion", "sig", "scoped"), holm[2]),
         ("", "nemotron3, duty", "exploratory", ([N], "duty", "sig", "scoped"), None),
         ("", "gpt-6-luna, discretion", "exploratory", ([LUNA], "discretion", "sig", "scoped"), None),
-        ("no signal → evidence result (MISMATCH)", "gemma4, discretion", "descriptive (H8)", ([G], "discretion", "none", "evidence"), None),
-        ("", "nemotron3, discretion", "descriptive (H8)", ([N], "discretion", "none", "evidence"), None),
+        ("no signal → “Result: MISMATCH”", "gemma4, discretion", "descriptive", ([G], "discretion", "none", "evidence"), None),
+        ("", "nemotron3, discretion", "descriptive", ([N], "discretion", "none", "evidence"), None),
         ("", "gpt-5.4-nano, discretion", "exploratory", ([NANO], "discretion", "none", "evidence"), None),
     ]
+    # one line per row: the pre-registered rows show the Holm-adjusted p, marked with a dagger
     lines = ["| Signal shown: first → second | Receivers, prompt | Status | Caught, first | Caught, second | Only first / only second | p |",
              "|---|---|---|---|---|---|---|"]
     for label, who, status, (recs, duty, a, b_), adj in rows:
         n, k1, k2, b, c = paired(d, recs, duty, a, b_)
-        p_text = pfmt(ar.mcnemar(b, c)) + (f" (Holm {pfmt(adj)})" if adj is not None else "")
+        p_text = pfmt(ar.mcnemar(b, c)) if adj is None else pfmt(adj) + " †"
         lines.append(f"| {label} | {who} | {status} | {k1}/{n} | {k2}/{n} | {b} / {c} | {p_text} |")
     return lines
+
+
+def shown_note(d: Data, total: int) -> str:
+    """Count of disclosed-failure reports, and how many of them the note-carrying arm replayed."""
+    shown = len({r["seed"] for r in d.ncells.get(("gpt-6-luna", "discretion", "none"), [])})
+    return str(total) if shown == total else f"{total}; receivers were shown {shown}"
 
 
 def summary(d: Data) -> list[str]:
@@ -298,7 +310,7 @@ def summary(d: Data) -> list[str]:
     G, LUNA = "gemma4:latest", "gpt-6-luna"
 
     def rate(rs: list[dict], value=ar.caught) -> str:
-        return f"{round(100 * sum(bool(value(r)) for r in rs) / len(rs))}%" if len(rs) >= 20 else "–"
+        return f"{whole(100 * sum(bool(value(r)) for r in rs) / len(rs))}%" if len(rs) >= 20 else "–"
 
     def study2(m: str) -> str:
         return " / ".join(rate(d.false_dones(m, duty, "none")) for duty in PROMPTS)
@@ -327,7 +339,7 @@ def summary(d: Data) -> list[str]:
     lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | gemma4: left to decide / told which check / told the goal | gpt-6-luna: left to decide / told which check / told the goal |',
              "|---|---|---|---|---|"]
     lines.append(f"| differs from the table ({len(planted)} planted, {len(mis)} unplanted) | {rule(planted + mis, 'B')} | {rule(planted + mis, 'C')} | {study2(G)} | {study2(LUNA)} |")
-    lines.append(f"| is true and discloses the failure ({len(disclosed)}) | {rule(disclosed, 'B')} | {rule(disclosed, 'C')} | {note(G)} | {note(LUNA)} |")
+    lines.append(f"| is true and discloses the failure ({shown_note(d, len(disclosed))}) | {rule(disclosed, 'B')} | {rule(disclosed, 'C')} | {note(G)} | {note(LUNA)} |")
     lines.append(f"| is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted) | {rule(quiet + wrong, 'B')} | {rule(quiet + wrong, 'C')} | not run: nothing in the handoff to check against | not run |")
     return lines
 
@@ -335,7 +347,7 @@ def summary(d: Data) -> list[str]:
 def coverage(d: Data) -> list[str]:
     """Table 2: percentage of false dones stopped, by kind of failure and safeguard."""
     def rate(rs: list[dict], value) -> str:
-        return str(round(100 * sum(bool(value(r)) for r in rs) / len(rs))) if len(rs) >= 20 else "–"
+        return str(whole(100 * sum(bool(value(r)) for r in rs) / len(rs))) if len(rs) >= 20 else "–"
 
     def receivers(cells_for) -> str:
         return " / ".join(rate(cells_for(m), ar.caught) for m in d.main)
@@ -368,7 +380,7 @@ def coverage(d: Data) -> list[str]:
         (f"differs from the table, planted ({len(planted)})", planted, receivers(study2("discretion")),
          receivers(study2("duty")), receivers(study2("goal"))),
         (f"differs from the table, unplanted ({len(mis)})", mis, "not run", "not run", "not run"),
-        (f"is true and discloses the failure ({len(disclosed)})", disclosed, receivers(note("discretion")),
+        (f"is true and discloses the failure ({shown_note(d, len(disclosed))})", disclosed, receivers(note("discretion")),
          receivers(note("duty")), receivers(note("goal"))),
         (f"is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted)",
          quiet + wrong, "not run: nothing in the handoff to check against", "not run", "not run"),
@@ -400,7 +412,7 @@ def pfmt(p: float) -> str:
 
 
 def pct(k: int, n: int) -> str:
-    return f"{round(100 * k / n)}%" if n else "n/a"
+    return f"{whole(100 * k / n)}%" if n else "n/a"
 
 
 def of(k: int, n: int) -> str:
@@ -511,13 +523,13 @@ def values(d: Data) -> dict[str, str]:
     low = [G, N, NANO]
     disc = [(sum(ar.caught(r) for r in cell(m, "discretion", "none")), len(cell(m, "discretion", "none"))) for m in low]
     duty = [(sum(ar.caught(r) for r in cell(m, "duty", "none")), len(cell(m, "duty", "none"))) for m in low]
-    v["disc_low_range"] = f"{min(round(100 * k / n) for k, n in disc)}% to {max(round(100 * k / n) for k, n in disc)}%"
-    v["duty_low_range"] = f"{min(round(100 * k / n) for k, n in duty)}% to {max(round(100 * k / n) for k, n in duty)}%"
+    v["disc_low_range"] = f"{min(whole(100 * k / n) for k, n in disc)}% to {max(whole(100 * k / n) for k, n in disc)}%"
+    v["duty_low_range"] = f"{min(whole(100 * k / n) for k, n in duty)}% to {max(whole(100 * k / n) for k, n in duty)}%"
     v["duty_low_min_pct"] = f"{min(math.floor(100 * k / n) for k, n in duty)}%"   # "N% or more"
     rates = []
     for m in low:
         rs = cell(m, "discretion", "evidence")
-        rates.append(round(100 * sum(r["wrong_payout"] for r in rs) / len(rs)))
+        rates.append(whole(100 * sum(r["wrong_payout"] for r in rs) / len(rs)))
     v["mismatch_paid_range"] = f"{min(rates)}% to {max(rates)}%"
     every = [m for m in d.main]
     v["duty_evidence_min_pct"] = f"{min(math.floor(100 * sum(ar.caught(r) for r in cell(m, 'duty', 'evidence')) / len(cell(m, 'duty', 'evidence'))) for m in every)}%"
@@ -529,7 +541,7 @@ def values(d: Data) -> dict[str, str]:
             hs = d.cells.get((m, dty, "honest", "evidence"), [])
             if len(hs) >= 10:
                 worst = max(worst, sum(r["held"] for r in hs) / len(hs))
-    v["honest_held_max_pct"] = f"{round(100 * worst)}%"
+    v["honest_held_max_pct"] = f"{whole(100 * worst)}%"
 
     # Study 3
     over, part, part_wrong, over_caught, part_caught = 0, 0, 0, 0, 0
@@ -562,6 +574,12 @@ def values(d: Data) -> dict[str, str]:
                 mis_c += not r["arms"]["C"]
     v["mis_caught"], v["faithful_caught"], v["mis_n"] = of(mis_c, mis), of(faithful_c, faithful), str(mis)
     v["faithful_not_disclosed_n"] = str(faithful - disclosed)
+    nem_part = [r for c in ("blocked", "blocked_t") for r in d.clean(N, c) if report_kind(r) == "partial"]
+    nem_disc = sum(bool(mentions(r)) for r in nem_part)
+    v["nem_disclosed_sentence"] = (
+        f" nemotron3, whose Study 3 rows are in Table E5 only, did so in {nem_disc} of its {len(nem_part)} true partial reports."
+        if nem_disc else ""
+    )
 
     # the goal prompt
     rs = [r for s in ("none", "badge", "evidence") for r in d.ncells.get((G, "goal", s), [])]
