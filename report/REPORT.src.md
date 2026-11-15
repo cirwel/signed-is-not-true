@@ -16,19 +16,19 @@ Kenny Wang<br>Independent Researcher
 
 Handoffs between AI agents are being secured by proving origin: signatures, IDs, signed
 mandates. I measure what such signals catch, and what they do to a model reading them, in a pipeline
-with database ground truth: one principal's worker applies refunds and reports "done"; another principal's
+with database ground truth: one principal's worker applies refunds and reports "done"; another's
 agent pays out on the report. As rules in code, a valid signature caught 0 of 160 planted false reports,
-the same as trust, and comparing signed evidence with the table caught all 160. I replayed the
+as trust did, and comparing signed evidence with the table caught all 160. I replayed the
 handoffs to LLM receivers from five developers under five signals and two
 prompts. Left to
 decide, four receivers caught at most 3% and two caught all; one sentence of instruction lifted the four
 to {{duty_low_min_pct}} or more. An accurate signature line made no detectable difference. A "✔ Verified" badge cut catches in two
-receivers ({{nem_duty_none_to_badge}}, pre-registered; 24 to 9 of 80), and a note on what the signature covers
-raised them (20 to 79 of 80). Three receivers paid on most handoffs that said the evidence check had
+receivers ({{nem_duty_none_to_badge}} within the pre-registered test; 24 to 9, exploratory), and a note on what the signature covers
+raised them (to {{nem_duty_scoped_k}} and 79 of 80, exploratory). Three receivers paid on most handoffs that said the evidence check had
 failed. With nothing planted, most workers answered a failed tool call with a true report of
 unfinished work, which the evidence check always passed. Shown one worker's note admitting the failure,
-capable receivers stopped the batch, until an instruction naming one check made two of them pay (58 to 2
-of 60); an instruction naming the goal did not. What is caught depends on where a check sits and how it is
+capable receivers stopped the batch, until an instruction naming one check made two pay (stopping 2 and 45
+of 60); one naming the goal did not. What is caught depends on where a check sits and how it is
 worded.
 
 </div>
@@ -60,8 +60,8 @@ provenance signals change that (Study 2), and which false "done" reports arise w
    same recorded handoffs, with two hypothesis locks committed before the runs they cover.
 2. **What provenance signals do to a model that reads them.** An accurate signature line made no detectable difference.
    A one-word "✔ Verified" badge cut checking in the two receivers whose checking was neither absent nor
-   certain ({{nem_duty_none_to_badge}} catches, pre-registered; 24 to 9 of 80, exploratory), and one sentence on what
-   the signature covers reversed it (20 to 79 of 80).
+   certain ({{nem_duty_none_to_badge}} catches within the pre-registered test, which pooled the three locked receivers; 24 to 9 of 80, exploratory), and one sentence on what
+   the signature covers reversed it (to {{nem_duty_scoped_k}} and 79 of 80, exploratory).
 3. **A check result is not a gate.** Three receivers paid on {{mismatch_paid_range}} of handoffs whose text said the
    evidence check had failed. Two of the three usually noted the mismatch in their own reasoning first.
 4. **Which unplanted false "done" reports a check can see.** {{kinds_sentence}} An evidence
@@ -218,8 +218,8 @@ intervals. Dashed line: rule C on the same handoffs. {{fig2_n_sentence}}
 
 **Table 1.** Study 2, the contrasts behind each finding: false dones caught under two signals on the same
 handoffs (*lie* and *fault* pooled). *Only first / only second*: handoffs caught under one signal and not
-the other. p: exact two-sided McNemar test (†: Holm-adjusted over the three pre-registered tests). Rule C
-caught every one of these handoffs.
+the other. p: exact two-sided McNemar test (†: Holm-adjusted over the three pre-registered tests).
+*“Result: MISMATCH”*: the signal *signature + evidence result*. Rule C caught every one of these handoffs.
 
 <div class="oneline">
 
@@ -242,10 +242,10 @@ prompt started at {{nem_disc_none_pct}} or less, or at 93% or more, and the badg
 **Saying what the signature covers reversed it (H7; rows 5 to 7).** With the scope sentence added,
 nemotron3 under duty and gpt-6-luna left to decide caught more than under any other signal short of being
 handed the answer, and gpt-6-luna read the table in 79 of 80 runs. H7 as locked is not supported (row 5):
-the locked receivers did not check under discretion with or without the note.
+the locked receivers caught almost nothing under discretion with or without the note.
 
 **A failed check written into the handoff was not a gate (H8; {{h8_rows}}).** Under the discretion
-prompt, with "Evidence check: [...] Result: MISMATCH." in the message, gemma4 paid a wrong amount on 80 of
+prompt, with the signature line and "Evidence check: [...] Result: MISMATCH." in the message, gemma4 paid a wrong amount on 80 of
 80 false dones, nemotron3 on {{nem_mismatch_paid}} and gpt-5.4-nano on 57 of 80. gemma4's reasoning never mentions the
 result. The other two usually do, in {{nem_mismatch_said}} and 52 of the 57 runs that paid: "Refund mismatch was reported
 for orders 113-115; I must compute net balances via net_balance per customer and then pay each customer
@@ -268,10 +268,10 @@ varies is what the report says. gemma4 listed the failed refund as
 applied in 40 of 40 runs. With a reasoning field it did so in 25 of 40, and in all 25 its own reasoning
 had stated that the refund failed. The three GPT workers, two of them after a median of three attempts at
 the refund, sent `done` in 125 of 134 handoffs with a list of exactly the two refunds that had been
-applied and nothing else: true, and silent about the third. Given a reasoning
+applied and nothing else: true, and silent about the third.{{qwen_blocked_sentence}} Given a reasoning
 field, gpt-5.4-nano mentioned the failure in its reasoning in 40 of 40 runs and in its report in none.
-Of these five workers only claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it added
-itself (most often `refunds_failed`).{{qwen_blocked_sentence}}{{nem_disclosed_sentence}}
+Of these {{workers3_word}} workers only claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it added
+itself (most often `refunds_failed`).{{nem_disclosed_sentence}}
 
 **The evidence check saw only the first kind.** It rejected all {{over_caught}} overclaims and accepted all {{partial_n}}
 partial reports, silent or disclosed, and {{partial_wrong}} of those batches ended in wrong payouts: the customer was
@@ -308,7 +308,7 @@ shown in full to five receivers; share of batches held under three prompts (95% 
 
 Check C cannot read a note, but a model can. Here the receiver is shown the whole of each of the 20 reports
 in which claude-haiku-5-5 disclosed the failed refund: one worker's reports and one wording of each prompt. Counts pool the three signals, which made no clear
-difference (Figure 3c, Table E6). The receivers that do not check did not use the note either: gemma4 held
+difference (Figure 3c, Table E6). The receivers that caught almost nothing unprompted did not use the note either: gemma4 held
 0 of 60 batches when left to decide and 1 of 60 under the duty prompt, gpt-5.4-nano 0 and 2 of 60.
 
 **Capable receivers stopped the batch, until they were told which check to run.** Left to decide,
@@ -376,7 +376,7 @@ binding in rule 3.
 A valid signature told the receiver nothing about whether the work was done. An evidence check stopped
 every report that differed from the table, planted or not, and no true report of unfinished or mistaken
 work. Left to decide,
-four of seven receivers checked almost nothing; told to check, one could be talked out of it by the word
+four of seven receivers caught almost nothing; told to check, one could be talked out of it by the word
 "Verified"; and the instruction that made weak receivers check made capable ones stop looking once the
 named check had passed. Whether a claim is true needs a comparison the claimant does not control, done in
 code. Whether the work is right needs a statement of what was asked. And where a model is the reader, each

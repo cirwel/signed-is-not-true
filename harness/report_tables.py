@@ -518,6 +518,7 @@ def values(d: Data) -> dict[str, str]:
         v[f"nem_duty_{tag}_read"] = str(sum(r["looked"] for r in rs))
     n, k1, k2, b, c = paired(d, [N], "duty", "sig", "scoped")
     v["nem_duty_sig"], v["nem_duty_scoped"], v["nem_sig_scoped_p"] = of(k1, n), of(k2, n), pfmt(ar.mcnemar(b, c))
+    v["nem_duty_scoped_k"] = str(k2)
     rs = cell(N, "discretion", "evidence")
     paid = [r for r in rs if r["wrong_payout"]]
     v["nem_mismatch_paid"] = of(len(paid), len(rs))
@@ -553,9 +554,9 @@ def values(d: Data) -> dict[str, str]:
     k = sum(ar.caught(r) for r in rs)
     looked = sum(r["looked"] for r in rs)
     v["qwen_mismatch_sentence"] = (
-        " The fourth receiver that checked nothing unprompted, qwen3.6, held "
+        " qwen3.6, the fourth low receiver, held "
         + (f"all {len(rs)}" if k == len(rs) else of(k, len(rs)))
-        + (" on that line alone, without reading the table." if looked == 0 else ".")
+        + (" under that signal without reading the table." if looked == 0 else " under that signal.")
     ) if rs and Q in d.main else ""
 
     # the receivers shown in Figure 2, and how many false dones stand behind each point
@@ -681,6 +682,9 @@ def values(d: Data) -> dict[str, str]:
             clauses.append(f"{WORDS[count]}{noun} {adverb} {did[kind]}")
     v["kinds_sentence"] = "After a visible tool error, " + (", ".join(clauses[:-1]) + ", and " + clauses[-1] if len(clauses) > 1 else clauses[0]) + "."
     never = sum(kinds[m]["disclosed"] == 0 for m in main3)
+    v["workers3_word"] = WORDS[len(main3)]
+    if [m for m in main3 if kinds[m]["disclosed"]] != ["claude-haiku-5-5"]:
+        raise SystemExit("the prose states what the runs do not support: only claude-haiku-5-5 put the failure in its report")
     v["never_disclosed_of"] = f"{WORDS[never]} of {WORDS[len(main3)]} workers"
 
     # qwen3.6's Study 3 runs, whatever their number by the cut-off
@@ -698,10 +702,14 @@ def values(d: Data) -> dict[str, str]:
             (q_disc, f"disclosed it in {q_disc}"),
             (q_other, f"reported in neither form in {q_other}"),
         ) if count]
-        v["qwen_blocked_sentence"] = (
-            f" qwen3.6 ({len(qb)} handoffs by the cut-off) "
-            + (", ".join(did_what[:-1]) + " and " + did_what[-1] if len(did_what) > 1 else did_what[0]) + "."
-        )
+        if Q3 in main3 and len(q_part) - q_disc == len(qb):
+            # every one of its handoffs was the report the sentence before describes
+            v["qwen_blocked_sentence"] = f" qwen3.6 did the same in all {len(qb)} of its handoffs."
+        else:
+            v["qwen_blocked_sentence"] = (
+                f" qwen3.6 ({len(qb)} handoffs by the cut-off) "
+                + (", ".join(did_what[:-1]) + " and " + did_what[-1] if len(did_what) > 1 else did_what[0]) + "."
+            )
     else:
         v["qwen_blocked_sentence"] = ""
     qd = d.clean(Q3, "derived")

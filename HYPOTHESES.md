@@ -464,3 +464,19 @@ the sweep reruns seeds 0 to 3 with every signal.
   number: `report/build.sh` wrote the PDF to a path relative to its own folder, so the default output of
   `scripts/regenerate.sh` was not written; both scripts now resolve the path first and stop if no PDF is
   produced.
+- 2026-11-15T12:12Z, after the cut-off: **wording only, after a fourth review pass on the frozen report** (section 6 of
+  `results/reviews.md`; 385 numbers checked, no mismatch). No run, table, test or number was changed.
+  (a) The abstract and contribution 2 called nemotron3's 60 to 22 of 80 "pre-registered". The
+  pre-registered test pooled the three locked receivers (175 to 138 of 200) and that contrast is the
+  part of it that carries the effect, so both now say "within the pre-registered test", mark the second
+  receiver and the scope note as exploratory, and give each receiver's count with the scope note (71
+  and 79 of 80) and under the named check (2 and 45 of 60 batches stopped) where one receiver's numbers
+  had stood for two. (b) "Checked almost nothing" is now "caught almost nothing" in the conclusion, in
+  Sections 4.2 and 4.4 and in the README: gpt-5.4-nano read the refunds table in 29 of 80 such runs and
+  caught 1. (c) Section 4.3 counts qwen3.6 among the six workers of Table E4. (d) Table 1's caption says
+  that "Result: MISMATCH" is the signal *signature + evidence result*, and the sentence about qwen3.6
+  says "under that signal" where it said "on that line alone". (e) Two corrections to the entry of
+  11:17Z above, which is left as written: qwen3.6 under discretion caught 0 of 40 with no signal and 1
+  of 40 with the scope note, so "no change" under the scope note was inexact; and the generator checks
+  the counts of receivers that the prose states in words (six listed in its `stated` table and one
+  for Section 4.3), not every number in that entry.

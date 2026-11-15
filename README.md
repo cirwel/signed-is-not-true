@@ -15,10 +15,10 @@ out on that report.
 - As rules in code, a valid signature caught none of the planted false "done" reports, the
   same as trust. Comparing signed evidence with the database caught all of them, with no
   false alarm.
-- Left to decide, four of seven LLM receivers checked almost nothing and two checked every
-  time. One sentence of instruction made the four check.
+- Left to decide, four of seven LLM receivers caught almost none of the false reports and two
+  caught every one. One sentence of instruction made the four catch most or all of them.
 - A one-word "✔ Verified" badge reduced checking in two receivers from two developers
-  (a pre-registered test for one, exploratory for the other). An accurate signature line made
+  (within the pre-registered test for one, exploratory for the other). An accurate signature line made
   no detectable difference, and a sentence saying what the signature covers reversed the
   badge's effect.
 - Three receivers paid on most handoffs whose text said that the evidence check had failed.
