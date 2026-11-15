@@ -430,3 +430,10 @@ the sweep reruns seeds 0 to 3 with every signal.
   claude-haiku-5-5 did so now says "of these five workers" and gives nemotron3's count, and Table 2
   says that the receivers were shown 20 of the 21 such reports. (e) `scripts/regenerate.sh` rebuilds
   every table, figure and the report in one command.
+- 2026-11-15T04:05Z, before any Study 3 run of qwen3.6 with the new conditions exists: **how qwen3.6's Study 3
+  runs will be reported.** qwen3.6 now has the GPU nearly to itself and may finish seeds 0 to 19 of
+  *blocked* and *derived* before the cut-off. Whatever their number, its runs enter every total over all
+  workers, the outcomes of H10 and H11 in Table D1, and Table E5. It is shown as a sixth worker in
+  Figure 3 and Table E4, for a condition, only if it has at least 20 seeds there: the number the two
+  smallest sweeps have (claude-haiku-5-5 and gpt-6.1-sol), and the same rule as for Study 2. The
+  sentences that count workers are generated from the run files, so that they are correct either way.
