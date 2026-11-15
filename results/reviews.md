@@ -76,7 +76,7 @@ held the report back on execution and on presentation.
 | Cut the badge-wording catalogue and the aside on claims with no work behind them | Both shortened, not cut: each is one of the report's unplanted or mechanism findings |
 | Move "Prior work used" to an appendix | Not done: the sprint's rules ask for pre-sprint code to be marked in the report, so it stays in Methods |
 
-## 5. Third pass by the same second-family reviewer, 15 November 2026, about 03:50 UTC
+## 5. Third pass by the same second-family reviewer, 15 November 2026, about 03:35 UTC
 
 **Reviewer:** gpt-6-sol again, read-only, after nemotron3 had finished its runs and the report had been
 aligned with the sprint's official template. It checked 341 numbers in the main text against the tables

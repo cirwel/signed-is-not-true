@@ -51,7 +51,7 @@ reader is now a property of models as well as of signals.
 
 I measure both in one small, fully observed pipeline. A worker for one principal applies refunds and
 reports "done"; an agent for a second principal pays out on that report; a database gives the ground truth
-for every run. In 10,251 runs with seven models from five developers I ask what each check catches
+for every run. In 10,254 runs with seven models from five developers I ask what each check catches
 when it is a rule in code (Study 1), what an LLM receiver does when the checking is left to it and how
 provenance signals change that (Study 2), and which false "done" reports arise when nobody plants them
 (Study 3). My main contributions are:
@@ -171,7 +171,7 @@ yourself that Alpha's refund work for this batch is complete and correct"; Appen
 Google), nemotron3 (33B, NVIDIA) and qwen3.6 (27B, Alibaba). Four models through their developers' APIs:
 gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and claude-haiku-5-5 (Anthropic). The local models were
 named in the locks; the API models were added afterwards, so every result for them is exploratory.
-In all 10,251 runs: 320 in Study 1, 6,023 in Study 2, 908 in Study 3 and 3,000 in the follow-up arms
+In all 10,254 runs: 320 in Study 1, 6,025 in Study 2, 909 in Study 3 and 3,000 in the follow-up arms
 (`results/paper_tables.md` gives the count for each model). Rates carry n and, in the repository's tables, a 95% Wilson interval. Signals are compared
 with exact two-sided McNemar tests on pairs of the same handoff shown to the same receiver.
 
@@ -184,7 +184,7 @@ hypothesis with its outcome and lists what changed after each lock.
 duty prompt (gemma4, 0 of 10), so all Study 2 runs use one. nemotron3 could not keep the strict reply
 format, so Studies 2 and 3 accept loosely shaped tool calls; as a *worker* it still failed the format so
 often that its Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower than nemotron3 on a
-shared GPU and completed only 23 of its 1,200 Study 2 runs.
+shared GPU and completed only 25 of its 1,200 Study 2 runs.
 
 **Prior work used.** The voucher format and verification code are a verbatim copy of a federation tracer
 from UNITARES (Apache-2.0), written before the sprint and marked in the repository. Everything else was written during the sprint.
@@ -214,7 +214,7 @@ receivers caught 75 of 80, 60 of 80 and 79 of 80.
 ![Figure 2](../results/figure2.png)
 
 **Figure 2.** Study 2. Share of false dones each receiver caught, by signal and prompt, with 95% Wilson
-intervals. Dashed line: rule C on the same handoffs. qwen3.6 is left out (23 runs by the cut-off; Table E2).
+intervals. Dashed line: rule C on the same handoffs. qwen3.6 is left out (25 runs by the cut-off; Table E2).
 
 </div>
 
@@ -289,7 +289,7 @@ field, gpt-5.4-nano mentioned the failure in its reasoning in 40 of 40 runs and 
 Of these five workers only claude-haiku-5-5 put it in the report, in 20 of 20 runs, in a field it added
 itself (most often `refunds_failed`). nemotron3, whose Study 3 rows are in Table E5 only, did so in 1 of its 5 true partial reports.
 
-**The evidence check saw only the first kind.** It rejected all 88 overclaims and accepted all 165
+**The evidence check saw only the first kind.** It rejected all 89 overclaims and accepted all 165
 partial reports, silent or disclosed, and 163 of those batches ended in wrong payouts: the customer was
 paid as though no refund were due.
 
@@ -307,7 +307,7 @@ so W2 is counted only where it was right).
 **What the check could see fell as the worker improved.** Over all Study 3 conditions, the share of a
 worker's false dones whose report differed from the table was 68% for gemma4 (66 of 97), 16% for
 gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20
-each). Across all workers check C caught 96 of 96 such reports and 0 of 186 of those that matched the
+each). Across all workers check C caught 97 of 97 such reports and 0 of 186 of those that matched the
 table (H10, H11).
 
 <div class="fig">
@@ -363,7 +363,7 @@ receivers in Table E10).
 
 | A false "done" whose report | Signature (B) | Evidence check (C) | gemma4: left to decide / told which check / told the goal | gpt-6-luna: left to decide / told which check / told the goal |
 |---|---|---|---|---|
-| differs from the table (160 planted, 96 unplanted) | 0% | 100% | 0% / 94% / 19% | 30% / 100% / 100% |
+| differs from the table (160 planted, 97 unplanted) | 0% | 100% | 0% / 94% / 19% | 30% / 100% / 100% |
 | is true and discloses the failure (21; receivers were shown 20) | 0% | 0% | 0% / 2% / 37% | 97% / 3% / 97% |
 | is true and silent, or reports a wrong action as it was done (165 unplanted, 80 planted) | 0% | 0% | not run: nothing in the handoff to check against | not run |
 
@@ -483,7 +483,7 @@ Reporting in Tool-Using Language Models. arXiv:2609.35732.
 - Every result for the four API models is exploratory: they were added after the second lock. So are the
   note-carrying arm, the goal prompt, the badge wordings, the *wrong* condition, and all contrasts not
   named as primary. Their p values are not adjusted for the number of contrasts examined.
-- Six receivers have at least 20 seeds. qwen3.6, a locked receiver, completed only 23 of its 1,200
+- Six receivers have at least 20 seeds. qwen3.6, a locked receiver, completed only 25 of its 1,200
   Study 2 runs by the cut-off. claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every planted false done
   under every signal, so this task cannot show whether a signal would move them on a harder one.
 - The models were not sampled alike. The local models and gpt-5.4-nano ran at temperature 0.7 with a seed.
@@ -615,7 +615,7 @@ before Studies 2 and 3. The locked tests use the local receivers; results for AP
 | H7 | Under discretion, a scope note raises the catch rate over the signature line | Not supported on the locked receivers (primary test, 2 against 0 of 162, p = 0.5, Holm-adjusted 1.0). Supported in gpt-6-luna, exploratory |
 | H8 | With the evidence result shown, at least 90% caught under both prompts and at most 10% of honest handoffs held | Under duty: supported (gemma4 79 of 80, nemotron3 78 of 80). Under discretion: not supported (0 of 80, 21 of 80). Honest handoffs held: at most 5% |
 | H9 | Descriptive: the gap between the two prompts with no signal | gemma4 0% to 94%; nemotron3 3% to 75% |
-| H10 | In *blocked* some reports overclaim; C catches every overclaim and passes every honest partial, which ends in wrong payouts | Supported, all workers together: 88 of 88 overclaims caught, 165 of 165 partial reports passed, 163 of them ending in wrong payouts |
+| H10 | In *blocked* some reports overclaim; C catches every overclaim and passes every honest partial, which ends in wrong payouts | Supported, all workers together: 89 of 89 overclaims caught, 165 of 165 partial reports passed, 163 of them ending in wrong payouts |
 | H11 | In *derived* more than half of the false dones are faithful | Locked workers: supported for gemma4 (16 of 17); not for nemotron3 (1 of 7, the other 6 reports not in the agreed form). Added worker gpt-5.4-nano: 4 of 4 without a reasoning field, 0 of 6 with one |
 | H12 | Descriptive: the effect of a reasoning field | gemma4: overclaims 40 to 25 of 40, miscalculated batches 17 of 40 to 0 of 39. gpt-5.4-nano: overclaims 8 to 0 of 40; skipped refunds reported as applied 0 to 6 of 40 |
 
@@ -669,7 +669,7 @@ false done and held no honest handoff.
 | gpt-6.1-sol | discretion | 40/40 | 40/40 | 40/40 | 40/40 | 40/40 | 0/100 |
 |  | duty | 40/40 | 40/40 | 40/40 | 40/40 | 40/40 | 0/100 |
 | qwen3.6 (27B) | discretion | 0/2 | 0/2 | 0/2 | 0/2 | 2/2 | 0/5 |
-|  | duty | 1/1 | 1/1 | 1/1 | n/a | n/a | 0/5 |
+|  | duty | 1/1 | 1/1 | 1/1 | 1/1 | 1/1 | 0/5 |
 
 <!-- /table:e2_few -->
 
@@ -730,7 +730,7 @@ check C could compare, so C rejected it.
 | nemotron3 (33B) | honest | 40 | 28 | 10 | 0 | 0 | 0 | 0 | n/a | 0/18 |
 | nemotron3 (33B) | honest, reasoning field | 36 | 31 | 14 | 0 | 0 | 0 | 0 | n/a | 0/17 |
 | nemotron3 (33B) | visible tool error | 40 | 23 | 8 | 15 | 10 | 5 | 0 | 15/15 | 0/15 |
-| nemotron3 (33B) | visible tool error, reasoning field | 36 | 22 | 13 | 9 | 4 | 0 | 5 | 4/9 | 3/9 |
+| nemotron3 (33B) | visible tool error, reasoning field | 37 | 23 | 13 | 10 | 5 | 0 | 5 | 5/10 | 3/10 |
 | nemotron3 (33B) | amount to work out | 40 | 29 | 16 | 7 | 0 | 6 | 1 | 6/7 | 0/13 |
 | nemotron3 (33B) | amount to work out, reasoning field | 36 | 30 | 20 | 0 | 0 | 0 | 0 | n/a | 0/10 |
 | gpt-5.4-nano | honest | 40 | 40 | 0 | 0 | 0 | 0 | 0 | n/a | 0/40 |
@@ -819,7 +819,7 @@ that read the refunds table, out of false-done handoffs shown.
 | Receiver | Study 2 runs (five signals, two prompts) | Median seconds per run | Median output tokens | Median turns |
 |---|---|---|---|---|
 | gemma4 (8B) | 1200 | 19 | 509 | 8 |
-| qwen3.6 (27B) | 23 | 115 | 483 | 6 |
+| qwen3.6 (27B) | 25 | 114 | 415 | 6 |
 | nemotron3 (33B) | 1200 | 23 | 596 | 10 |
 | gpt-5.4-nano | 1200 | 7 | 339 | 8 |
 | gpt-6-luna | 1200 | 10 | 481 | 3 |
@@ -839,7 +839,7 @@ three signals pooled; a dash: not run).
 | A false "done" whose report | Signature (B) | Evidence check (C) | LLM receiver, left to decide | told which check to run | told the goal |
 |---|---|---|---|---|---|
 | differs from the table, planted (160) | 0 | 100 | 0 / 3 / 1 / 30 / 100 / 100 | 94 / 75 / 99 / 100 / 100 / 100 | 19 / – / 75 / 100 / 100 / 100 |
-| differs from the table, unplanted (96) | 0 | 100 | not run | not run | not run |
+| differs from the table, unplanted (97) | 0 | 100 | not run | not run | not run |
 | is true and discloses the failure (21; receivers were shown 20) | 0 | 0 | 0 / – / 0 / 97 / 100 / 100 | 2 / – / 3 / 3 / 75 / 98 | 37 / – / 20 / 97 / 100 / 100 |
 | is true and silent, or reports a wrong action as it was done (165 unplanted, 80 planted) | 0 | 0 | not run: nothing in the handoff to check against | not run | not run |
 

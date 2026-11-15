@@ -89,7 +89,7 @@ its reader is now a property of models as well as of signals.</p>
 <p>I measure both in one small, fully observed pipeline. A worker for
 one principal applies refunds and reports "done"; an agent for a second
 principal pays out on that report; a database gives the ground truth for
-every run. In 10,251 runs with seven models from five developers I ask
+every run. In 10,254 runs with seven models from five developers I ask
 what each check catches when it is a rule in code (Study 1), what an LLM
 receiver does when the checking is left to it and how provenance signals
 change that (Study 2), and which false "done" reports arise when nobody
@@ -255,7 +255,7 @@ locally by Ollama at temperature 0.7: gemma4 (8B, Google), nemotron3
 developers' APIs: gpt-5.4-nano, gpt-6-luna and gpt-6.1-sol (OpenAI) and
 claude-haiku-5-5 (Anthropic). The local models were named in the locks;
 the API models were added afterwards, so every result for them is
-exploratory. In all 10,251 runs: 320 in Study 1, 6,023 in Study 2, 908
+exploratory. In all 10,254 runs: 320 in Study 1, 6,025 in Study 2, 909
 in Study 3 and 3,000 in the follow-up arms
 (<code>results/paper_tables.md</code> gives the count for each model).
 Rates carry n and, in the repository's tables, a 95% Wilson interval.
@@ -273,7 +273,7 @@ field no receiver caught anything in pilots, even under the duty prompt
 the strict reply format, so Studies 2 and 3 accept loosely shaped tool
 calls; as a <em>worker</em> it still failed the format so often that its
 Study 3 rows are only in Appendix E. qwen3.6 ran about ten times slower
-than nemotron3 on a shared GPU and completed only 23 of its 1,200 Study
+than nemotron3 on a shared GPU and completed only 25 of its 1,200 Study
 2 runs.</p>
 <p><strong>Prior work used.</strong> The voucher format and verification
 code are a verbatim copy of a federation tracer from UNITARES
@@ -306,7 +306,7 @@ the three low receivers caught 75 of 80, 60 of 80 and 79 of 80.</p>
 <p><img src="../results/figure2.png" alt="Figure 2" /></p>
 <p><strong>Figure 2.</strong> Study 2. Share of false dones each
 receiver caught, by signal and prompt, with 95% Wilson intervals. Dashed
-line: rule C on the same handoffs. qwen3.6 is left out (23 runs by the
+line: rule C on the same handoffs. qwen3.6 is left out (25 runs by the
 cut-off; Table E2).</p>
 </div>
 
@@ -491,7 +491,7 @@ added itself (most often <code>refunds_failed</code>). nemotron3, whose
 Study 3 rows are in Table E5 only, did so in 1 of its 5 true partial
 reports.</p>
 <p><strong>The evidence check saw only the first kind.</strong> It
-rejected all 88 overclaims and accepted all 165 partial reports, silent
+rejected all 89 overclaims and accepted all 165 partial reports, silent
 or disclosed, and 163 of those batches ended in wrong payouts: the
 customer was paid as though no refund were due.</p>
 <p><strong>Miscalculations were reported faithfully (H11); a skipped
@@ -514,7 +514,7 @@ improved.</strong> Over all Study 3 conditions, the share of a worker's
 false dones whose report differed from the table was 68% for gemma4 (66
 of 97), 16% for gpt-5.4-nano (14 of 90), 6% for gpt-6-luna (2 of 35) and
 0% for claude-haiku-5-5 and gpt-6.1-sol (0 of 20 each). Across all
-workers check C caught 96 of 96 such reports and 0 of 186 of those that
+workers check C caught 97 of 97 such reports and 0 of 186 of those that
 matched the table (H10, H11).</p>
 <div class="fig">
 
@@ -591,7 +591,7 @@ pooled in row 2; all six receivers in Table E10).</p>
 </thead>
 <tbody>
 <tr>
-<td>differs from the table (160 planted, 96 unplanted)</td>
+<td>differs from the table (160 planted, 97 unplanted)</td>
 <td>0%</td>
 <td>100%</td>
 <td>0% / 94% / 19%</td>
@@ -744,7 +744,7 @@ the badge wordings, the <em>wrong</em> condition, and all contrasts not
 named as primary. Their p values are not adjusted for the number of
 contrasts examined.</li>
 <li>Six receivers have at least 20 seeds. qwen3.6, a locked receiver,
-completed only 23 of its 1,200 Study 2 runs by the cut-off.
+completed only 25 of its 1,200 Study 2 runs by the cut-off.
 claude-haiku-5-5 and gpt-6.1-sol were run on 20 seeds and caught every
 planted false done under every signal, so this task cannot show whether
 a signal would move them on a harder one.</li>
@@ -957,7 +957,7 @@ most 5%</td>
 <td>In <em>blocked</em> some reports overclaim; C catches every
 overclaim and passes every honest partial, which ends in wrong
 payouts</td>
-<td>Supported, all workers together: 88 of 88 overclaims caught, 165 of
+<td>Supported, all workers together: 89 of 89 overclaims caught, 165 of
 165 partial reports passed, 163 of them ending in wrong payouts</td>
 </tr>
 <tr>
@@ -1217,8 +1217,8 @@ handoff.</p>
 <td>1/1</td>
 <td>1/1</td>
 <td>1/1</td>
-<td>n/a</td>
-<td>n/a</td>
+<td>1/1</td>
+<td>1/1</td>
 <td>0/5</td>
 </tr>
 </tbody>
@@ -1581,15 +1581,15 @@ it.</p>
 <tr>
 <td>nemotron3 (33B)</td>
 <td>visible tool error, reasoning field</td>
-<td>36</td>
-<td>22</td>
+<td>37</td>
+<td>23</td>
 <td>13</td>
-<td>9</td>
-<td>4</td>
+<td>10</td>
+<td>5</td>
 <td>0</td>
 <td>5</td>
-<td>4/9</td>
-<td>3/9</td>
+<td>5/10</td>
+<td>3/10</td>
 </tr>
 <tr>
 <td>nemotron3 (33B)</td>
@@ -2193,9 +2193,9 @@ with no signal shown.</p>
 </tr>
 <tr>
 <td>qwen3.6 (27B)</td>
-<td>23</td>
-<td>115</td>
-<td>483</td>
+<td>25</td>
+<td>114</td>
+<td>415</td>
 <td>6</td>
 </tr>
 <tr>
@@ -2266,7 +2266,7 @@ signal shown; row 3: three signals pooled; a dash: not run).</p>
 <td>19 / – / 75 / 100 / 100 / 100</td>
 </tr>
 <tr>
-<td>differs from the table, unplanted (96)</td>
+<td>differs from the table, unplanted (97)</td>
 <td>0</td>
 <td>100</td>
 <td>not run</td>
