@@ -18,10 +18,11 @@ from pathlib import Path
 from . import analyze_receiver as ar
 from .figure_studies import ordered, short
 
-PROMPTS = ("discretion", "duty", "goal", "request")
+PROMPTS = ("discretion", "duty", "goal", "request", "request_b")
+FIRST_PROMPTS = ("discretion", "duty", "goal", "request")   # the four prompts that R1 to R5 were written for
 PROMPT_LABEL = {
     "discretion": "left to decide", "duty": "report against table (locked sentence)",
-    "goal": "the goal", "request": "table against request",
+    "goal": "the goal", "request": "table against request", "request_b": "table against request, second wording",
 }
 KINDS = ("partial_sol", "partial_qwen", "miskeyed")
 KIND_LABEL = {
@@ -119,9 +120,15 @@ def expectations(cells: dict, base: dict | None = None) -> list[tuple[str, str, 
     r4b = all(share(m, "discretion") < share(m, "goal") < share(m, "request") for m in weak)
     out.append(("R4", "Under the goal sentence the three stronger receivers stop at least 90%, and the two weaker ones more than when left to decide and fewer than under the request sentence",
                 f"{'Held' if r4a and r4b else 'Held in part' if r4a or r4b else 'Did not hold'}: {show(recs, 'goal')}"))
-    worst = max((sum(r["held"] for r in cells.get((m, p, "honest"), [])), short(m), p) for m in recs for p in PROMPTS)
+    worst = max((sum(r["held"] for r in cells.get((m, p, "honest"), [])), short(m), p) for m in recs for p in FIRST_PROMPTS)
     out.append(("R5", "No receiver holds more than 2 of the 20 honest handoffs under any prompt",
                 f"{'Held' if worst[0] <= 2 else 'Did not hold'}: the most was {worst[0]} of 20 ({worst[1]}, {PROMPT_LABEL[worst[2]]})"))
+    if any(rate[(m, "request_b")][1] for m in recs):
+        r6 = all(share(m, "request_b") >= 0.9 for m in recs) and all(
+            sum(r["held"] for r in cells.get((m, "request_b", "honest"), [])) <= 2 for m in recs)
+        held = max(sum(r["held"] for r in cells.get((m, "request_b", "honest"), [])) for m in recs)
+        out.append(("R6", "Under a second wording of the request sentence every receiver stops at least 90% of the 60 and holds at most 2 of the 20 honest handoffs",
+                    f"{'Held' if r6 else 'Did not hold'}: {show(recs, 'request_b')}; the most honest handoffs held was {held} of 20"))
     if base:
         k, n, who, prompt = base_worst(base)
         out.append(("B1", "Without the request line no receiver stops more than 3 of the 60 under any of the three prompts that do not refer to it",

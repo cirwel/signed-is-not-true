@@ -28,7 +28,7 @@ out on that report.
   an instruction naming one check made two of them pay. An instruction naming the goal did
   not.
 - Adding what was asked to the handoff closed the gap that every check had left: told to
-  compare the table with the batch's request, every receiver tested stopped nearly all of
+  compare the table with the batch's request (in either of two wordings), every receiver tested stopped nearly all of
   those reports, and almost none of them without the request. The instruction that names the
   other comparison made one capable receiver pay again. (Run after the cut-off of the locked sweeps, with what was expected recorded
   first.)
@@ -129,7 +129,16 @@ bash scripts/sweep_goal.sh            # the goal prompt (also runs gemma4 and, t
 bash scripts/sweep_note.sh gemma4:latest
 bash scripts/sweep_request.sh         # the request carried in the handoff (also gemma4 and claude-haiku-5-5)
 bash scripts/sweep_request_base.sh    # its control: the same false dones without the request line
+bash scripts/sweep_request_b.sh       # a second wording of the request sentence
 bash scripts/sweep_wording.sh         # other wordings of the two instructions
+```
+
+To score another receiver model on the same recorded handoffs (Study 2), one command is enough;
+`--backend` is `ollama` (the default), `openai` or `claude-cli`:
+
+```bash
+python3 -m harness.receiver --backend openai --handoffs runs/full/gemma4_latest --receivers <model> --seeds 0-19 --out runs/receiver
+python3 -m harness.analyze_receiver runs/receiver
 ```
 
 Local runs fix a sampling seed per run, but sampling in Ollama is not guaranteed to be

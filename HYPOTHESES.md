@@ -580,3 +580,22 @@ the sweep reruns seeds 0 to 3 with every signal.
   the prompt name `request_b` (`scripts/sweep_request_b.sh`). What I expect. (R6) Under this wording
   every receiver stops at least 90% of the 60 false dones and holds at most 2 of the 20 honest handoffs.
   Whatever it shows goes in the report beside the first wording.
+- 2026-11-16T03:31Z, **the second wording of the request sentence: what happened, and the last changes to the
+  report.** The 400 runs finished between 03:00:07 and 03:11:01 UTC, after the entry above was committed
+  (02:59:49 UTC) and pushed (02:59:52 UTC). None crashed and none failed to reach an API. False dones
+  caught of 60: gemma4 60, gpt-5.4-nano 60, gpt-6-luna 59, claude-haiku-5-5 60, gpt-6.1-sol 60. Honest
+  handoffs held of 20: gpt-5.4-nano 1, the others 0. R6 held. The counts are in Section 4.5 and Table
+  E11, the sentence is in Appendix C, and R6 is in Table D2; R1 to R5 are still judged on the four
+  prompts they were written for. That makes 3,140 runs after the cut-off and 14,055 in all. Other
+  changes in the same round, none of them to a number or a run. The abstract states its conclusion in
+  its third sentence where it used to end on it, and leaves the counts 2 and 45 of 60 and the clause "as
+  trust did" to the text; its last sentence now calls the 60 reports "reports no check caught", because
+  20 of them are mis-keyed tickets and not reports of unfinished work. The conclusion opens with the
+  question of the sprint's Track 2, quoted from the sprint page. Design rule 3 points to AP2, where a
+  merchant checks a checkout against constraints the user approved; the specification was read again on
+  16 November and the reference carries that date. The README gives the command that scores another
+  receiver on the recorded handoffs. To keep the main text at eight pages: the sentence on false alarms
+  in 4.2 no longer says what gpt-5.4-nano gave as its reason when it held honest handoffs (each run
+  record has the reason), the caption of Figure 2 is shorter, and the limitations paragraph names one
+  next step where it named three (the request compared by a rule is now in design rule 3, and Appendix A
+  still lists the single wording of each signal).

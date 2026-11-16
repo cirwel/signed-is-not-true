@@ -443,7 +443,7 @@ def coverage(d: Data) -> list[str]:
 def e11(d: Data) -> list[str]:
     """The request carried in the handoff: caught by receiver and prompt."""
     label = {"discretion": "left to decide", "duty": "duty (report against table)", "goal": "goal",
-             "request": "request (table against request)"}
+             "request": "request (table against request)", "request_b": "request, second wording"}
     lines = ["| Receiver | Prompt | True reports of unfinished work | Mis-keyed tickets | All false dones | Read the table first | Honest handoffs held | All false dones, without the request line |",
              "|---|---|---|---|---|---|---|---|"]
     for m in d.request_recs:
