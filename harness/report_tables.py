@@ -21,6 +21,7 @@ from . import analyze_receiver as ar
 from .analyze import ARMS, load
 from .analyze_organic import mentions, report_kind, wrong_payout
 from .figure import propagated as study1_propagated
+from . import analyze_request as aq
 from .figure_studies import MIN_SEEDS, ordered, short
 
 SIGNALS = ar.SIGNALS
@@ -42,7 +43,18 @@ def frac(k: int, n: int) -> str:
 
 
 class Data:
-    def __init__(self, receiver: Path, organic: Path, note: Path, study1: Path) -> None:
+    def __init__(self, receiver: Path, organic: Path, note: Path, study1: Path,
+                 request: Path = Path("runs/request"), wording: Path = Path("runs/wording"),
+                 request_base: Path = Path("runs/request_base")) -> None:
+        # the two arms run after the cut-off of the locked analyses (HYPOTHESES.md, 2026-11-15T22:12Z),
+        # and the control of the first: the same false dones without the request line (23:08Z)
+        self.request = aq.load_request(request) if request.exists() else {}
+        self.request_base = aq.load_request(request_base) if request_base.exists() else {}
+        self.request_recs = ordered({k[0] for k in self.request})
+        self.wcells = aq.load_wording(wording, note)
+        self.wrecs = aq.wording_receivers(wording)
+        self.after_runs = sum(len(v) for v in self.request.values()) + sum(len(v) for v in self.request_base.values()) + sum(
+            len(v) for (m, dty), v in self.wcells.items() if dty in ("duty_b", "duty_c", "goal_b", "goal_c"))
         self.receiver = [r for r in ar.load(receiver) if "crashed" not in r] if receiver.exists() else []
         self.note = [r for r in ar.load(note) if "crashed" not in r] if note.exists() else []
         self.organic = [r for r in load(organic) if "crashed" not in r] if organic.exists() else []
@@ -352,11 +364,21 @@ def summary(d: Data) -> list[str]:
     def rule(rs: list[dict], arm: str) -> str:
         return rate(rs, lambda r: not r["arms"][arm])
 
-    lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | gemma4: left to decide / told which check / told the goal | gpt-6-luna: left to decide / told which check / told the goal |',
+    lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | gemma4: left to decide / duty (report against table) / goal | gpt-6-luna: left to decide / duty (report against table) / goal |',
              "|---|---|---|---|---|"]
     lines.append(f"| differs from the table ({len(planted)} planted, {len(mis)} unplanted) | {rule(planted + mis, 'B')} | {rule(planted + mis, 'C')} | {study2(G)} | {study2(LUNA)} |")
     lines.append(f"| is true and discloses the failure ({shown_note(d, len(disclosed))}) | {rule(disclosed, 'B')} | {rule(disclosed, 'C')} | {note(G)} | {note(LUNA)} |")
-    lines.append(f"| is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted) | {rule(quiet + wrong, 'B')} | {rule(quiet + wrong, 'C')} | not run: nothing in the handoff to check against | not run |")
+    def request(m: str) -> str:
+        return " / ".join(rate(aq.false_dones(d.request, m, duty)) for duty in PROMPTS)
+
+    shown = len(aq.false_dones(d.request, G, "discretion"))
+    if shown >= 20:
+        def asked(m: str) -> str:
+            return rate(aq.false_dones(d.request, m, "request"))
+
+        lines.append(f"| is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted; receivers were shown {shown} with the request) | {rule(quiet + wrong, 'B')} | {rule(quiet + wrong, 'C')} | {request(G)}; request (table against request): {asked(G)} | {request(LUNA)}; request (table against request): {asked(LUNA)} |")
+    else:
+        lines.append(f"| is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted) | {rule(quiet + wrong, 'B')} | {rule(quiet + wrong, 'C')} | not run: nothing in the handoff to check against | not run |")
     return lines
 
 
@@ -401,17 +423,69 @@ def coverage(d: Data) -> list[str]:
         (f"is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted)",
          quiet + wrong, "not run: nothing in the handoff to check against", "not run", "not run"),
     ]
-    lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | LLM receiver, left to decide | told which check to run | told the goal |',
-             "|---|---|---|---|---|---|"]
-    for label, rs, a, b, c in rows:
-        lines.append(f"| {label} | {rule(rs, 'B')} | {rule(rs, 'C')} | {a} | {b} | {c} |")
+    if d.request:
+        def asked(duty: str):
+            return lambda m: aq.false_dones(d.request, m, duty)
+        shown = max(len(aq.false_dones(d.request, m, "discretion")) for m in d.request_recs)
+        rows[-1] = (
+            f"is true and silent, or reports a wrong action as it was done ({len(quiet)} unplanted, {len(wrong)} planted; "
+            f"receivers were shown {shown} with the request)",
+            quiet + wrong, receivers(asked("discretion")), receivers(asked("duty")), receivers(asked("goal")),
+        )
+    asked_cell = receivers(asked("request")) if d.request else "not run"
+    lines = ['| A false "done" whose report | Signature (B) | Evidence check (C) | LLM receiver, left to decide | told which check (report with table) | told the goal | told to compare table with request |',
+             "|---|---|---|---|---|---|---|"]
+    for i, (label, rs, a, b, c) in enumerate(rows):
+        lines.append(f"| {label} | {rule(rs, 'B')} | {rule(rs, 'C')} | {a} | {b} | {c} | {asked_cell if i == len(rows) - 1 else 'not run'} |")
+    return lines
+
+
+def e11(d: Data) -> list[str]:
+    """The request carried in the handoff: caught by receiver and prompt."""
+    label = {"discretion": "left to decide", "duty": "duty (report against table)", "goal": "goal",
+             "request": "request (table against request)", "request_b": "request, second wording"}
+    lines = ["| Receiver | Prompt | True reports of unfinished work | Mis-keyed tickets | All false dones | Read the table first | Honest handoffs held | All false dones, without the request line |",
+             "|---|---|---|---|---|---|---|---|"]
+    for m in d.request_recs:
+        for i, p in enumerate(aq.PROMPTS):
+            part = [r for k in ("partial_sol", "partial_qwen") for r in d.request.get((m, p, k), [])]
+            mis = d.request.get((m, p, "miskeyed"), [])
+            hon = d.request.get((m, p, "honest"), [])
+            fd = part + mis
+            without = aq.false_dones(d.request_base, m, p)
+            lines.append(
+                f"| {short(m) if i == 0 else ''} | {label[p]} | {frac(sum(ar.caught(r) for r in part), len(part))} | "
+                f"{frac(sum(ar.caught(r) for r in mis), len(mis))} | {frac(sum(ar.caught(r) for r in fd), len(fd))} | "
+                f"{frac(sum(r['looked'] for r in fd), len(fd))} | {frac(sum(r['held'] for r in hon), len(hon))} | "
+                + (frac(sum(ar.caught(r) for r in without), len(without)) if p in aq.BASE_PROMPTS else "not run") + " |"
+            )
+    return lines
+
+
+def e12(d: Data) -> list[str]:
+    """Other wordings of the two instructions, on the 20 reports that disclose the failure."""
+    cols = ("discretion", "duty", "duty_b", "duty_c", "goal", "goal_b", "goal_c")
+    lines = ["| Receiver | Left to decide | Comparison, locked sentence | Comparison, second wording | Comparison, third wording | Goal, first sentence | Goal, second wording | Goal, third wording |",
+             "|---|---|---|---|---|---|---|---|"]
+    for m in d.wrecs:
+        row = [frac(sum(ar.caught(r) for r in d.wcells.get((m, c), [])), len(d.wcells.get((m, c), []))) for c in cols]
+        lines.append(f"| {short(m)} | " + " | ".join(row) + " |")
+    return lines
+
+
+def d2(d: Data) -> list[str]:
+    """What was expected of the two later arms before their runs, and what happened."""
+    lines = ["| | Expected before the runs | Outcome |", "|---|---|---|"]
+    rows = (aq.expectations(d.request, d.request_base) if d.request else []) + (aq.wording_expectations(d.wcells, d.wrecs) if d.wrecs else [])
+    for tag, expected, outcome in rows:
+        lines.append(f"| {tag} | {expected} | {outcome.replace(' (8B)', '')} |")
     return lines
 
 
 TABLES = {
     "contrasts": contrasts, "summary": summary, "coverage": coverage,
     "table2": table2, "e1": e1, "e2_few": e2_few, "e2_read": e2_read, "e3": e3,
-    "e4": e4, "e5": e5, "e6": e6, "e7": e7,
+    "e4": e4, "e5": e5, "e6": e6, "e7": e7, "e11": e11, "e12": e12, "d2": d2,
 }
 
 
@@ -473,7 +547,69 @@ def values(d: Data) -> dict[str, str]:
     v["runs_s2"] = f"{len(main2):,}"
     v["runs_s3"] = f"{len(d.organic):,}"
     v["runs_followup"] = f"{follow:,}"
-    v["runs_total"] = f"{len(d.study1) + len(d.receiver) + len(d.note) + len(d.organic):,}"
+    v["runs_total"] = f"{len(d.study1) + len(d.receiver) + len(d.note) + len(d.organic) + d.after_runs:,}"
+    v["runs_locked_total"] = f"{len(d.study1) + len(d.receiver) + len(d.note) + len(d.organic):,}"
+    v["runs_after"] = f"{d.after_runs:,}"
+    # the two arms run after the cut-off
+    TAGS = {"gemma4:latest": "gemma", "gpt-5.4-nano": "nano", "gpt-6-luna": "luna", "claude-haiku-5-5": "haiku", "gpt-6.1-sol": "sol"}
+    for m, tag in TAGS.items():
+        for p in aq.PROMPTS:
+            fd = aq.false_dones(d.request, m, p)
+            k = sum(ar.caught(r) for r in fd)
+            v[f"rq_{tag}_{p}"] = of(k, len(fd)) if fd else "not run"
+            v[f"rq_{tag}_{p}_k"] = str(k)
+            v[f"rq_{tag}_{p}_paid"] = str(sum(r["wrong_payout"] for r in fd))
+        for c in ("discretion", "duty", "duty_b", "duty_c", "goal", "goal_b", "goal_c"):
+            rs = d.wcells.get((m, c), [])
+            v[f"wd_{tag}_{c}"] = of(sum(ar.caught(r) for r in rs), len(rs)) if rs else "not run"
+            v[f"wd_{tag}_{c}_k"] = str(sum(ar.caught(r) for r in rs))
+    goal_held = [sum(ar.caught(r) for r in d.wcells.get((m, c), [])) for m in d.wrecs for c in ("goal_b", "goal_c")]
+    v["wd_goal_min"] = str(min(goal_held)) if goal_held else "not run"
+    v["rq_n"] = str(max((len(aq.false_dones(d.request, m, "discretion")) for m in d.request_recs), default=0))
+    bk, bn, _who, _prompt = aq.base_worst(d.request_base)
+    v["rb_max_k"], v["rb_max_pct"] = str(bk), (f"{math.ceil(100 * bk / bn)}%" if bn else "not run")
+    for m, tag in TAGS.items():
+        v[f"rq_{tag}_request_read"] = str(sum(r["looked"] for r in aq.false_dones(d.request, m, "request")))
+    hon = [(sum(r["held"] for r in d.request.get((m, p, "honest"), [])), len(d.request.get((m, p, "honest"), []))) for m in d.request_recs for p in aq.PROMPTS]
+    v["rq_honest_held"] = of(sum(k for k, _ in hon), sum(n for _, n in hon)) if hon else "not run"
+    if d.request:
+        LUNA_ = "gpt-6-luna"
+        n_, b_, c_, p_ = aq.sign_test(aq.by_handoff(aq.false_dones(d.request, LUNA_, "discretion")), aq.by_handoff(aq.false_dones(d.request, LUNA_, "duty")))
+        v["rq_luna_fewer"], v["rq_luna_more"], v["rq_luna_p"], v["rq_luna_pairs"] = str(b_), str(c_), pfmt(p_), str(n_)
+        v["rq_request_min_pct"] = f"{min(math.floor(100 * sum(ar.caught(r) for r in aq.false_dones(d.request, m, 'request')) / max(1, len(aq.false_dones(d.request, m, 'request')))) for m in d.request_recs)}%"
+        # What Section 4.5 says in words about the two later arms, checked once those arms are complete.
+        def share(m: str, p: str) -> float:
+            fd = aq.false_dones(d.request, m, p)
+            return sum(ar.caught(r) for r in fd) / len(fd) if fd else float("nan")
+
+        def held(m: str, c: str) -> int:
+            return sum(ar.caught(r) for r in d.wcells.get((m, c), []))
+
+        complete = (
+            len(d.request_recs) == 5
+            and all(len(aq.false_dones(d.request, m, p)) == 60 and len(d.request.get((m, p, "honest"), [])) == 20
+                    for m in d.request_recs for p in aq.PROMPTS)
+            and all(len(d.wcells.get((m, c), [])) == 20 for m in d.wrecs for c in ("duty_b", "duty_c", "goal_b", "goal_c"))
+            and len(d.wrecs) == 3
+            and all(len(aq.false_dones(d.request_base, m, p)) == 60 for m in d.request_recs for p in aq.BASE_PROMPTS)
+        )
+        v["after_complete"] = "yes" if complete else "no"
+        if complete:
+            G_, NANO_, HAIKU_, SOL_ = "gemma4:latest", "gpt-5.4-nano", "claude-haiku-5-5", "gpt-6.1-sol"
+            narrowed = [m for m in (HAIKU_, SOL_, LUNA_) if share(m, "discretion") - share(m, "duty") > 0.1]
+            said = {
+                "the request was enough for the three receivers that check": all(share(m, "discretion") >= 0.9 for m in (HAIKU_, SOL_, LUNA_)),
+                "the named check narrowed one of them, gpt-6-luna": narrowed == [LUNA_] and b_ > c_ and p_ < 0.05,
+                "the two weaker receivers stopped almost nothing when left to decide and gained under duty": all(
+                    share(m, "discretion") < 0.1 and share(m, "duty") > share(m, "discretion") for m in (G_, NANO_)),
+                "naming the comparison with the request took every receiver to 90% or more": all(share(m, "request") >= 0.9 for m in d.request_recs),
+                "without the request line no receiver stopped more than a tenth": bn > 0 and bk / bn <= 0.1,
+                "both further comparison sentences left gpt-6-luna holding fewer than when left to decide": all(
+                    held(LUNA_, c) <= held(LUNA_, "discretion") - 5 for c in ("duty_b", "duty_c")),
+            }
+            wrong = [claim for claim, holds in said.items() if not holds]
+            if wrong:
+                raise SystemExit("Section 4.5 states what the runs do not support: " + "; ".join(wrong))
     v["qwen_runs"] = str(sum(r["receiver"] == Q for r in main2))
     q_per_seed: dict[int, int] = defaultdict(int)
     for r in main2:
@@ -766,9 +902,8 @@ def values(d: Data) -> dict[str, str]:
         lead = "gave the same order" if same else "did not give the same order"
         span = "seeds 0 to 19" if n == 40 else f"the {n // 2} seeds finished by the cut-off"
         v["w_nem_sentence"] = (
-            f"nemotron3 under duty {lead} on {span}: {k['badge']} of {n} caught with the badge, "
-            f"{k['badge_word']}, {k['badge_sigvalid']} and {k['badge_sender']} with the three wordings as listed, "
-            f"and {k['none']} with no signal."
+            f"nemotron3 under duty {lead} on {span}: {k['badge']} of {n} with the badge, then "
+            f"{k['badge_word']}, {k['badge_sigvalid']} and {k['badge_sender']}; {k['none']} with no signal."
         )
     else:
         v["w_nem_sentence"] = "The same wordings for nemotron3 under duty had not finished by the cut-off."

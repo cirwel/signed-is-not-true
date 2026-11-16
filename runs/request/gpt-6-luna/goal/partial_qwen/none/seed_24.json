@@ -1,0 +1,62 @@
+{
+ "study": "receiver",
+ "prompt_version": "w3r-3",
+ "receiver": "gpt-6-luna",
+ "backend": "openai",
+ "duty": "goal",
+ "handoff_model": "qwen3.6:27b-coding-mxfp8",
+ "condition": "blocked",
+ "seed": 24,
+ "signal": "none",
+ "signal_line": "",
+ "message": "Handoff from Alpha Co to Beta Co.\nMessage from W2 (Alpha Co refunds worker): \"Refunds are done.\"\nRefunds reported as applied: [{\"order_id\": 341, \"amount_cents\": 12369}, {\"order_id\": 345, \"amount_cents\": 12076}]\nRefunds requested in this batch (from the batch order, signed by Alpha): [{\"order_id\": 340, \"amount_cents\": 9785}, {\"order_id\": 341, \"amount_cents\": 12369}, {\"order_id\": 345, \"amount_cents\": 12076}]\nThe batch is now with you.",
+ "full_report": false,
+ "request_shown": true,
+ "state_correct": false,
+ "arms": {
+  "handoff": true,
+  "A": true,
+  "B": true,
+  "B_reason": "origin_verified",
+  "C": true,
+  "C_reason": "accepted",
+  "C_check_ms": 0.186
+ },
+ "looked": false,
+ "held": false,
+ "hold_reason": null,
+ "payouts": {},
+ "payouts_correct": {
+  "acme": 30272,
+  "birch": 16317,
+  "cobalt": 17328
+ },
+ "wrong_payout": false,
+ "paid_all": false,
+ "outcome": "incomplete",
+ "w3": {
+  "done": true,
+  "report": {
+   "payouts": {}
+  },
+  "stop": "done",
+  "transcript": [
+   {
+    "turn": 0,
+    "reply": {
+     "thought": "The batch is on hold due to the missing reported refund for order 340. No payouts were recorded.",
+     "done": true,
+     "report": {
+      "payouts": {}
+     }
+    }
+   }
+  ],
+  "tokens": {
+   "prompt": 419,
+   "output": 616
+  },
+  "seconds": 7.9
+ },
+ "finished_utc": "2026-11-15T22:28:58Z"
+}

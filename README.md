@@ -27,6 +27,11 @@ out on that report.
 - Shown one worker's note admitting the failure, capable receivers stopped the batch, until
   an instruction naming one check made two of them pay. An instruction naming the goal did
   not.
+- Adding what was asked to the handoff closed the gap that every check had left: told to
+  compare the table with the batch's request (in either of two wordings), every receiver tested stopped nearly all of
+  those reports, and almost none of them without the request. The instruction that names the
+  other comparison made one capable receiver pay again. (Run after the cut-off of the locked sweeps, with what was expected recorded
+  first.)
 
 Counts, intervals and tests are in the report and under `results/`.
 
@@ -38,6 +43,7 @@ Counts, intervals and tests are in the report and under `results/`.
 | 2 | What does an LLM receiver do when the checking is left to it and it is shown a signature, a "Verified" badge, a scoped label or a check result? | `harness/receiver.py`, `harness/analyze_receiver.py` | `runs/receiver/` |
 | 3 | What false "done" reports arise when nobody plants them, and which can a check see? | `harness/run.py` (conditions `blocked`, `derived`), `harness/analyze_organic.py` | `runs/organic/` |
 | Follow-up arms (exploratory) | Does a receiver act on a worker's own note of a failure (`--full-report`)? Does an instruction that names the goal behave differently from one that names a check (`--duties goal`)? Does the wording of a short badge matter (`--signals badge_word,...`)? | `harness/receiver.py` | `runs/receiver_note/`, `runs/receiver/` |
+| Two arms after the cut-off (exploratory) | With the batch's request added to the handoff (`--request`), does a receiver stop the false dones that every check passed, and under which instruction? What does it do with the same handoffs without that line? Does the narrowing by an instruction that names a check depend on one wording? | `harness/receiver.py`, `harness/analyze_request.py` | `runs/request/`, `runs/request_base/`, `runs/wording/` |
 
 Seven models from five developers: three open-weight models served locally (gemma4,
 nemotron3, qwen3.6), three reached through the OpenAI API (gpt-5.4-nano, gpt-6-luna,
@@ -76,8 +82,10 @@ any Study 3 run beyond an 8-run smoke test.
   the counts quoted in the report's prose. `harness/report_tables.py`: writes the report's
   own tables into `report/REPORT.md`. `harness/figure*.py`: the figures.
 - `scripts/`: the sweep scripts, `regenerate.sh` (rebuilds every table, figure and the report
-  from the run records) and `check_cutoff.py` (lists runs finished after the cut-off of the
-  second lock). `report/`: the report text, stylesheet and build script.
+  from the run records) and `check_cutoff.py` (lists runs of the locked sweeps and the first
+  three follow-up arms that finished after the cut-off of the second lock; the two arms run
+  after it are kept apart in `runs/request/`, `runs/request_base/` and `runs/wording/`). `report/`: the report text,
+  stylesheet and build script.
 - All runs and results, including the pilot and smoke-test files under `results/`.
 
 ## Reproduce
@@ -111,7 +119,7 @@ python3 -m harness.receiver --backend claude-cli --handoffs runs/full/gemma4_lat
 python3 -m harness.run --lenient --backend claude-cli --models claude-haiku-5-5 --conditions honest,blocked,derived --seeds 0-19 --out runs/organic
 ```
 
-The OpenAI runs need `OPENAI_API_KEY` in the environment (about 13 US dollars for
+The OpenAI runs need `OPENAI_API_KEY` in the environment (under 20 US dollars for
 everything here):
 
 ```bash
@@ -119,6 +127,18 @@ bash scripts/sweep_openai.sh          # Studies 2 and 3 and the note-carrying ar
 bash scripts/sweep_openai_wording.sh  # badge wordings
 bash scripts/sweep_goal.sh            # the goal prompt (also runs gemma4 and, through the CLI, claude-haiku-5-5)
 bash scripts/sweep_note.sh gemma4:latest
+bash scripts/sweep_request.sh         # the request carried in the handoff (also gemma4 and claude-haiku-5-5)
+bash scripts/sweep_request_base.sh    # its control: the same false dones without the request line
+bash scripts/sweep_request_b.sh       # a second wording of the request sentence
+bash scripts/sweep_wording.sh         # other wordings of the two instructions
+```
+
+To score another receiver model on the same recorded handoffs (Study 2), one command is enough;
+`--backend` is `ollama` (the default), `openai` or `claude-cli`:
+
+```bash
+python3 -m harness.receiver --backend openai --handoffs runs/full/gemma4_latest --receivers <model> --seeds 0-19 --out runs/receiver
+python3 -m harness.analyze_receiver runs/receiver
 ```
 
 Local runs fix a sampling seed per run, but sampling in Ollama is not guaranteed to be

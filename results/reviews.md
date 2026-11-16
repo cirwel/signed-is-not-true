@@ -1,9 +1,12 @@
 # Reviews of the analysis and the report
 
-Six review passes by three reviewers were made on the rewritten report before it was resubmitted, and a
-fourth agent had audited the first version (section 7). All of them are AI models. The author read the
-report after the fourth pass and is responsible for it; the fifth and sixth passes and the changes that
-followed them are in sections 5 and 6.
+Nine review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
+the first version (section 7). All of them are AI models. The author read the report after the fourth
+pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6,
+8 and 9, and the author was sent the final version on 16 November and approved its submission. Section 8
+is about the two arms added on the evening of 15 November, after the resubmission of that day, and
+section 9 about the second wording of the request sentence and the last changes of wording, on 16
+November.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
@@ -129,3 +132,53 @@ before the sprint; the page limit.
 | The abstract of the first version had 256 words, over the limit of 250 | The rewritten abstract has 248 |
 | Three page breaks in the first PDF split a sentence, a figure from its caption, and the conclusion | The rewritten report keeps each figure with its caption, and its main text ends on page 8 |
 | In `results/tables.md`, Table 7 was printed before Table 6 | The two are now numbered in the order they are printed (15 November, after the resubmission; no number changed) |
+
+## 8. Fifth pass by the same second-family reviewer, 15 November 2026, about 23:05 UTC
+
+**Reviewer:** gpt-6-sol again, read-only, on the report with the two arms run after the cut-off (the
+request carried in the handoff, and other wordings of the two instructions). It checked 477 numbers about
+the new arms and the run totals against `results/tables_request.md` and the run records, recounted the
+1,600 and 240 run files itself, and found no mismatch. It confirmed that the first runs finished after
+the commits that recorded what was expected, and that Table D2 reports the two expectations that held
+only in part as such. Before it, a script that does not import the analysis code had recounted both arms
+from the run records; all agreed.
+
+| Finding | What was done |
+|---|---|
+| "Carrying the request closed the gap" overstates what was measured: every run of the arm showed the request line, so there was no comparison on the same handoffs without it | A control was run: the same 60 false dones without the line, under the three prompts that do not refer to it (900 runs, `runs/request_base/`), with the expectation recorded in the lock file first (B1 in Table D2). The abstract, contribution 6, Section 4.5 and the conclusion now state the condition (request shown, instruction given), give the result without the line, and say that the arm is exploratory and was run after the cut-off |
+| Design rule 3 implied that a signed binding and a comparison with the table had been tested. The request was a line of text, no signature on it was verified, and the two weaker receivers often caught the shortfall from the message without reading the table | Rule 3 now says the request was shown as a line of the handoff and names a signed request compared by a rule in code as the next test; Section 4.5 points to the count of runs that read the table first (Table E11); Appendix A says the line's signature was neither made nor verified |
+| In Methods, "the last two were run after the cut-off" read as if it meant the last two badge wordings | The sentence now follows the two arms it is about and names them; Appendix D says "the first three follow-up arms" |
+| Table 2 and Table E10 did not say which comparison "told which check" was in the row with the request shown, and did not show the rates under the new request sentence | Table 2's header names the comparison (duty: report against table) and its third row adds the rate under the request sentence; Table E10 has a column for the request sentence, and its caption says what "told which check" is |
+| A trim had turned "a median cost of 0.6 ms" into "in 0.6 ms", and Section 5 said "in under a millisecond"; 64 of the 320 Study 1 runs took 1 ms or more | Section 4.1 says "at a median of 0.6 ms" again and Section 5 says "in about a millisecond" |
+| Appendix A said the two arms were run "from 22:12 UTC", which is when the expectations were committed; the first run finished at 22:13:19 UTC | Appendix A now gives both times |
+
+**Verification pass, about 23:50 UTC.** The same reviewer then checked this work, read-only. It found all
+six points resolved, recounted the 900 records of the control (the most any receiver stopped without the
+request line was 2 of 60; the control uses exactly the 60 handoffs of the request arm; its first run
+finished after the commit that recorded the expectation), and confirmed the run totals (13,655 records in
+seven folders). It raised two small points, both fixed: Appendix A cited Table D2 for a run time that is
+in the lock file, and the caption of Figure 3 did not say that the control ran under three prompts.
+
+## 9. Seventh pass by the same second-family reviewer, 16 November 2026, about 03:33 UTC
+
+**Reviewer:** the same second-family reviewer (gpt-6-sol through the Codex CLI), read-only, on commits
+`0c4e072` and `deccab9`: the second wording of the request sentence (400 runs) and the changes of wording
+made in the same round (the third and the last sentence of the abstract, two shortened passages of
+Section 4.2, design rule 3, the conclusion).
+
+It recounted the 400 records itself (60, 60, 59, 60 and 60 of the 60 false dones caught; 0, 1, 0, 0 and 0
+of the 20 honest handoffs held) and found them in agreement with Section 4.5, Tables D2 and E11, the total
+of 3 of 500 honest handoffs held and both run totals (14,055). It confirmed that the first of these runs
+finished (03:00:07 UTC) after the commit that recorded what was expected (02:59:49 UTC). It checked the
+abstract sentence by sentence, including the 14 comparisons of catches with no signal and with the
+signature line that stand behind "Proof of origin alone did not detectably improve any receiver's
+decisions", and the six sentences of the conclusion, and found no claim stronger than the runs allow. The
+two shortened passages of Section 4.2 and the edited references to tables, figures and rows had no issue.
+
+| Finding | What was done |
+|---|---|
+| Design rule 3 said without condition that in AP2 a merchant checks the checkout against constraints the user approved. The specification requires that check when open Checkout Mandates are included, which is its autonomous mode | The sentence now reads "AP2's autonomous mode does this for payments: a merchant checks the checkout against constraints the user approved" |
+
+Before this pass, the passages of the AP2 specification that the sentence rests on and the question of the
+sprint's second track on the sprint page had been fetched and read on 16 November, and a fresh clone of
+`deccab9` had rebuilt every table and figure with no tracked file changed.

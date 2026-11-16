@@ -5,7 +5,10 @@
     python3 scripts/check_cutoff.py --move    # and set them aside in runs/after_cutoff/
 
 Runs set aside are not read by any analysis and are not committed (runs/* is ignored except
-the four study folders).
+the study folders).
+
+The two exploratory arms that were run after the cut-off (runs/request and runs/wording, see
+HYPOTHESES.md) are not among the folders checked here: no locked analysis reads them.
 """
 from __future__ import annotations
 

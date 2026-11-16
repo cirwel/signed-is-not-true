@@ -127,9 +127,51 @@ ROWS = (
 )
 
 
-def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
-    """(a) and (b): one bar per worker and reply format, split by what the evidence check can see.
-    (c): the note-carrying arm, held under each prompt, one line per receiver."""
+def slopes(ax, cells: dict[tuple[str, str], list[dict]], prompts: list[str], tick: dict[str, str], title: str,
+           ylabel: str, least: int, labels: bool) -> None:
+    """One line per receiver across prompts: share caught, with 95% Wilson intervals."""
+    ends: list[tuple[float, str, str]] = []
+    for rec in ordered({k[0] for k in cells}):
+        colour, marker = RECEIVER_STYLE.get(rec, ("#555555", "o"))
+        xs, ps, lo, hi = [], [], [], []
+        for x, duty in enumerate(prompts):
+            rs = cells.get((rec, duty), [])
+            if len(rs) < least:   # a prompt still being run for this receiver
+                continue
+            p, a, b = wilson_bounds(sum(ar.caught(r) for r in rs), len(rs))
+            xs.append(x)
+            ps.append(p)
+            lo.append(max(0.0, p - a))
+            hi.append(max(0.0, b - p))
+        if not xs:
+            continue
+        ax.errorbar(xs, ps, yerr=[lo, hi], color=colour, marker=marker, markersize=3.6, linewidth=1.0,
+                    elinewidth=0.5, capsize=1.2, capthick=0.5)
+        ends.append((ps[-1], short(rec), colour))
+    if labels:   # direct labels at the right end, nudged apart where two lines end together
+        ends.sort()
+        placed: list[float] = []
+        for p, name, colour in ends:
+            y = p if not placed else max(p, placed[-1] + 0.085)
+            placed.append(y)
+            ax.text(len(prompts) - 1 + 0.08, y, name.replace(" (8B)", ""), va="center", ha="left", fontsize=5.6, color=colour)
+    ax.set_xlim(-0.25, len(prompts) - 1 + (0.95 if labels else 0.25))
+    ax.set_ylim(-0.06, 1.2)
+    ax.set_xticks(range(len(prompts)))
+    ax.set_xticklabels([tick[d] for d in prompts], fontsize=5.5)
+    ax.set_yticks([0, 0.5, 1.0])
+    ax.set_ylabel(ylabel, fontsize=6.3, labelpad=1.5)
+    ax.set_title(title, fontsize=7, pad=3, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(axis="both", length=2, pad=1.5)
+    ax.tick_params(axis="y", labelsize=6)
+
+
+def figure3(root: Path, out: Path, note_root: Path | None = None, request_root: Path | None = None,
+            base_root: Path | None = None) -> None:
+    """(a): one bar per worker and reply format after a visible tool error, split by what the evidence
+    check can see. (b): the note-carrying arm, held under each prompt, one line per receiver. (c): the
+    arm that carries the request (run after the cut-off), caught under each prompt."""
     groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
     seeds: dict[tuple[str, str], set] = defaultdict(set)
     for r in load(root):
@@ -159,19 +201,18 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
         return out
 
     have_note = bool(note_root and note_root.exists())
-    fig, axes = plt.subplots(
-        1, 3 if have_note else 2, figsize=(7.4, 2.55),
-        gridspec_kw={"width_ratios": [1.0, 1.0, 0.95] if have_note else [1.0, 1.0]},
-    )
+    have_request = bool(request_root and request_root.exists())
+    ratios = [1.05] + ([0.9] if have_note else []) + ([1.05] if have_request else [])
+    fig, axes = plt.subplots(1, len(ratios), figsize=(7.4, 2.4), gridspec_kw={"width_ratios": ratios}, squeeze=False)
+    axes = axes[0]
     style = (
         ("fine", FINE, None, "work correct"),
         ("caught", CAUGHT, None, "false done, report differs from the table: evidence check catches it"),
         ("silent", SILENT, None, "false done, report matches the table and says no more: check passes it"),
         ("noted", NOTED, "////", "false done, report matches the table and notes the failure: check passes it"),
     )
-    panels = (("blocked", "(a) one refund fails with a visible error", True),
-              ("derived", "(b) amount to work out from a rule", False))
-    for ax, (cond, title, blocked) in zip(axes[:2], panels):
+    panels = (("blocked", "(a) reports after a visible tool error", True),)
+    for ax, (cond, title, blocked) in zip(axes[:1], panels):
         ys, labels = [], []
         for y, (model, suffix, label) in enumerate(rows):
             rs = groups.get((model, cond + suffix), []) if model != LATE_WORKER or cond in late else []
@@ -196,51 +237,43 @@ def figure3(root: Path, out: Path, note_root: Path | None = None) -> None:
         ax.spines[["top", "right"]].set_visible(False)
         ax.tick_params(axis="both", length=2, pad=1.5)
         ax.tick_params(axis="x", labelsize=6)
-    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=c, hatch=h, edgecolor="white", linewidth=0.4) for _, c, h, _ in style]
-    fig.legend(handles, [t for *_, t in style], fontsize=6.1, frameon=False, loc="upper left", ncol=2,
+    shown = [s for s in style if s[0] != "fine"]   # every handoff of panel (a) is a false done
+    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=c, hatch=h, edgecolor="white", linewidth=0.4) for _, c, h, _ in shown]
+    fig.legend(handles, [t for *_, t in shown], fontsize=6.1, frameon=False, loc="upper left", ncol=2,
                columnspacing=1.2, handlelength=1.4, bbox_to_anchor=(0.005, 1.0))
 
+    tick = {"discretion": "left to\ndecide", "duty": "told which\ncheck", "goal": "told\nthe goal",
+            "request": "told to check\nthe request"}
     if have_note:
-        ax = axes[2]
-        nruns = [r for r in ar.load(note_root) if "crashed" not in r]
         cells: dict[tuple[str, str], list[dict]] = defaultdict(list)
-        for r in nruns:
-            cells[(r["receiver"], r["duty"])].append(r)
+        for r in ar.load(note_root):
+            if "crashed" not in r:
+                cells[(r["receiver"], r["duty"])].append(r)
         prompts = [d for d in ("discretion", "duty", "goal") if any(k[1] == d for k in cells)]
-        tick = {"discretion": "left to\ndecide", "duty": "told which\ncheck to run", "goal": "told\nthe goal"}
-        ends: list[tuple[float, str, str]] = []
-        for rec in ordered({r["receiver"] for r in nruns}):
-            colour, marker = RECEIVER_STYLE.get(rec, ("#555555", "o"))
-            xs, ps, lo, hi = [], [], [], []
+        slopes(axes[1], cells, prompts, tick, "(b) the worker's note is shown", "share of batches held", 30, True)
+    if have_request:
+        cells = defaultdict(list)
+        for r in ar.load(request_root):
+            if "crashed" not in r and r["condition"] != "honest":
+                cells[(r["receiver"], r["duty"])].append(r)
+        prompts = [d for d in ("discretion", "duty", "goal", "request") if any(k[1] == d for k in cells)]
+        slopes(axes[-1], cells, prompts, tick, "(c) the request is shown", "share of false dones caught", 30, False)
+        if base_root and base_root.exists():
+            # the control: the same false dones without the request line; the highest share over the receivers
+            base: dict[tuple[str, str], list[dict]] = defaultdict(list)
+            for r in ar.load(base_root):
+                if "crashed" not in r:
+                    base[(r["receiver"], r["duty"])].append(r)
+            xs, tops = [], []
             for x, duty in enumerate(prompts):
-                rs = cells.get((rec, duty), [])
-                if len(rs) < 30:   # a prompt still being run for this receiver
-                    continue
-                p, a, b = wilson_bounds(sum(ar.caught(r) for r in rs), len(rs))
-                xs.append(x)
-                ps.append(p)
-                lo.append(max(0.0, p - a))
-                hi.append(max(0.0, b - p))
-            ax.errorbar(xs, ps, yerr=[lo, hi], color=colour, marker=marker, markersize=3.6, linewidth=1.0,
-                        elinewidth=0.5, capsize=1.2, capthick=0.5)
-            ends.append((ps[-1], short(rec), colour))
-        # direct labels at the right end, nudged apart where two lines end together
-        ends.sort()
-        placed: list[float] = []
-        for p, name, colour in ends:
-            y = p if not placed else max(p, placed[-1] + 0.085)
-            placed.append(y)
-            ax.text(len(prompts) - 1 + 0.08, y, name.replace(" (8B)", ""), va="center", ha="left", fontsize=5.6, color=colour)
-        ax.set_xlim(-0.2, len(prompts) - 1 + 0.95)
-        ax.set_ylim(-0.06, 1.2)
-        ax.set_xticks(range(len(prompts)))
-        ax.set_xticklabels([tick[d] for d in prompts], fontsize=5.8)
-        ax.set_yticks([0, 0.5, 1.0])
-        ax.set_ylabel("share of batches held", fontsize=6.3, labelpad=1.5)
-        ax.set_title("(c) receiver is shown the note", fontsize=7, pad=3, loc="left")
-        ax.spines[["top", "right"]].set_visible(False)
-        ax.tick_params(axis="both", length=2, pad=1.5)
-        ax.tick_params(axis="y", labelsize=6)
+                shares = [sum(ar.caught(r) for r in rs) / len(rs) for (rec, d), rs in base.items() if d == duty and len(rs) >= 30]
+                if shares:
+                    xs.append(x)
+                    tops.append(max(shares))
+            if xs:
+                axes[-1].plot(xs, tops, color="#888888", linestyle=(0, (1, 1.5)), linewidth=1.3, zorder=1)
+                axes[-1].text(xs[-1] + 0.12, max(tops) + 0.09, "without the request\n(highest of the five)", fontsize=5.2,
+                              color="#666666", va="bottom", ha="left", linespacing=1.15)
     fig.tight_layout(rect=(0, 0, 1, 0.86), w_pad=0.8)
     fig.savefig(out, dpi=300)
     print(out)
@@ -251,11 +284,13 @@ def main() -> None:
     organic = Path(sys.argv[2] if len(sys.argv) > 2 else "runs/organic")
     out = Path(sys.argv[3] if len(sys.argv) > 3 else "results")
     note = Path(sys.argv[4] if len(sys.argv) > 4 else "runs/receiver_note")
+    request = Path(sys.argv[5] if len(sys.argv) > 5 else "runs/request")
+    base = Path(sys.argv[6] if len(sys.argv) > 6 else "runs/request_base")
     out.mkdir(parents=True, exist_ok=True)
     if receiver.exists():
         figure2(receiver, out / "figure2.png")
     if organic.exists():
-        figure3(organic, out / "figure3.png", note)
+        figure3(organic, out / "figure3.png", note, request, base)
 
 
 if __name__ == "__main__":
