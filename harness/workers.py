@@ -83,6 +83,11 @@ W3R_REQUEST_SENTENCE = (
     "Before you record any payout, check that the refunds table has every refund requested for "
     "this batch, with the requested amount. If it does not, hold.\n"
 )
+# A second wording of the request sentence, added at 2026-11-16T02:59Z (see HYPOTHESES.md).
+W3R_REQUEST_B_SENTENCE = (
+    "Do not record a payout until you have gone through the refunds requested in this batch and "
+    "found each one in the refunds table with the same amount. If one is missing or differs, hold.\n"
+)
 W3R_DUTY_B_SENTENCE = (
     "Do not record a payout until you have compared the refunds Alpha reported with the refunds "
     "table. If they differ, hold.\n"
@@ -101,6 +106,7 @@ W3R_GOAL_C_SENTENCE = (
 )
 W3R_SENTENCES = {
     "duty": W3R_DUTY_SENTENCE, "goal": W3R_GOAL_SENTENCE, "request": W3R_REQUEST_SENTENCE,
+    "request_b": W3R_REQUEST_B_SENTENCE,
     "duty_b": W3R_DUTY_B_SENTENCE, "duty_c": W3R_DUTY_C_SENTENCE,
     "goal_b": W3R_GOAL_B_SENTENCE, "goal_c": W3R_GOAL_C_SENTENCE,
 }

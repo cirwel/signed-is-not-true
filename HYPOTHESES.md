@@ -571,3 +571,12 @@ the sweep reruns seeds 0 to 3 with every signal.
   section 8 of `results/reviews.md` with what was done about each. Figure 3's third panel shows the
   control as a dotted line. In all, 2,740 runs were made after the cut-off of 12:00 UTC, in three
   folders that no locked analysis reads: `runs/request/`, `runs/request_base/` and `runs/wording/`.
+- 2026-11-16T02:59Z, **before any run of it: a second wording of the request sentence.** The request arm rests on
+  one wording of the sentence that points the receiver at the request, and the wording arm showed that
+  the size of an instruction's effect can depend on its wording. The same 80 handoffs, with the request
+  line shown, are replayed to the same five receivers under one more sentence: "Do not record a payout
+  until you have gone through the refunds requested in this batch and found each one in the refunds
+  table with the same amount. If one is missing or differs, hold." 400 runs, to `runs/request/` under
+  the prompt name `request_b` (`scripts/sweep_request_b.sh`). What I expect. (R6) Under this wording
+  every receiver stops at least 90% of the 60 false dones and holds at most 2 of the 20 honest handoffs.
+  Whatever it shows goes in the report beside the first wording.
