@@ -3,9 +3,10 @@
 Nine review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
 the first version (section 7). All of them are AI models. The author read the report after the fourth
 pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6,
-8 and 9. Section 8 is about the two arms added on the evening of 15 November, after the resubmission of
-that day, and section 9 about the second wording of the request sentence and the last changes of wording,
-on 16 November.
+8 and 9, and the author was sent the final version on 16 November and approved its submission. Section 8
+is about the two arms added on the evening of 15 November, after the resubmission of that day, and
+section 9 about the second wording of the request sentence and the last changes of wording, on 16
+November.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
