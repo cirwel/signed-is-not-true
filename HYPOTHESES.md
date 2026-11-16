@@ -599,3 +599,7 @@ the sweep reruns seeds 0 to 3 with every signal.
   record has the reason), the caption of Figure 2 is shorter, and the limitations paragraph names one
   next step where it named three (the request compared by a rule is now in design rule 3, and Appendix A
   still lists the single wording of each signal).
+- 2026-11-16T03:34Z, **after the seventh review pass** (section 9 of `results/reviews.md`): design rule 3 now says
+  that it is AP2's autonomous mode in which a merchant checks the checkout against constraints the user
+  approved; the specification requires the check when open Checkout Mandates are included. No number
+  and no other sentence changed.

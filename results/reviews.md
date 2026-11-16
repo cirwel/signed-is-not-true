@@ -1,10 +1,11 @@
 # Reviews of the analysis and the report
 
-Eight review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
+Nine review passes by three reviewers were made on the rewritten report, and a fourth agent had audited
 the first version (section 7). All of them are AI models. The author read the report after the fourth
-pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6
-and 8. Section 8 is about the two arms added on the evening of 15 November, after the resubmission of
-that day.
+pass and is responsible for it; the later passes and the changes that followed them are in sections 5, 6,
+8 and 9. Section 8 is about the two arms added on the evening of 15 November, after the resubmission of
+that day, and section 9 about the second wording of the request sentence and the last changes of wording,
+on 16 November.
 
 ## 1. Code review, 14 November 2026, about 21:00 UTC
 
@@ -156,3 +157,27 @@ request line was 2 of 60; the control uses exactly the 60 handoffs of the reques
 finished after the commit that recorded the expectation), and confirmed the run totals (13,655 records in
 seven folders). It raised two small points, both fixed: Appendix A cited Table D2 for a run time that is
 in the lock file, and the caption of Figure 3 did not say that the control ran under three prompts.
+
+## 9. Seventh pass by the same second-family reviewer, 16 November 2026, about 03:33 UTC
+
+**Reviewer:** the same second-family reviewer (gpt-6-sol through the Codex CLI), read-only, on commits
+`0c4e072` and `deccab9`: the second wording of the request sentence (400 runs) and the changes of wording
+made in the same round (the third and the last sentence of the abstract, two shortened passages of
+Section 4.2, design rule 3, the conclusion).
+
+It recounted the 400 records itself (60, 60, 59, 60 and 60 of the 60 false dones caught; 0, 1, 0, 0 and 0
+of the 20 honest handoffs held) and found them in agreement with Section 4.5, Tables D2 and E11, the total
+of 3 of 500 honest handoffs held and both run totals (14,055). It confirmed that the first of these runs
+finished (03:00:07 UTC) after the commit that recorded what was expected (02:59:49 UTC). It checked the
+abstract sentence by sentence, including the 14 comparisons of catches with no signal and with the
+signature line that stand behind "Proof of origin alone did not detectably improve any receiver's
+decisions", and the six sentences of the conclusion, and found no claim stronger than the runs allow. The
+two shortened passages of Section 4.2 and the edited references to tables, figures and rows had no issue.
+
+| Finding | What was done |
+|---|---|
+| Design rule 3 said without condition that in AP2 a merchant checks the checkout against constraints the user approved. The specification requires that check when open Checkout Mandates are included, which is its autonomous mode | The sentence now reads "AP2's autonomous mode does this for payments: a merchant checks the checkout against constraints the user approved" |
+
+Before this pass, the passages of the AP2 specification that the sentence rests on and the question of the
+sprint's second track on the sprint page had been fetched and read on 16 November, and a fresh clone of
+`deccab9` had rebuilt every table and figure with no tracked file changed.
