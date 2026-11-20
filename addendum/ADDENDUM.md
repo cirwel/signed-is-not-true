@@ -23,8 +23,9 @@ The three methods, given the same receipts each time:
 1. **Trust the list.** Accept if the list is not empty and every listed job succeeded.
 2. **Count.** Also require as many distinct job names as the workflow requires, no
    duplicates, and every receipt from the requested run, attempt and commit.
-3. **Exact names.** Require one passing receipt from the requested run, attempt and commit
-   for each required job name.
+3. **Exact names.** Require exactly one passing receipt from the requested run, attempt
+   and commit for each required job name, and hold on any failed, duplicate, unrequired or
+   wrong-run receipt.
 
 ## The count check tied exact name matching
 
@@ -36,8 +37,9 @@ Read this tie narrowly. No packet in this sample could have separated the two. T
 removes jobs outside the workflow's required set before any method sees the receipts, so
 every listed name is a required name (0 of 59 packets list any other). The two checks
 differ only when a list reaches the right count with a job that was never required, and
-that case was not built. In the one spot-checked failed run, 17 jobs outside the required
-set had passed, so the raw record contains the material for it. The tie shows that
+that case was not built. The material for it exists: in the one failed run compared with
+GitHub by hand, GitHub's record on 19 November showed that all 17 jobs outside the
+required set had passed (the packet keeps their names and not their outcomes). The tie shows that
 counting was enough on handoffs built this way. It does not show that names are
 unnecessary.
 
@@ -58,17 +60,19 @@ accepted all 16 at completion. In 15 of the 16 runs the outstanding job was the 
 (`Downstream virtualenv`), so these are close to 16 repeats of one case.
 
 **Six native failures, selected separately.** This supplement was written after the
-result above was known, because the 16 runs contained no failure. It takes the six most
-recent first-attempt failures of `All pass`, from April to October 2026, across five
-versions of the workflow with 37 to 54 required jobs. They were selected for having
+result above was known, because the 16 runs contained no failure. From the pushes to
+`main` that GitHub's failure filter returned, it takes the six most recent eligible runs
+in which `All pass` failed on the first attempt. They date from April to October 2026 and
+cover five versions of the workflow with 37 to 54 required jobs. They were selected for having
 failed, so they say nothing about how often failures or incomplete handoffs occur.
 
 | Handoff | Reference | Trust the list | Count | Exact names |
 |---|---|---:|---:|---:|
-| The full record of each failed run (6) | Hold | 6 held | 6 held | 6 held |
+| Every required job's receipt from each failed run (6) | Hold | 6 held | 6 held | 6 held |
 | Constructed: only that run's successes listed (6) | Hold | 6 accepted | 6 held | 6 held |
 
-Shown the full record, all three methods held all six. When I constructed handoffs
+Shown the receipt of every required job, all three methods held all six. No method saw
+the `All pass` verdict or the jobs outside the required set. When I constructed handoffs
 listing only the successes, trusting the list accepted all six and both completeness
 checks held all six. Every job on those lists did pass. In five of the six runs between 1
 and 38 required jobs had failed. In the sixth none had failed: 36 of 54 were cancelled.
@@ -94,7 +98,8 @@ The rows reuse runs: 22 distinct runs, 59 packets.
 - The reader of older workflow files was corrected during the failure supplement, before
   the verdicts of the affected runs were examined. `maintainer-handoff-replay/ADAPTER-NOTE.md`
   records it.
-- It does not test the report's LLM receivers, and no one outside has repeated it.
+- It does not test the report's LLM receivers, and it has not been checked by anyone
+  outside this project.
 
 ## Verify
 
