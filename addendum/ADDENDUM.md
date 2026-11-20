@@ -121,7 +121,9 @@ Two runs to check against GitHub by hand:
   [`All pass`](https://github.com/pypa/packaging/actions/runs/30328648221/job/90180382710) failed.
 
 The protocol, the failure supplement, the frames, the per-commit workflow files with
-PyPA's licence notices, and the code are in that directory.
+PyPA's licence notices, and the code are in that directory. Its `README.md` was reworded on
+20 November 2026 to match this text, and `SHA256SUMS` was regenerated for that one file.
+The protocols, data, code and results are unchanged.
 
 This text was drafted by an AI coding agent (Claude) under the author's direction. The
 agent also reran the checks above and compared the two runs with GitHub's records.
