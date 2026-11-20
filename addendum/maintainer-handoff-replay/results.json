@@ -1,0 +1,78 @@
+{
+  "runs": 16,
+  "skipped": 0,
+  "groups": {
+    "early": {
+      "reference_hold": 16,
+      "reference_accept": 0,
+      "policies": {
+        "reported_success": {
+          "false_accept": 16,
+          "false_hold": 0
+        },
+        "count_and_run": {
+          "false_accept": 0,
+          "false_hold": 0
+        },
+        "required_checks": {
+          "false_accept": 0,
+          "false_hold": 0
+        }
+      }
+    },
+    "terminal": {
+      "reference_hold": 0,
+      "reference_accept": 16,
+      "policies": {
+        "reported_success": {
+          "false_accept": 0,
+          "false_hold": 0
+        },
+        "count_and_run": {
+          "false_accept": 0,
+          "false_hold": 0
+        },
+        "required_checks": {
+          "false_accept": 0,
+          "false_hold": 0
+        }
+      }
+    },
+    "primary": {
+      "reference_hold": 16,
+      "reference_accept": 16,
+      "policies": {
+        "reported_success": {
+          "false_accept": 16,
+          "false_hold": 0
+        },
+        "count_and_run": {
+          "false_accept": 0,
+          "false_hold": 0
+        },
+        "required_checks": {
+          "false_accept": 0,
+          "false_hold": 0
+        }
+      }
+    },
+    "stale_control": {
+      "reference_hold": 15,
+      "reference_accept": 0,
+      "policies": {
+        "reported_success": {
+          "false_accept": 15,
+          "false_hold": 0
+        },
+        "count_and_run": {
+          "false_accept": 0,
+          "false_hold": 0
+        },
+        "required_checks": {
+          "false_accept": 0,
+          "false_hold": 0
+        }
+      }
+    }
+  }
+}

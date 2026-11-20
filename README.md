@@ -35,6 +35,10 @@ out on that report.
 
 Counts, intervals and tests are in the report and under `results/`.
 
+An exploratory addendum, run after the report was submitted and not part of it, is in
+[`addendum/ADDENDUM.md`](addendum/ADDENDUM.md): a replay of public CI records from one
+open-source project against that project's own completion rule.
+
 ## What is here
 
 | Study | Question | Code | Runs |
