@@ -1,0 +1,7 @@
+# Separate failed-run check
+
+The frozen primary replay returned 16 successful terminal runs and no naturally failed terminal run. This supplement was designed after those results were known and before requesting a failed-run list. Preserve and report the original results separately.
+
+Use the same public PyPA workflow, branch, first attempt, time cutoff, per-commit definition reader, eligibility requirements, evidence shape and three checkers. From the latest 30 completed pushes to main returned by GitHub's failure filter, take the six most recent eligible distinct run IDs with an actual first-attempt failure recorded by the native All pass job. Exhaust the frame if fewer qualify. Log exclusions. Do not replace unsupported jobs with a guessed configuration. This selects on failure and provides no estimate of the rate of failure.
+
+For each run, score two packets independently against the native failure verdict. At terminal time, give the checker all actual prerequisite receipts. For an additional constructed omission, give it only the successfully completed receipts from that same run. This is a deliberately incomplete handoff generated from real failure records. It is not an observed claim by the project. If no non-success receipt exists to omit, exclude that omission packet and keep the terminal case. Count false accepts for each kind. GitHub records and test outcomes are read-only.

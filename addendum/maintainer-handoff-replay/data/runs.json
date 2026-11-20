@@ -1,0 +1,6374 @@
+{
+  "protocol_sha256": "7f948e5be9bdb0262aa5adde7432509b9e19eb8c487ab40ef9e625c79af0dd96",
+  "runs": [
+    {
+      "aggregate": {
+        "finished": "2026-11-18T19:52:02+00:00",
+        "id": 135086518191,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "f91ea7931fa551eb498ca2cdf5644dbbf20bcbc6",
+      "created": "2026-11-18T19:47:42Z",
+      "jobs": [
+        {
+          "finished": "2026-11-18T19:47:57+00:00",
+          "id": 135083562075,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:47:58+00:00",
+          "id": 135083561953,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:47:59+00:00",
+          "id": 135083562249,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:01+00:00",
+          "id": 135083562259,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:01+00:00",
+          "id": 135083562038,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:04+00:00",
+          "id": 135083562186,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:04+00:00",
+          "id": 135083561945,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:08+00:00",
+          "id": 135083561764,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:10+00:00",
+          "id": 135083562309,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:19+00:00",
+          "id": 135083562139,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:31+00:00",
+          "id": 135083561904,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:32+00:00",
+          "id": 135083562110,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:37+00:00",
+          "id": 135083562435,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:37+00:00",
+          "id": 135083561786,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:39+00:00",
+          "id": 135083562519,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:41+00:00",
+          "id": 135083561669,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:46+00:00",
+          "id": 135083561688,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:47+00:00",
+          "id": 135083561673,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:47+00:00",
+          "id": 135083562581,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:48+00:00",
+          "id": 135083561874,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:50+00:00",
+          "id": 135083561891,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:53+00:00",
+          "id": 135083562737,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:48:59+00:00",
+          "id": 135083562098,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:00+00:00",
+          "id": 135083561696,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:02+00:00",
+          "id": 135083561733,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:03+00:00",
+          "id": 135083562106,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:04+00:00",
+          "id": 135083561854,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:04+00:00",
+          "id": 135083562095,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:07+00:00",
+          "id": 135083562051,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:08+00:00",
+          "id": 135083562248,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:08+00:00",
+          "id": 135083561814,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:11+00:00",
+          "id": 135083561715,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:18+00:00",
+          "id": 135083561734,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:18+00:00",
+          "id": 135083561752,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:18+00:00",
+          "id": 135083561676,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:19+00:00",
+          "id": 135083561936,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:20+00:00",
+          "id": 135083562105,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:28+00:00",
+          "id": 135083561754,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:29+00:00",
+          "id": 135083561704,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:30+00:00",
+          "id": 135083561941,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:34+00:00",
+          "id": 135083561881,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:37+00:00",
+          "id": 135083562281,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:40+00:00",
+          "id": 135083561994,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:46+00:00",
+          "id": 135083562410,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:51+00:00",
+          "id": 135083562201,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:51+00:00",
+          "id": 135083562161,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:57+00:00",
+          "id": 135083561674,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:58+00:00",
+          "id": 135083562131,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:49:59+00:00",
+          "id": 135083562144,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:50:18+00:00",
+          "id": 135083561738,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:50:56+00:00",
+          "id": 135083562240,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:51:00+00:00",
+          "id": 135083562071,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:51:33+00:00",
+          "id": 135083561893,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:51:51+00:00",
+          "id": 135083562005,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 44384018340,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/44384018340",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/f91ea7931fa551eb498ca2cdf5644dbbf20bcbc6/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-18T19:27:42+00:00",
+        "id": 135071936931,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "dec6213e562b69ffb680d5b9a82a899fafe4dc02",
+      "created": "2026-11-18T19:22:01Z",
+      "jobs": [
+        {
+          "finished": "2026-11-18T19:22:15+00:00",
+          "id": 135068442962,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:16+00:00",
+          "id": 135068443163,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:17+00:00",
+          "id": 135068443209,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:17+00:00",
+          "id": 135068443121,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:21+00:00",
+          "id": 135068443166,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:24+00:00",
+          "id": 135068442704,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:28+00:00",
+          "id": 135068442239,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:30+00:00",
+          "id": 135068443168,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:31+00:00",
+          "id": 135068443192,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:37+00:00",
+          "id": 135068443170,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:47+00:00",
+          "id": 135068443323,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:47+00:00",
+          "id": 135068442879,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:49+00:00",
+          "id": 135068443009,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:49+00:00",
+          "id": 135068443021,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:52+00:00",
+          "id": 135068442992,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:22:53+00:00",
+          "id": 135068442907,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:04+00:00",
+          "id": 135068443076,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:15+00:00",
+          "id": 135068443317,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:16+00:00",
+          "id": 135068442996,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:20+00:00",
+          "id": 135068442715,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:21+00:00",
+          "id": 135068443207,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:26+00:00",
+          "id": 135068443136,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:32+00:00",
+          "id": 135068443187,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:32+00:00",
+          "id": 135068443167,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:33+00:00",
+          "id": 135068443159,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:36+00:00",
+          "id": 135068443114,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:36+00:00",
+          "id": 135068443165,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:38+00:00",
+          "id": 135068443050,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:38+00:00",
+          "id": 135068443283,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:39+00:00",
+          "id": 135068443047,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:44+00:00",
+          "id": 135068443337,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:47+00:00",
+          "id": 135068443049,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:54+00:00",
+          "id": 135068443088,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:23:59+00:00",
+          "id": 135068443099,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:00+00:00",
+          "id": 135068443221,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:05+00:00",
+          "id": 135068442886,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:05+00:00",
+          "id": 135068442872,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:07+00:00",
+          "id": 135068443073,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:08+00:00",
+          "id": 135068443087,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:09+00:00",
+          "id": 135068443573,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:09+00:00",
+          "id": 135068442997,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:13+00:00",
+          "id": 135068443052,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:29+00:00",
+          "id": 135068442923,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:30+00:00",
+          "id": 135068442688,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:33+00:00",
+          "id": 135068443098,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:36+00:00",
+          "id": 135068443058,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:37+00:00",
+          "id": 135068443333,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:38+00:00",
+          "id": 135068443030,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:42+00:00",
+          "id": 135068442881,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:46+00:00",
+          "id": 135068443361,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:24:49+00:00",
+          "id": 135068443004,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:25:02+00:00",
+          "id": 135068443521,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:25:02+00:00",
+          "id": 135068442883,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-18T19:27:32+00:00",
+          "id": 135068442851,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 44379753391,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/44379753391",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/dec6213e562b69ffb680d5b9a82a899fafe4dc02/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-17T17:48:45+00:00",
+        "id": 134243533748,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "6a69a83d8d89c6a01d554a8ad1b420cbb45fb4bc",
+      "created": "2026-11-17T17:43:08Z",
+      "jobs": [
+        {
+          "finished": "2026-11-17T17:43:24+00:00",
+          "id": 134240038218,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:24+00:00",
+          "id": 134240038321,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:26+00:00",
+          "id": 134240039202,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:28+00:00",
+          "id": 134240038273,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:30+00:00",
+          "id": 134240038498,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:30+00:00",
+          "id": 134240038499,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:32+00:00",
+          "id": 134240038288,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:35+00:00",
+          "id": 134240038215,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:36+00:00",
+          "id": 134240038201,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:46+00:00",
+          "id": 134240038187,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:49+00:00",
+          "id": 134240039989,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:53+00:00",
+          "id": 134240038502,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:54+00:00",
+          "id": 134240039804,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:43:59+00:00",
+          "id": 134240039724,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:04+00:00",
+          "id": 134240039479,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:08+00:00",
+          "id": 134240039873,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:09+00:00",
+          "id": 134240039574,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:09+00:00",
+          "id": 134240039692,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:11+00:00",
+          "id": 134240039901,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:13+00:00",
+          "id": 134240039800,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:14+00:00",
+          "id": 134240039663,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:14+00:00",
+          "id": 134240040841,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:16+00:00",
+          "id": 134240039944,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:17+00:00",
+          "id": 134240039951,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:25+00:00",
+          "id": 134240039978,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:29+00:00",
+          "id": 134240038649,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:30+00:00",
+          "id": 134240040000,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:31+00:00",
+          "id": 134240038233,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:35+00:00",
+          "id": 134240038251,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:37+00:00",
+          "id": 134240040043,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:42+00:00",
+          "id": 134240040445,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:42+00:00",
+          "id": 134240039613,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:44+00:00",
+          "id": 134240039559,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:44+00:00",
+          "id": 134240039653,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:45+00:00",
+          "id": 134240039530,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:45+00:00",
+          "id": 134240040018,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:44:52+00:00",
+          "id": 134240039508,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:01+00:00",
+          "id": 134240039855,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:09+00:00",
+          "id": 134240039562,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:10+00:00",
+          "id": 134240039700,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:13+00:00",
+          "id": 134240039678,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:19+00:00",
+          "id": 134240040159,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:24+00:00",
+          "id": 134240039685,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:25+00:00",
+          "id": 134240040036,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:26+00:00",
+          "id": 134240039633,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:30+00:00",
+          "id": 134240039988,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:32+00:00",
+          "id": 134240039769,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:54+00:00",
+          "id": 134240039847,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:58+00:00",
+          "id": 134240040191,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:45:59+00:00",
+          "id": 134240037830,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:46:10+00:00",
+          "id": 134240038335,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:46:31+00:00",
+          "id": 134240038206,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:46:36+00:00",
+          "id": 134240040029,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T17:48:35+00:00",
+          "id": 134240038231,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 44140043038,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/44140043038",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/6a69a83d8d89c6a01d554a8ad1b420cbb45fb4bc/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-17T16:43:45+00:00",
+        "id": 134200652318,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "2a23b52ea95a064fb0183523d542486dfc2f86a7",
+      "created": "2026-11-17T16:38:41Z",
+      "jobs": [
+        {
+          "finished": "2026-11-17T16:38:57+00:00",
+          "id": 134197336767,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:38:58+00:00",
+          "id": 134197336245,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:38:59+00:00",
+          "id": 134197336706,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:03+00:00",
+          "id": 134197337066,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:03+00:00",
+          "id": 134197336176,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:03+00:00",
+          "id": 134197336635,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:04+00:00",
+          "id": 134197336731,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:05+00:00",
+          "id": 134197336800,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:08+00:00",
+          "id": 134197336528,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:09+00:00",
+          "id": 134197336948,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:22+00:00",
+          "id": 134197336873,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:28+00:00",
+          "id": 134197336619,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:34+00:00",
+          "id": 134197336484,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:34+00:00",
+          "id": 134197336676,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:35+00:00",
+          "id": 134197336607,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:39+00:00",
+          "id": 134197337019,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:42+00:00",
+          "id": 134197336360,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:46+00:00",
+          "id": 134197336949,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:47+00:00",
+          "id": 134197336987,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:47+00:00",
+          "id": 134197336832,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:49+00:00",
+          "id": 134197336461,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:49+00:00",
+          "id": 134197336470,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:54+00:00",
+          "id": 134197336493,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:59+00:00",
+          "id": 134197336812,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:39:59+00:00",
+          "id": 134197336489,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:02+00:00",
+          "id": 134197335778,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:02+00:00",
+          "id": 134197336451,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:04+00:00",
+          "id": 134197336557,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:05+00:00",
+          "id": 134197336634,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:05+00:00",
+          "id": 134197336899,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:13+00:00",
+          "id": 134197336813,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:19+00:00",
+          "id": 134197336870,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:19+00:00",
+          "id": 134197337077,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:19+00:00",
+          "id": 134197336833,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:20+00:00",
+          "id": 134197336785,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:22+00:00",
+          "id": 134197336549,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:24+00:00",
+          "id": 134197337069,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:26+00:00",
+          "id": 134197337306,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:29+00:00",
+          "id": 134197337092,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:31+00:00",
+          "id": 134197336609,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:34+00:00",
+          "id": 134197337005,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:35+00:00",
+          "id": 134197336473,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:38+00:00",
+          "id": 134197336814,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:38+00:00",
+          "id": 134197336460,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:45+00:00",
+          "id": 134197336834,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:40:46+00:00",
+          "id": 134197336650,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:05+00:00",
+          "id": 134197336904,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:11+00:00",
+          "id": 134197336696,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:19+00:00",
+          "id": 134197336456,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:21+00:00",
+          "id": 134197337400,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:32+00:00",
+          "id": 134197336271,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:46+00:00",
+          "id": 134197337155,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:41:58+00:00",
+          "id": 134197336397,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T16:43:37+00:00",
+          "id": 134197336495,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 44128100029,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/44128100029",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/2a23b52ea95a064fb0183523d542486dfc2f86a7/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-17T00:30:55+00:00",
+        "id": 133721764367,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "f1c57155f97329b1723b3c088dd664f9294f3d25",
+      "created": "2026-11-17T00:26:34Z",
+      "jobs": [
+        {
+          "finished": "2026-11-17T00:26:47+00:00",
+          "id": 133719836963,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:48+00:00",
+          "id": 133719836163,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:50+00:00",
+          "id": 133719837023,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:51+00:00",
+          "id": 133719837022,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:53+00:00",
+          "id": 133719836576,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:55+00:00",
+          "id": 133719836788,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:55+00:00",
+          "id": 133719837004,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:26:57+00:00",
+          "id": 133719836919,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:05+00:00",
+          "id": 133719836952,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:06+00:00",
+          "id": 133719837074,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:13+00:00",
+          "id": 133719837165,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:16+00:00",
+          "id": 133719837067,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:19+00:00",
+          "id": 133719837108,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:21+00:00",
+          "id": 133719837068,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:32+00:00",
+          "id": 133719837141,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:36+00:00",
+          "id": 133719837092,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:39+00:00",
+          "id": 133719837260,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:40+00:00",
+          "id": 133719837390,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:45+00:00",
+          "id": 133719837358,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:49+00:00",
+          "id": 133719836555,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:27:49+00:00",
+          "id": 133719837114,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:02+00:00",
+          "id": 133719837103,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:06+00:00",
+          "id": 133719837172,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:07+00:00",
+          "id": 133719837429,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:07+00:00",
+          "id": 133719837192,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:08+00:00",
+          "id": 133719837283,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:10+00:00",
+          "id": 133719837354,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:11+00:00",
+          "id": 133719837171,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:13+00:00",
+          "id": 133719837088,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:13+00:00",
+          "id": 133719837057,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:13+00:00",
+          "id": 133719837110,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:15+00:00",
+          "id": 133719836813,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:15+00:00",
+          "id": 133719837185,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:18+00:00",
+          "id": 133719837400,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:21+00:00",
+          "id": 133719837113,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:21+00:00",
+          "id": 133719837410,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:23+00:00",
+          "id": 133719837169,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:25+00:00",
+          "id": 133719837119,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:26+00:00",
+          "id": 133719837205,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:28+00:00",
+          "id": 133719837181,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:29+00:00",
+          "id": 133719837428,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:30+00:00",
+          "id": 133719837202,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:32+00:00",
+          "id": 133719837255,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:33+00:00",
+          "id": 133719837447,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:33+00:00",
+          "id": 133719837376,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:43+00:00",
+          "id": 133719837112,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:43+00:00",
+          "id": 133719837315,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:44+00:00",
+          "id": 133719836985,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:28:56+00:00",
+          "id": 133719837398,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:29:27+00:00",
+          "id": 133719837599,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:29:45+00:00",
+          "id": 133719837144,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:29:55+00:00",
+          "id": 133719836822,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:30:00+00:00",
+          "id": 133719837163,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-17T00:30:46+00:00",
+          "id": 133719837105,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43987649389,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43987649389",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/f1c57155f97329b1723b3c088dd664f9294f3d25/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T21:53:06+00:00",
+        "id": 133640338390,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "0efe21aa398df645c259ee31e54a8a4400b1fc6b",
+      "created": "2026-11-16T21:43:23Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T21:43:38+00:00",
+          "id": 133634846805,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:39+00:00",
+          "id": 133634846861,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:39+00:00",
+          "id": 133634846402,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:40+00:00",
+          "id": 133634846422,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:41+00:00",
+          "id": 133634847018,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:42+00:00",
+          "id": 133634847041,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:42+00:00",
+          "id": 133634847386,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:43+00:00",
+          "id": 133634847315,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:46+00:00",
+          "id": 133634846797,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:43:55+00:00",
+          "id": 133634846726,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:05+00:00",
+          "id": 133634848567,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:07+00:00",
+          "id": 133634847030,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:08+00:00",
+          "id": 133634847002,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:15+00:00",
+          "id": 133634847178,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:17+00:00",
+          "id": 133634847478,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:19+00:00",
+          "id": 133634845998,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:20+00:00",
+          "id": 133634846881,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:23+00:00",
+          "id": 133634847148,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:31+00:00",
+          "id": 133634847541,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:33+00:00",
+          "id": 133634847042,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:34+00:00",
+          "id": 133634846925,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:34+00:00",
+          "id": 133634846990,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:39+00:00",
+          "id": 133634847056,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:43+00:00",
+          "id": 133634846969,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:44+00:00",
+          "id": 133634846703,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:55+00:00",
+          "id": 133634847577,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:56+00:00",
+          "id": 133634847048,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:57+00:00",
+          "id": 133634846854,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:57+00:00",
+          "id": 133634847396,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:44:58+00:00",
+          "id": 133634847343,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:00+00:00",
+          "id": 133634847260,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:00+00:00",
+          "id": 133634847145,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:06+00:00",
+          "id": 133634847391,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:12+00:00",
+          "id": 133634847473,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:18+00:00",
+          "id": 133634846837,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:21+00:00",
+          "id": 133634847000,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:40+00:00",
+          "id": 133634847463,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:44+00:00",
+          "id": 133634847589,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:45:45+00:00",
+          "id": 133634847588,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:13+00:00",
+          "id": 133634847236,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:14+00:00",
+          "id": 133634847284,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:24+00:00",
+          "id": 133634847023,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:40+00:00",
+          "id": 133634846407,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:41+00:00",
+          "id": 133634847038,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:46:49+00:00",
+          "id": 133634847157,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:47:08+00:00",
+          "id": 133634847312,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:47:54+00:00",
+          "id": 133634847225,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:48:17+00:00",
+          "id": 133634847471,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:48:26+00:00",
+          "id": 133634846824,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:48:42+00:00",
+          "id": 133634847535,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:48:51+00:00",
+          "id": 133634847283,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:51:26+00:00",
+          "id": 133634847670,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:51:30+00:00",
+          "id": 133634847408,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:52:57+00:00",
+          "id": 133634847456,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43962940673,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43962940673",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/0efe21aa398df645c259ee31e54a8a4400b1fc6b/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T21:39:12+00:00",
+        "id": 133632325319,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "created": "2026-11-16T21:33:16Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T21:33:29+00:00",
+          "id": 133628906380,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:31+00:00",
+          "id": 133628906356,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:32+00:00",
+          "id": 133628906109,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:33+00:00",
+          "id": 133628905737,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:35+00:00",
+          "id": 133628906581,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:37+00:00",
+          "id": 133628906341,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:37+00:00",
+          "id": 133628906304,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:37+00:00",
+          "id": 133628905578,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:40+00:00",
+          "id": 133628907277,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:42+00:00",
+          "id": 133628906429,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:51+00:00",
+          "id": 133628906488,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:33:52+00:00",
+          "id": 133628906230,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:03+00:00",
+          "id": 133628906737,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:17+00:00",
+          "id": 133628906661,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:18+00:00",
+          "id": 133628907062,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:22+00:00",
+          "id": 133628906902,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:24+00:00",
+          "id": 133628906832,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:25+00:00",
+          "id": 133628906550,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:28+00:00",
+          "id": 133628906960,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:32+00:00",
+          "id": 133628906836,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:35+00:00",
+          "id": 133628906491,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:35+00:00",
+          "id": 133628906979,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:37+00:00",
+          "id": 133628905428,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:38+00:00",
+          "id": 133628907097,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:39+00:00",
+          "id": 133628906859,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:43+00:00",
+          "id": 133628906744,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:44+00:00",
+          "id": 133628907583,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:44+00:00",
+          "id": 133628907049,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:47+00:00",
+          "id": 133628906642,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:50+00:00",
+          "id": 133628906358,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:51+00:00",
+          "id": 133628906625,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:54+00:00",
+          "id": 133628906006,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:54+00:00",
+          "id": 133628906849,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:34:54+00:00",
+          "id": 133628906968,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:03+00:00",
+          "id": 133628906219,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:08+00:00",
+          "id": 133628906473,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:09+00:00",
+          "id": 133628906402,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:15+00:00",
+          "id": 133628906751,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:16+00:00",
+          "id": 133628906528,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:18+00:00",
+          "id": 133628906860,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:20+00:00",
+          "id": 133628906568,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:29+00:00",
+          "id": 133628906736,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:32+00:00",
+          "id": 133628905282,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:33+00:00",
+          "id": 133628906818,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:33+00:00",
+          "id": 133628906801,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:34+00:00",
+          "id": 133628906460,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:45+00:00",
+          "id": 133628906886,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:47+00:00",
+          "id": 133628906572,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:50+00:00",
+          "id": 133628907020,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:35:57+00:00",
+          "id": 133628906655,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:36:01+00:00",
+          "id": 133628906372,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:36:01+00:00",
+          "id": 133628906563,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:36:42+00:00",
+          "id": 133628906762,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:39:02+00:00",
+          "id": 133628906295,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43961245619,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43961245619",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/46167dcdb1c8ae42c2dd72d3fdb91564be65a0db/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T21:17:35+00:00",
+        "id": 133619287862,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "ecf963ad0dccf246d1e774c7ede599241e9205b0",
+      "created": "2026-11-16T21:11:24Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T21:11:40+00:00",
+          "id": 133615824373,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:40+00:00",
+          "id": 133615824839,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:41+00:00",
+          "id": 133615824362,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:41+00:00",
+          "id": 133615824601,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:42+00:00",
+          "id": 133615825299,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:43+00:00",
+          "id": 133615825178,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:43+00:00",
+          "id": 133615824627,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:45+00:00",
+          "id": 133615824540,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:57+00:00",
+          "id": 133615824813,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:58+00:00",
+          "id": 133615825591,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:04+00:00",
+          "id": 133615824603,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:08+00:00",
+          "id": 133615824626,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:16+00:00",
+          "id": 133615824820,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:20+00:00",
+          "id": 133615825478,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:21+00:00",
+          "id": 133615824872,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:22+00:00",
+          "id": 133615824664,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:28+00:00",
+          "id": 133615824418,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:28+00:00",
+          "id": 133615824784,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:31+00:00",
+          "id": 133615825135,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:39+00:00",
+          "id": 133615824810,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:40+00:00",
+          "id": 133615824491,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:40+00:00",
+          "id": 133615824628,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:42+00:00",
+          "id": 133615824471,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:42+00:00",
+          "id": 133615824705,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:46+00:00",
+          "id": 133615824507,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:47+00:00",
+          "id": 133615824976,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:48+00:00",
+          "id": 133615824851,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:50+00:00",
+          "id": 133615824353,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:50+00:00",
+          "id": 133615824925,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:53+00:00",
+          "id": 133615824874,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:54+00:00",
+          "id": 133615824595,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:54+00:00",
+          "id": 133615824714,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:56+00:00",
+          "id": 133615824487,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:57+00:00",
+          "id": 133615824694,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:57+00:00",
+          "id": 133615824711,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:57+00:00",
+          "id": 133615825114,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:59+00:00",
+          "id": 133615825131,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:02+00:00",
+          "id": 133615824924,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:06+00:00",
+          "id": 133615824747,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:07+00:00",
+          "id": 133615824857,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:22+00:00",
+          "id": 133615825049,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:25+00:00",
+          "id": 133615824854,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:25+00:00",
+          "id": 133615824633,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:29+00:00",
+          "id": 133615825105,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:33+00:00",
+          "id": 133615824896,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:48+00:00",
+          "id": 133615824631,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:51+00:00",
+          "id": 133615825011,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:58+00:00",
+          "id": 133615824614,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:00+00:00",
+          "id": 133615824803,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:07+00:00",
+          "id": 133615824600,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:13+00:00",
+          "id": 133615825442,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:30+00:00",
+          "id": 133615824453,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:56+00:00",
+          "id": 133615825019,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:17:05+00:00",
+          "id": 133615824602,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43957498253,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43957498253",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/ecf963ad0dccf246d1e774c7ede599241e9205b0/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T21:15:15+00:00",
+        "id": 133618093071,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "72f951fde68ca849f2ad5f2db819ba26fae7d76d",
+      "created": "2026-11-16T21:10:26Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T21:10:41+00:00",
+          "id": 133615247999,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:43+00:00",
+          "id": 133615248018,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:44+00:00",
+          "id": 133615248225,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:44+00:00",
+          "id": 133615248030,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:45+00:00",
+          "id": 133615248537,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:46+00:00",
+          "id": 133615247530,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:47+00:00",
+          "id": 133615248039,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:48+00:00",
+          "id": 133615247988,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:57+00:00",
+          "id": 133615247894,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:58+00:00",
+          "id": 133615247372,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:06+00:00",
+          "id": 133615248079,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:10+00:00",
+          "id": 133615247879,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:16+00:00",
+          "id": 133615248376,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:20+00:00",
+          "id": 133615247932,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:21+00:00",
+          "id": 133615248233,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:21+00:00",
+          "id": 133615248334,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:22+00:00",
+          "id": 133615248086,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:24+00:00",
+          "id": 133615247948,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:30+00:00",
+          "id": 133615248055,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:33+00:00",
+          "id": 133615248201,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:37+00:00",
+          "id": 133615247921,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:39+00:00",
+          "id": 133615247831,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:42+00:00",
+          "id": 133615248124,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:45+00:00",
+          "id": 133615248101,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:46+00:00",
+          "id": 133615247443,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:53+00:00",
+          "id": 133615248251,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:56+00:00",
+          "id": 133615248314,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:57+00:00",
+          "id": 133615247756,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:59+00:00",
+          "id": 133615247777,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:01+00:00",
+          "id": 133615248105,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:04+00:00",
+          "id": 133615247858,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:04+00:00",
+          "id": 133615248168,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:06+00:00",
+          "id": 133615247851,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:07+00:00",
+          "id": 133615248492,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:07+00:00",
+          "id": 133615248246,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:12+00:00",
+          "id": 133615247949,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:13+00:00",
+          "id": 133615248089,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:24+00:00",
+          "id": 133615247933,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:25+00:00",
+          "id": 133615248241,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:26+00:00",
+          "id": 133615247952,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:29+00:00",
+          "id": 133615247800,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:34+00:00",
+          "id": 133615248331,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:36+00:00",
+          "id": 133615248299,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:40+00:00",
+          "id": 133615247007,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:46+00:00",
+          "id": 133615248006,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:54+00:00",
+          "id": 133615248075,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:56+00:00",
+          "id": 133615248198,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:12+00:00",
+          "id": 133615248125,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:13+00:00",
+          "id": 133615248141,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:18+00:00",
+          "id": 133615248015,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:20+00:00",
+          "id": 133615248093,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:49+00:00",
+          "id": 133615248305,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:04+00:00",
+          "id": 133615248142,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:15:07+00:00",
+          "id": 133615247821,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43957336210,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43957336210",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/72f951fde68ca849f2ad5f2db819ba26fae7d76d/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T21:14:46+00:00",
+        "id": 133617788457,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "72475e5f85c951804ac3273f13e0541edb1ec512",
+      "created": "2026-11-16T21:09:59Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T21:10:11+00:00",
+          "id": 133614967220,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:13+00:00",
+          "id": 133614967449,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:13+00:00",
+          "id": 133614967010,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:16+00:00",
+          "id": 133614967488,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:17+00:00",
+          "id": 133614967222,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:18+00:00",
+          "id": 133614966991,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:18+00:00",
+          "id": 133614967405,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:18+00:00",
+          "id": 133614967650,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:20+00:00",
+          "id": 133614967491,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:25+00:00",
+          "id": 133614967277,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:35+00:00",
+          "id": 133614967446,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:37+00:00",
+          "id": 133614967355,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:40+00:00",
+          "id": 133614967566,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:48+00:00",
+          "id": 133614967453,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:49+00:00",
+          "id": 133614967674,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:52+00:00",
+          "id": 133614967452,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:56+00:00",
+          "id": 133614967318,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:10:58+00:00",
+          "id": 133614967427,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:00+00:00",
+          "id": 133614966842,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:05+00:00",
+          "id": 133614967596,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:08+00:00",
+          "id": 133614967565,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:11+00:00",
+          "id": 133614967422,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:18+00:00",
+          "id": 133614967587,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:19+00:00",
+          "id": 133614967499,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:21+00:00",
+          "id": 133614967354,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:25+00:00",
+          "id": 133614967423,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:26+00:00",
+          "id": 133614968002,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:32+00:00",
+          "id": 133614967469,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:32+00:00",
+          "id": 133614967476,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:33+00:00",
+          "id": 133614967319,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:33+00:00",
+          "id": 133614967762,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:35+00:00",
+          "id": 133614967677,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:37+00:00",
+          "id": 133614967564,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:38+00:00",
+          "id": 133614967574,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:39+00:00",
+          "id": 133614967336,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:41+00:00",
+          "id": 133614967259,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:43+00:00",
+          "id": 133614967473,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:44+00:00",
+          "id": 133614967489,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:47+00:00",
+          "id": 133614967540,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:50+00:00",
+          "id": 133614967575,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:51+00:00",
+          "id": 133614967544,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:52+00:00",
+          "id": 133614967594,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:54+00:00",
+          "id": 133614967477,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:11:57+00:00",
+          "id": 133614967588,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:00+00:00",
+          "id": 133614967579,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:02+00:00",
+          "id": 133614967526,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:12+00:00",
+          "id": 133614967429,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:19+00:00",
+          "id": 133614967392,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:27+00:00",
+          "id": 133614967563,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:29+00:00",
+          "id": 133614967329,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:31+00:00",
+          "id": 133614966521,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:12:55+00:00",
+          "id": 133614967280,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:13:10+00:00",
+          "id": 133614967381,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T21:14:37+00:00",
+          "id": 133614967174,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43957253782,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43957253782",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/72475e5f85c951804ac3273f13e0541edb1ec512/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T19:50:52+00:00",
+        "id": 133567092132,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "882c95dccf1228673a10d81ab4d4ed398d942ed4",
+      "created": "2026-11-16T19:46:11Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T19:46:24+00:00",
+          "id": 133564362850,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:25+00:00",
+          "id": 133564363677,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:26+00:00",
+          "id": 133564363670,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:28+00:00",
+          "id": 133564363568,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:31+00:00",
+          "id": 133564363607,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:32+00:00",
+          "id": 133564363640,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:33+00:00",
+          "id": 133564363662,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:34+00:00",
+          "id": 133564363663,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:34+00:00",
+          "id": 133564363822,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:44+00:00",
+          "id": 133564363443,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:52+00:00",
+          "id": 133564364987,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:54+00:00",
+          "id": 133564363936,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:56+00:00",
+          "id": 133564364471,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:56+00:00",
+          "id": 133564364352,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:46:56+00:00",
+          "id": 133564364645,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:04+00:00",
+          "id": 133564364722,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:11+00:00",
+          "id": 133564364553,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:14+00:00",
+          "id": 133564362924,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:17+00:00",
+          "id": 133564364482,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:19+00:00",
+          "id": 133564364857,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:24+00:00",
+          "id": 133564364873,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:25+00:00",
+          "id": 133564364805,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:26+00:00",
+          "id": 133564363642,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:27+00:00",
+          "id": 133564364817,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:34+00:00",
+          "id": 133564365156,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:35+00:00",
+          "id": 133564364592,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:37+00:00",
+          "id": 133564365248,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:39+00:00",
+          "id": 133564364770,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:39+00:00",
+          "id": 133564365040,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:41+00:00",
+          "id": 133564365140,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:43+00:00",
+          "id": 133564364854,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:47+00:00",
+          "id": 133564364580,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:47:49+00:00",
+          "id": 133564365125,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:00+00:00",
+          "id": 133564364646,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:00+00:00",
+          "id": 133564365052,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:03+00:00",
+          "id": 133564364461,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:07+00:00",
+          "id": 133564363720,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:10+00:00",
+          "id": 133564365063,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:12+00:00",
+          "id": 133564365147,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:15+00:00",
+          "id": 133564364272,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:16+00:00",
+          "id": 133564364951,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:17+00:00",
+          "id": 133564364958,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:18+00:00",
+          "id": 133564364786,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:19+00:00",
+          "id": 133564364434,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:19+00:00",
+          "id": 133564365024,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:23+00:00",
+          "id": 133564364644,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:29+00:00",
+          "id": 133564362454,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:31+00:00",
+          "id": 133564365190,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:32+00:00",
+          "id": 133564365093,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:33+00:00",
+          "id": 133564364777,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:48:46+00:00",
+          "id": 133564364822,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:49:19+00:00",
+          "id": 133564363616,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:49:24+00:00",
+          "id": 133564363583,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T19:50:40+00:00",
+          "id": 133564363669,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43942771366,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43942771366",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/882c95dccf1228673a10d81ab4d4ed398d942ed4/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T18:25:21+00:00",
+        "id": 133514656423,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "f4c6fa754a59f757492d13caab039dc7b0b006fb",
+      "created": "2026-11-16T18:20:29Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T18:20:43+00:00",
+          "id": 133511781764,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:43+00:00",
+          "id": 133511781506,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:44+00:00",
+          "id": 133511782393,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:44+00:00",
+          "id": 133511782972,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:48+00:00",
+          "id": 133511782405,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:50+00:00",
+          "id": 133511782313,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:50+00:00",
+          "id": 133511782512,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:52+00:00",
+          "id": 133511782255,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:20:59+00:00",
+          "id": 133511782358,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:04+00:00",
+          "id": 133511781314,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:07+00:00",
+          "id": 133511782382,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:10+00:00",
+          "id": 133511781983,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:27+00:00",
+          "id": 133511781906,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:27+00:00",
+          "id": 133511781645,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:28+00:00",
+          "id": 133511782998,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:28+00:00",
+          "id": 133511782250,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:32+00:00",
+          "id": 133511781646,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:35+00:00",
+          "id": 133511781470,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:36+00:00",
+          "id": 133511782169,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:39+00:00",
+          "id": 133511780891,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:42+00:00",
+          "id": 133511782220,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:45+00:00",
+          "id": 133511781950,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:45+00:00",
+          "id": 133511781757,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:47+00:00",
+          "id": 133511781653,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:47+00:00",
+          "id": 133511781991,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:49+00:00",
+          "id": 133511782161,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:49+00:00",
+          "id": 133511782178,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:51+00:00",
+          "id": 133511782104,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:56+00:00",
+          "id": 133511782173,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:21:57+00:00",
+          "id": 133511782204,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:00+00:00",
+          "id": 133511782597,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:01+00:00",
+          "id": 133511782059,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:03+00:00",
+          "id": 133511781889,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:04+00:00",
+          "id": 133511781808,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:05+00:00",
+          "id": 133511781569,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:07+00:00",
+          "id": 133511782656,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:13+00:00",
+          "id": 133511781712,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:15+00:00",
+          "id": 133511782052,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:15+00:00",
+          "id": 133511782355,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:21+00:00",
+          "id": 133511781820,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:34+00:00",
+          "id": 133511781711,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:38+00:00",
+          "id": 133511781946,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:40+00:00",
+          "id": 133511781595,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:42+00:00",
+          "id": 133511781651,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:42+00:00",
+          "id": 133511782046,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:47+00:00",
+          "id": 133511782156,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:47+00:00",
+          "id": 133511781732,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:49+00:00",
+          "id": 133511782064,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:53+00:00",
+          "id": 133511781876,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:22:58+00:00",
+          "id": 133511781714,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:23:10+00:00",
+          "id": 133511781797,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:23:44+00:00",
+          "id": 133511781995,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:23:53+00:00",
+          "id": 133511781494,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T18:25:13+00:00",
+          "id": 133511782299,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43927792423,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43927792423",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/f4c6fa754a59f757492d13caab039dc7b0b006fb/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T16:50:37+00:00",
+        "id": 133455740296,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "3a124d720dcad5d47183ff64503ac1335507fce2",
+      "created": "2026-11-16T16:45:48Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T16:46:02+00:00",
+          "id": 133452758165,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:02+00:00",
+          "id": 133452757442,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:04+00:00",
+          "id": 133452757973,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:07+00:00",
+          "id": 133452758307,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:08+00:00",
+          "id": 133452758048,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:09+00:00",
+          "id": 133452758531,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:10+00:00",
+          "id": 133452757470,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:12+00:00",
+          "id": 133452757908,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:13+00:00",
+          "id": 133452758327,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:14+00:00",
+          "id": 133452758022,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:30+00:00",
+          "id": 133452758322,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:34+00:00",
+          "id": 133452758380,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:35+00:00",
+          "id": 133452758377,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:39+00:00",
+          "id": 133452758286,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:41+00:00",
+          "id": 133452756806,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:46+00:00",
+          "id": 133452758247,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:48+00:00",
+          "id": 133452757919,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:52+00:00",
+          "id": 133452758304,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:56+00:00",
+          "id": 133452758900,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:46:58+00:00",
+          "id": 133452758119,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:01+00:00",
+          "id": 133452758503,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:08+00:00",
+          "id": 133452758820,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:12+00:00",
+          "id": 133452758162,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:12+00:00",
+          "id": 133452758301,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:15+00:00",
+          "id": 133452758094,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:18+00:00",
+          "id": 133452758081,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:22+00:00",
+          "id": 133452759059,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:22+00:00",
+          "id": 133452758804,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:22+00:00",
+          "id": 133452758652,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:26+00:00",
+          "id": 133452758147,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:26+00:00",
+          "id": 133452758552,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:27+00:00",
+          "id": 133452758237,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:33+00:00",
+          "id": 133452758346,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:35+00:00",
+          "id": 133452758556,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:35+00:00",
+          "id": 133452757964,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:40+00:00",
+          "id": 133452758599,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:40+00:00",
+          "id": 133452758270,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:44+00:00",
+          "id": 133452757773,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:45+00:00",
+          "id": 133452758697,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:46+00:00",
+          "id": 133452758148,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:50+00:00",
+          "id": 133452757904,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:50+00:00",
+          "id": 133452758890,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:47:52+00:00",
+          "id": 133452758958,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:06+00:00",
+          "id": 133452758951,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:10+00:00",
+          "id": 133452758854,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:12+00:00",
+          "id": 133452758290,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:18+00:00",
+          "id": 133452757886,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:22+00:00",
+          "id": 133452757944,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:22+00:00",
+          "id": 133452758879,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:26+00:00",
+          "id": 133452758514,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:26+00:00",
+          "id": 133452758190,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:40+00:00",
+          "id": 133452758477,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:48:47+00:00",
+          "id": 133452757358,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:50:26+00:00",
+          "id": 133452758516,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43911060583,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43911060583",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/3a124d720dcad5d47183ff64503ac1335507fce2/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T16:43:53+00:00",
+        "id": 133451460862,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "1a62128470d7489b8ad7c643d3a3e6ba02f90711",
+      "created": "2026-11-16T16:38:57Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T16:39:10+00:00",
+          "id": 133448357049,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:11+00:00",
+          "id": 133448357138,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:12+00:00",
+          "id": 133448356991,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:14+00:00",
+          "id": 133448357057,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:15+00:00",
+          "id": 133448357370,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:15+00:00",
+          "id": 133448356792,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:16+00:00",
+          "id": 133448357338,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:19+00:00",
+          "id": 133448357402,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:31+00:00",
+          "id": 133448357299,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:38+00:00",
+          "id": 133448356951,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:39+00:00",
+          "id": 133448357572,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:39+00:00",
+          "id": 133448358751,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:41+00:00",
+          "id": 133448358794,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:43+00:00",
+          "id": 133448358301,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:46+00:00",
+          "id": 133448358628,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:50+00:00",
+          "id": 133448358451,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:39:52+00:00",
+          "id": 133448359090,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:02+00:00",
+          "id": 133448358890,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:04+00:00",
+          "id": 133448358487,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:09+00:00",
+          "id": 133448358592,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:11+00:00",
+          "id": 133448358539,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:18+00:00",
+          "id": 133448358551,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:21+00:00",
+          "id": 133448357033,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:21+00:00",
+          "id": 133448358847,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:21+00:00",
+          "id": 133448359146,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:24+00:00",
+          "id": 133448357119,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:24+00:00",
+          "id": 133448358863,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:26+00:00",
+          "id": 133448359049,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:30+00:00",
+          "id": 133448358906,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:32+00:00",
+          "id": 133448358687,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:33+00:00",
+          "id": 133448358790,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:40+00:00",
+          "id": 133448358210,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:40+00:00",
+          "id": 133448358375,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:40+00:00",
+          "id": 133448358902,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:42+00:00",
+          "id": 133448357458,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:43+00:00",
+          "id": 133448358672,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:45+00:00",
+          "id": 133448358869,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:46+00:00",
+          "id": 133448359051,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:54+00:00",
+          "id": 133448358872,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:40:57+00:00",
+          "id": 133448358726,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:02+00:00",
+          "id": 133448358359,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:06+00:00",
+          "id": 133448358914,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:06+00:00",
+          "id": 133448359019,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:08+00:00",
+          "id": 133448358378,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:11+00:00",
+          "id": 133448358962,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:12+00:00",
+          "id": 133448358912,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:27+00:00",
+          "id": 133448359011,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:29+00:00",
+          "id": 133448358929,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:34+00:00",
+          "id": 133448356204,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:40+00:00",
+          "id": 133448358994,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:41:48+00:00",
+          "id": 133448357069,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:42:28+00:00",
+          "id": 133448358265,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:42:57+00:00",
+          "id": 133448357164,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:43:46+00:00",
+          "id": 133448357534,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43909818190,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43909818190",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/1a62128470d7489b8ad7c643d3a3e6ba02f90711/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-16T16:26:29+00:00",
+        "id": 133440094423,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "154b7c8759cf9e601a43a5fbea09406fae4a19e0",
+      "created": "2026-11-16T16:20:49Z",
+      "jobs": [
+        {
+          "finished": "2026-11-16T16:21:02+00:00",
+          "id": 133436495184,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:03+00:00",
+          "id": 133436494885,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:07+00:00",
+          "id": 133436495771,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:07+00:00",
+          "id": 133436495825,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:08+00:00",
+          "id": 133436495648,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:09+00:00",
+          "id": 133436495730,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:09+00:00",
+          "id": 133436495691,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:12+00:00",
+          "id": 133436495785,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:15+00:00",
+          "id": 133436496168,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:17+00:00",
+          "id": 133436495669,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:28+00:00",
+          "id": 133436495749,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:29+00:00",
+          "id": 133436496101,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:32+00:00",
+          "id": 133436495940,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:38+00:00",
+          "id": 133436495666,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:38+00:00",
+          "id": 133436496268,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:39+00:00",
+          "id": 133436497342,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:42+00:00",
+          "id": 133436495683,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:52+00:00",
+          "id": 133436495905,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:53+00:00",
+          "id": 133436495970,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:54+00:00",
+          "id": 133436495584,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:21:58+00:00",
+          "id": 133436495729,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:01+00:00",
+          "id": 133436495830,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:03+00:00",
+          "id": 133436496236,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:09+00:00",
+          "id": 133436496143,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:11+00:00",
+          "id": 133436496428,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:11+00:00",
+          "id": 133436496352,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:15+00:00",
+          "id": 133436495580,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:18+00:00",
+          "id": 133436496265,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:20+00:00",
+          "id": 133436498222,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:23+00:00",
+          "id": 133436495589,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:28+00:00",
+          "id": 133436495939,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:29+00:00",
+          "id": 133436495878,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:31+00:00",
+          "id": 133436496460,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:32+00:00",
+          "id": 133436496346,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:38+00:00",
+          "id": 133436497206,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:38+00:00",
+          "id": 133436496503,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:39+00:00",
+          "id": 133436495942,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:40+00:00",
+          "id": 133436495712,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:45+00:00",
+          "id": 133436496249,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:50+00:00",
+          "id": 133436495922,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:51+00:00",
+          "id": 133436496281,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:53+00:00",
+          "id": 133436496635,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:56+00:00",
+          "id": 133436495964,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:22:57+00:00",
+          "id": 133436496099,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:00+00:00",
+          "id": 133436495710,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:04+00:00",
+          "id": 133436496304,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:04+00:00",
+          "id": 133436496913,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:21+00:00",
+          "id": 133436495764,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:24+00:00",
+          "id": 133436495789,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:23:27+00:00",
+          "id": 133436496296,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:24:09+00:00",
+          "id": 133436494673,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:24:14+00:00",
+          "id": 133436495727,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:24:27+00:00",
+          "id": 133436495575,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-16T16:26:18+00:00",
+          "id": 133436495924,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43906456619,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43906456619",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/154b7c8759cf9e601a43a5fbea09406fae4a19e0/.github/workflows/test.yml"
+    },
+    {
+      "aggregate": {
+        "finished": "2026-11-13T22:13:13+00:00",
+        "id": 132202854018,
+        "outcome": "success"
+      },
+      "attempt": 1,
+      "commit": "5a7d3386d2777180a381eb947f21293124ce8df5",
+      "created": "2026-11-13T22:08:18Z",
+      "jobs": [
+        {
+          "finished": "2026-11-13T22:08:31+00:00",
+          "id": 132200536527,
+          "name": "Downstream pyproject_metadata",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:33+00:00",
+          "id": 132200536599,
+          "name": "Downstream twine",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:34+00:00",
+          "id": 132200537450,
+          "name": "Downstream dependency_groups",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:34+00:00",
+          "id": 132200536067,
+          "name": "Pickle test",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:35+00:00",
+          "id": 132200537116,
+          "name": "Downstream packaging_legacy",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:38+00:00",
+          "id": 132200536765,
+          "name": "Downstream pipenv",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:41+00:00",
+          "id": 132200537156,
+          "name": "Downstream dep_logic",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:44+00:00",
+          "id": 132200536426,
+          "name": "Downstream cibuildwheel",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:44+00:00",
+          "id": 132200537133,
+          "name": "Downstream pip",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:08:47+00:00",
+          "id": 132200536413,
+          "name": "Downstream hatchling",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:00+00:00",
+          "id": 132200536390,
+          "name": "Downstream poetry_core",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:03+00:00",
+          "id": 132200537260,
+          "name": "Ubuntu / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:04+00:00",
+          "id": 132200537407,
+          "name": "Ubuntu / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:04+00:00",
+          "id": 132200537304,
+          "name": "Ubuntu / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:05+00:00",
+          "id": 132200537497,
+          "name": "macOS / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:06+00:00",
+          "id": 132200537151,
+          "name": "Ubuntu / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:21+00:00",
+          "id": 132200537310,
+          "name": "Ubuntu / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:22+00:00",
+          "id": 132200537820,
+          "name": "Ubuntu / 3.14.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:23+00:00",
+          "id": 132200537286,
+          "name": "Ubuntu / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:34+00:00",
+          "id": 132200537559,
+          "name": "Ubuntu / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:34+00:00",
+          "id": 132200537408,
+          "name": "Windows / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:36+00:00",
+          "id": 132200537342,
+          "name": "Ubuntu / 3.13.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:36+00:00",
+          "id": 132200537500,
+          "name": "macOS / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:37+00:00",
+          "id": 132200537337,
+          "name": "Ubuntu / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:37+00:00",
+          "id": 132200537773,
+          "name": "macOS / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:40+00:00",
+          "id": 132200537526,
+          "name": "macOS / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:41+00:00",
+          "id": 132200537571,
+          "name": "macOS / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:42+00:00",
+          "id": 132200537336,
+          "name": "macOS / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:45+00:00",
+          "id": 132200537513,
+          "name": "Windows / 3.15t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:47+00:00",
+          "id": 132200536237,
+          "name": "Alpine / musl",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:50+00:00",
+          "id": 132200537229,
+          "name": "Ubuntu / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:50+00:00",
+          "id": 132200537222,
+          "name": "Windows / 3.14",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:51+00:00",
+          "id": 132200536672,
+          "name": "Downstream build",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:52+00:00",
+          "id": 132200537363,
+          "name": "Ubuntu / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:52+00:00",
+          "id": 132200538040,
+          "name": "Ubuntu / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:53+00:00",
+          "id": 132200537506,
+          "name": "Windows / pypy3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:59+00:00",
+          "id": 132200536425,
+          "name": "Downstream pdm",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:09:59+00:00",
+          "id": 132200537667,
+          "name": "Ubuntu / 3.11.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:02+00:00",
+          "id": 132200537551,
+          "name": "Ubuntu / 3.12.0",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:05+00:00",
+          "id": 132200537445,
+          "name": "macOS / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:07+00:00",
+          "id": 132200537533,
+          "name": "Windows / pypy3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:10+00:00",
+          "id": 132200537182,
+          "name": "Windows / 3.12",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:15+00:00",
+          "id": 132200537315,
+          "name": "macOS / 3.13t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:16+00:00",
+          "id": 132200538058,
+          "name": "macOS / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:41+00:00",
+          "id": 132200537237,
+          "name": "Windows / 3.14t",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:44+00:00",
+          "id": 132200536554,
+          "name": "Property tests",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:46+00:00",
+          "id": 132200537770,
+          "name": "Windows / 3.13",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:47+00:00",
+          "id": 132200537581,
+          "name": "macOS / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:10:49+00:00",
+          "id": 132200537483,
+          "name": "macOS / 3.15",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:11:04+00:00",
+          "id": 132200537541,
+          "name": "Windows / 3.11",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:11:30+00:00",
+          "id": 132200536352,
+          "name": "Downstream tox",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:11:38+00:00",
+          "id": 132200537047,
+          "name": "Downstream setuptools",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:11:41+00:00",
+          "id": 132200537230,
+          "name": "Windows / 3.10",
+          "outcome": "success"
+        },
+        {
+          "finished": "2026-11-13T22:13:03+00:00",
+          "id": 132200537019,
+          "name": "Downstream virtualenv",
+          "outcome": "success"
+        }
+      ],
+      "repository": "pypa/packaging",
+      "required": [
+        "Alpine / musl",
+        "Downstream build",
+        "Downstream cibuildwheel",
+        "Downstream dep_logic",
+        "Downstream dependency_groups",
+        "Downstream hatchling",
+        "Downstream packaging_legacy",
+        "Downstream pdm",
+        "Downstream pip",
+        "Downstream pipenv",
+        "Downstream poetry_core",
+        "Downstream pyproject_metadata",
+        "Downstream setuptools",
+        "Downstream tox",
+        "Downstream twine",
+        "Downstream virtualenv",
+        "Pickle test",
+        "Property tests",
+        "Ubuntu / 3.10",
+        "Ubuntu / 3.11",
+        "Ubuntu / 3.11.0",
+        "Ubuntu / 3.12",
+        "Ubuntu / 3.12.0",
+        "Ubuntu / 3.13",
+        "Ubuntu / 3.13.0",
+        "Ubuntu / 3.13t",
+        "Ubuntu / 3.14",
+        "Ubuntu / 3.14.0",
+        "Ubuntu / 3.14t",
+        "Ubuntu / 3.15",
+        "Ubuntu / 3.15t",
+        "Ubuntu / pypy3.10",
+        "Ubuntu / pypy3.11",
+        "Windows / 3.10",
+        "Windows / 3.11",
+        "Windows / 3.12",
+        "Windows / 3.13",
+        "Windows / 3.14",
+        "Windows / 3.14t",
+        "Windows / 3.15",
+        "Windows / 3.15t",
+        "Windows / pypy3.10",
+        "Windows / pypy3.11",
+        "macOS / 3.10",
+        "macOS / 3.11",
+        "macOS / 3.12",
+        "macOS / 3.13",
+        "macOS / 3.13t",
+        "macOS / 3.14",
+        "macOS / 3.14t",
+        "macOS / 3.15",
+        "macOS / 3.15t",
+        "macOS / pypy3.10",
+        "macOS / pypy3.11"
+      ],
+      "run": 43516753870,
+      "unrelated_names": [],
+      "url": "https://github.com/pypa/packaging/actions/runs/43516753870",
+      "workflow_sha256": "891a64ec18cdf5ea9254d331fe5f4394f4415ef375f0b69c21780a3e1e24ae6c",
+      "workflow_url": "https://raw.githubusercontent.com/pypa/packaging/5a7d3386d2777180a381eb947f21293124ce8df5/.github/workflows/test.yml"
+    }
+  ],
+  "skipped": []
+}

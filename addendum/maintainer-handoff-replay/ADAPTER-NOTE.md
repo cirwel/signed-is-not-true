@@ -1,0 +1,5 @@
+# Reading historical workflow definitions
+
+The first implementation handled only workflow files in which every job fed the native aggregate. The primary 16 runs fit this shape. In the failure supplement's 13 candidates, the first pass admitted one run, excluded one for missing timing or conclusions, and skipped eleven before checking their native verdict because their workflows included jobs outside the aggregate's dependency list.
+
+Inspection of the public workflow at commit `b9d249f585ba0bd3100ea5f2fd1017b215c12be9` showed an older configuration where the aggregate requested `test` and `musl`. Three other jobs were explicitly outside that list. The original protocol specifies that unrelated CI activity is ignored. Before evaluating those eleven aggregate verdicts, the adapter was corrected to expand both sets of names, reject ambiguity and exclude only the separately identified unrelated jobs from decision packets. The sample frame, order, target, decision rules and outcome definitions were kept. Both datasets were reprocessed. The study is locally frozen and does not claim external preregistration.
